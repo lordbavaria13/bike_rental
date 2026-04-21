@@ -1,0 +1,217 @@
+Bike Rental Forecasting - Workflow Summary After Data Preparation
+
+1. Purpose of this document
+
+This text explains what we did after the data preparation step and why we made each decision. It also includes the preprocessing decisions from the previous summary, because the modelling results only make sense when the structure of the final dataset is clear.
+
+The goal of the project is to predict bike rental demand in a clear and reproducible way. Because this is a course project, we did not only try to get the lowest possible error. We also tried to keep the pipeline understandable, avoid leakage, and justify every modelling choice.
+
+2. What we changed during data preparation and why
+
+We first built a daily dataset for the 20 most used start stations. We did this because the original rental data was very large and very detailed, while our first modelling goal was to build a stable and understandable regression pipeline. Focusing on the top 20 stations gave us enough observations, kept the problem relevant, and reduced noise from stations with very few rentals.
+
+We merged the rental information with weather variables and station information. This was necessary because demand is not only influenced by the station itself, but also by temperature, rain, cloud cover, and seasonality.
+
+We then reduced the dataset step by step.
+
+First, we removed duplicated or unnecessary descriptive variables. Station names were stored separately in a mapping file, because for training we only needed the station identifier. Keeping both name and ID inside the modelling table would not add information.
+
+Second, we converted the time information into numeric form. A raw date string is not directly useful for most of the models from the course. For that reason, we replaced the raw date column with numeric time-related features such as month, weekday, year, sunset_minutes and time_idx. This kept the time information while making the data easier to use in regression models.
+
+Third, we used the correlation matrix and the heatmap to remove redundant variables. Some weather variables were almost identical in the information they carried. For example, different temperature and feels-like variables were strongly correlated, and solarenergy and solarradiation were also almost the same. Keeping all of them would increase redundancy without adding much new information. We therefore kept the more useful or more interpretable variable and removed the weaker duplicate.
+
+Fourth, we simplified the target structure. At one point the dataset still contained several rental count columns, such as member and casual counts or the counts by bike type. These variables are strongly linked to the final total number of rentals. If we predict total_rentals while also keeping its sub-counts in the same modelling file, the model can learn a near-deterministic relation instead of learning actual demand patterns. To avoid this, we removed these extra count targets and kept only one clean target variable: total_rentals.
+
+Fifth, we decided not to apply PCA. PCA can reduce dimensionality, but in our case the feature space was already reduced to a manageable size, and interpretability was important for the project. We wanted to be able to explain which weather and time variables matter. With PCA, the features become combinations of original variables and are harder to interpret. For this reason, PCA was not the best choice at this stage.
+
+The final modelling dataset therefore contains one target variable and a reduced set of numeric predictors:
+- start_station_id
+- tempmax
+- humidity
+- precip
+- precipcover
+- cloudcover
+- windspeed
+- visibility
+- sealevelpressure
+- uvindex
+- sunset_minutes
+- month
+- weekday
+- year
+- time_idx
+- snow
+- snowdepth
+
+Target:
+- total_rentals
+
+3. What we built after data preparation
+
+After the reduced dataset was ready, we built a structured modelling pipeline. We created a modelling folder with one subfolder per model and one common folder for shared functions. The idea was to keep all experiments reproducible and comparable.
+
+The common folder includes:
+- config.py for paths and general settings
+- preprocessing.py for loading data, selecting features, splitting X and y, and scaling
+- split.py for chronological train/validation/test split
+- metrics.py for regression metrics
+- plotting.py for consistent plots across models
+- utils.py for saving JSON, CSV and result folders
+
+This structure was useful because every model then follows the same workflow. That makes the final comparison cleaner and reduces implementation mistakes.
+
+4. Why we used a chronological split
+
+We used a chronological train/validation/test split instead of a random split. This was a direct decision from the lecture logic: time-based data should be evaluated in time order. A random split would mix past and future observations and can make the result look better than it really is. In practice, we want to train on earlier periods and test on later periods.
+
+The split was:
+- 70% training
+- 15% validation
+- 15% test
+
+The variable time_idx was used to keep the order consistent.
+
+This decision is important because it makes the evaluation more realistic. At the same time, it also makes the problem harder, because future demand can change over time.
+
+5. Which models we tested and why
+
+We started with simple models and moved to more complex ones. This order follows the course logic and helps us understand whether additional model complexity is really useful.
+
+Dummy Regressor:
+We started with a Dummy Regressor as a baseline. This model does not learn real patterns. It gives us a minimum reference point. If a more advanced model cannot beat the dummy baseline, something is wrong with the feature set or with the modelling approach.
+
+Linear Regression:
+We then used Linear Regression because it is one of the simplest real predictive models. It is easy to interpret and shows whether there is a strong linear relationship between the selected features and bike demand.
+
+Ridge Regression:
+We added Ridge Regression because it controls coefficient size and helps when features are correlated. Since the weather variables and time variables can still be related to each other, Ridge is a sensible next step. It usually generalizes better than plain linear regression when there is some multicollinearity.
+
+Lasso Regression:
+Lasso was prepared for the same reason as Ridge, but with the additional property that it can shrink some coefficients strongly and act as a simple feature selector.
+
+Decision Tree, KNN, Random Forest, Gradient Boosting:
+We prepared scripts for more flexible nonlinear models as well. These models can capture more complex relations than linear models. Decision trees are interpretable but can overfit. KNN depends strongly on scaling and local neighborhoods. Random Forest and Gradient Boosting can model nonlinear structure better, but they also need careful tuning and stronger validation.
+
+6. Why we used scaling only where it makes sense
+
+We scaled the predictors for models that depend on feature magnitude, especially:
+- Linear Regression family
+- Ridge
+- Lasso
+- KNN
+
+This is important because distance-based and coefficient-based models can be distorted if one feature has a much larger numerical range than another.
+
+We did not need the same scaling step for tree-based models, because trees split by thresholds and are not sensitive to scale in the same way.
+
+7. Which metrics we used and why
+
+We used several regression metrics instead of only one. This was also motivated by course feedback that one metric alone is not enough.
+
+MAE:
+MAE shows the average absolute prediction error in the original rental units. It is easy to understand.
+
+RMSE:
+RMSE penalizes larger errors more strongly than MAE. This is useful when large misses are especially undesirable.
+
+Median Absolute Error:
+This gives a more robust view of the typical error and is less influenced by extreme outliers.
+
+MAPE:
+This gives a relative error view. It is useful for understanding proportional error, although it becomes less stable when true values are close to zero.
+
+R^2:
+This shows how much variance in the target is explained by the model. It is a useful summary, but it should never be interpreted alone.
+
+Explained Variance:
+This is similar to R^2 and gives another view of how well the model captures the spread of the target.
+
+Using several metrics gives a more honest picture of performance.
+
+8. Current model results
+
+At the moment, the completed and available model results are:
+
+Dummy Regressor
+- Validation RMSE: 46.10
+- Test RMSE: 48.56
+- Validation R^2: -0.533
+- Test R^2: -0.523
+
+Linear Regression
+- Validation RMSE: 32.94
+- Test RMSE: 36.72
+- Validation R^2: 0.217
+- Test R^2: 0.129
+
+Ridge Regression
+- Best alpha: 1000
+- Validation RMSE: 32.37
+- Test RMSE: 35.91
+- Validation R^2: 0.244
+- Test R^2: 0.167
+
+These results show two important things.
+
+First, the feature set clearly contains useful information, because both linear models are much better than the dummy baseline.
+
+Second, the improvement from Linear Regression to Ridge Regression is real but not huge. That suggests regularization helps, but it does not solve the full problem. The current data representation is still limiting performance.
+
+Based on the available finished results, Ridge Regression is the best model so far.
+
+9. Direct weaknesses visible in the current test results
+
+The test results are still not strong. This is important and should be stated clearly.
+
+A test R^2 of about 0.17 for Ridge means that the model explains only a limited part of the demand variation. So even though Ridge is the best model so far, the practical forecasting quality is still moderate.
+
+There are several likely reasons for this.
+
+The first weakness is feature representation. start_station_id is currently a numeric column, but in reality it is a category. For linear models this is not ideal, because the model treats station IDs as if they had meaningful numeric distances.
+
+The second weakness is that the data is aggregated daily. This simplifies the problem, but it also removes important short-term patterns such as commute peaks, hourly weather changes, and special daily usage windows.
+
+The third weakness is that no lag features are included yet. Demand is often strongly related to demand from the previous day, previous week, or recent average behavior. Without lag-based features, the models have only limited memory of past demand.
+
+The fourth weakness is missing context variables. The dataset does not explicitly include holidays in the final reduced version, special events, local disruptions, or policy changes. That means some real demand changes remain unexplained.
+
+The fifth weakness is possible concept drift over time. Because we use a chronological split, the test set may follow a slightly different pattern than the training period. This is realistic, but it makes the problem harder and can reduce the measured performance.
+
+The sixth weakness is that the current comparison is not yet fully complete. Some nonlinear models were prepared but their final metrics were not yet integrated into the shared comparison output at the time of this summary. So Ridge is the best current completed result, but not necessarily the final best result of the full project.
+
+10. What we learned from the current experiments
+
+The most important lesson is that model complexity alone will probably not solve the problem.
+
+The jump from Dummy to Linear/Ridge is large. That means the cleaned features already help a lot.
+
+But the remaining gap between train and validation/test, together with the still modest R^2 values, suggests that better feature engineering is likely more important than just adding more models.
+
+This is actually consistent with the course view that representation decisions strongly affect performance. A model can only learn from the information that is present in the final input matrix.
+
+11. What should happen next
+
+The next step should not be adding many more models blindly. The better next step is:
+
+1. Finish the clean comparison of all prepared models with the model_comparison script.
+2. Identify which models really improve validation and test RMSE.
+3. Improve the feature representation.
+4. Retrain and compare again.
+
+The most promising feature improvements are:
+- encode start_station_id as a categorical variable instead of a raw number
+- add cyclical time features for month and weekday
+- add lag variables such as previous day rentals or rolling averages
+- test whether hourly modelling is more informative than daily aggregation
+- inspect residuals by station, season and weather conditions
+- use learning curves to detect underfitting and overfitting more clearly
+
+12. Overall conclusion
+
+After data preparation, we built a full and reproducible modelling pipeline with common utilities, a chronological split, several evaluation metrics, and a sequence of baseline and regularized regression models.
+
+The reduction of the dataset was necessary and justified. We removed redundant variables, simplified the target, avoided leakage, and kept the final table suitable for model training.
+
+Among the completed current experiments, Ridge Regression is the best model so far. It improves over Linear Regression and clearly beats the Dummy baseline. However, the overall performance is still limited, which shows that the project should now focus more on better feature representation and stronger diagnosis, not only on adding more algorithms.
+
+In short: the pipeline is now clean enough for systematic experimentation, but the current test results also show clearly where the project still needs improvement.
