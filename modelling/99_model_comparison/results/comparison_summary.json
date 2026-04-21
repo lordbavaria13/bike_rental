@@ -1,0 +1,38 @@
+{
+  "n_models_compared": 8,
+  "models_compared": [
+    "Dummy",
+    "Linear",
+    "Ridge",
+    "Lasso",
+    "Decision Tree",
+    "KNN",
+    "Random Forest",
+    "Gradient Boosting"
+  ],
+  "skipped_models_without_metrics": [],
+  "best_by_validation_rmse": {
+    "display_name": "Gradient Boosting",
+    "folder_name": "07_gradient_boosting",
+    "validation_rmse": 27.0031171099064,
+    "validation_mae": 20.52547730958501,
+    "validation_r2": 0.4740329272767785
+  },
+  "best_by_test_rmse": {
+    "display_name": "Random Forest",
+    "folder_name": "06_random_forest",
+    "test_rmse": 30.308893666245048,
+    "test_mae": 22.870508770519468,
+    "test_r2": 0.4064388710827257
+  },
+  "best_by_validation_rank_sum": {
+    "display_name": "Gradient Boosting",
+    "folder_name": "07_gradient_boosting",
+    "rank_sum_validation": 4
+  },
+  "best_by_test_rank_sum": {
+    "display_name": "Random Forest",
+    "folder_name": "06_random_forest",
+    "rank_sum_test": 3
+  }
+}

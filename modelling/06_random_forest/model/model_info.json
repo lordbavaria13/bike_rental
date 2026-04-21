@@ -1,0 +1,125 @@
+{
+  "model_name": "RandomForestRegressor",
+  "target": "total_rentals",
+  "feature_columns": [
+    "start_station_id",
+    "tempmax",
+    "humidity",
+    "precip",
+    "precipcover",
+    "cloudcover",
+    "windspeed",
+    "visibility",
+    "sealevelpressure",
+    "uvindex",
+    "sunset_minutes",
+    "month",
+    "weekday",
+    "year",
+    "time_idx",
+    "snow",
+    "snowdepth"
+  ],
+  "best_params": {
+    "n_estimators": 200,
+    "max_depth": null,
+    "min_samples_leaf": 5,
+    "min_samples_split": 10,
+    "max_features": "sqrt"
+  },
+  "param_grid": [
+    {
+      "n_estimators": 100,
+      "max_depth": 8,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10,
+      "max_features": "sqrt"
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 8,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10,
+      "max_features": "sqrt"
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 12,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10,
+      "max_features": "sqrt"
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 12,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10,
+      "max_features": "sqrt"
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": null,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10,
+      "max_features": "sqrt"
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": null,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10,
+      "max_features": "sqrt"
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 12,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20,
+      "max_features": "sqrt"
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 12,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20,
+      "max_features": "sqrt"
+    }
+  ],
+  "n_jobs": -1,
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/06_random_forest/results",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/06_random_forest/results/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/06_random_forest/model/random_forest.joblib",
+  "metrics": {
+    "model_name": "RandomForestRegressor",
+    "target": "total_rentals",
+    "best_n_estimators": 200,
+    "best_max_depth": null,
+    "best_min_samples_leaf": 5,
+    "best_min_samples_split": 10,
+    "best_max_features": "sqrt",
+    "n_features": 17,
+    "n_train": 21787,
+    "n_validation": 4747,
+    "n_test": 4755,
+    "fit_time_seconds": 0.8716694169997936,
+    "predict_time_seconds": 0.18524333299865248,
+    "train_mae": 12.673398457344096,
+    "train_rmse": 17.760635487838215,
+    "train_r2": 0.7793820270164104,
+    "train_median_ae": 9.5560673418643,
+    "train_explained_variance": 0.7793824913340228,
+    "train_mape": 0.33217349539306307,
+    "validation_mae": 20.399572966211206,
+    "validation_rmse": 27.28152049707416,
+    "validation_r2": 0.4631315288008506,
+    "validation_median_ae": 16.279758662347305,
+    "validation_explained_variance": 0.49667763903404816,
+    "validation_mape": 0.34654417534886034,
+    "test_mae": 22.870508770519468,
+    "test_rmse": 30.308893666245048,
+    "test_r2": 0.4064388710827257,
+    "test_median_ae": 18.01003547929109,
+    "test_explained_variance": 0.4669008204959031,
+    "test_mape": 0.3599206227501304
+  }
+}

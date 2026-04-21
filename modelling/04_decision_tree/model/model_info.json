@@ -1,0 +1,116 @@
+{
+  "model_name": "DecisionTreeRegressor",
+  "target": "total_rentals",
+  "feature_columns": [
+    "start_station_id",
+    "tempmax",
+    "humidity",
+    "precip",
+    "precipcover",
+    "cloudcover",
+    "windspeed",
+    "visibility",
+    "sealevelpressure",
+    "uvindex",
+    "sunset_minutes",
+    "month",
+    "weekday",
+    "year",
+    "time_idx",
+    "snow",
+    "snowdepth"
+  ],
+  "best_params": {
+    "max_depth": null,
+    "min_samples_leaf": 10,
+    "min_samples_split": 20
+  },
+  "param_grid": [
+    {
+      "max_depth": 3,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 5,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 8,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 10,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 12,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": null,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 5,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": 8,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": 10,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": null,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    }
+  ],
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/results",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/results/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/model/decision_tree.joblib",
+  "metrics": {
+    "model_name": "DecisionTreeRegressor",
+    "target": "total_rentals",
+    "best_max_depth": null,
+    "best_min_samples_leaf": 10,
+    "best_min_samples_split": 20,
+    "tree_depth": 22,
+    "n_leaves": 1667,
+    "n_features": 17,
+    "n_train": 21787,
+    "n_validation": 4747,
+    "n_test": 4755,
+    "fit_time_seconds": 0.10932929199771024,
+    "predict_time_seconds": 0.0049819159976323135,
+    "train_mae": 10.398712035837422,
+    "train_rmse": 14.9692474341554,
+    "train_r2": 0.8432802168395229,
+    "train_median_ae": 7.5,
+    "train_explained_variance": 0.8432802168395229,
+    "train_mape": 0.25572708509268566,
+    "validation_mae": 21.33210867826725,
+    "validation_rmse": 28.63985588353544,
+    "validation_r2": 0.4083397217601624,
+    "validation_median_ae": 16.63636363636364,
+    "validation_explained_variance": 0.42534370452135273,
+    "validation_mape": 0.3624695340062309,
+    "test_mae": 24.324053444743935,
+    "test_rmse": 32.03216780250527,
+    "test_r2": 0.33702378818478107,
+    "test_median_ae": 19.090909090909093,
+    "test_explained_variance": 0.40237385484121657,
+    "test_mape": 0.32306464698326787
+  }
+}

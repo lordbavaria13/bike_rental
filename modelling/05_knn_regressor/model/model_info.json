@@ -1,0 +1,127 @@
+{
+  "model_name": "KNNRegressor",
+  "target": "total_rentals",
+  "feature_columns": [
+    "start_station_id",
+    "tempmax",
+    "humidity",
+    "precip",
+    "precipcover",
+    "cloudcover",
+    "windspeed",
+    "visibility",
+    "sealevelpressure",
+    "uvindex",
+    "sunset_minutes",
+    "month",
+    "weekday",
+    "year",
+    "time_idx",
+    "snow",
+    "snowdepth"
+  ],
+  "scaling_used": true,
+  "best_params": {
+    "n_neighbors": 25,
+    "weights": "distance",
+    "p": 2
+  },
+  "param_grid": [
+    {
+      "n_neighbors": 3,
+      "weights": "uniform",
+      "p": 2
+    },
+    {
+      "n_neighbors": 5,
+      "weights": "uniform",
+      "p": 2
+    },
+    {
+      "n_neighbors": 7,
+      "weights": "uniform",
+      "p": 2
+    },
+    {
+      "n_neighbors": 9,
+      "weights": "uniform",
+      "p": 2
+    },
+    {
+      "n_neighbors": 15,
+      "weights": "uniform",
+      "p": 2
+    },
+    {
+      "n_neighbors": 25,
+      "weights": "uniform",
+      "p": 2
+    },
+    {
+      "n_neighbors": 3,
+      "weights": "distance",
+      "p": 2
+    },
+    {
+      "n_neighbors": 5,
+      "weights": "distance",
+      "p": 2
+    },
+    {
+      "n_neighbors": 7,
+      "weights": "distance",
+      "p": 2
+    },
+    {
+      "n_neighbors": 9,
+      "weights": "distance",
+      "p": 2
+    },
+    {
+      "n_neighbors": 15,
+      "weights": "distance",
+      "p": 2
+    },
+    {
+      "n_neighbors": 25,
+      "weights": "distance",
+      "p": 2
+    }
+  ],
+  "n_jobs": -1,
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/05_knn_regressor/results",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/05_knn_regressor/results/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/05_knn_regressor/model/knn.joblib",
+  "scaler_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/05_knn_regressor/model/scaler.joblib",
+  "metrics": {
+    "model_name": "KNNRegressor",
+    "target": "total_rentals",
+    "best_n_neighbors": 25,
+    "best_weights": "distance",
+    "best_p": 2,
+    "n_features": 17,
+    "n_train": 21787,
+    "n_validation": 4747,
+    "n_test": 4755,
+    "fit_time_seconds": 0.000716499998816289,
+    "predict_time_seconds": 0.8322937909979373,
+    "train_mae": 0.012399192905497469,
+    "train_rmse": 0.5882739668013305,
+    "train_r2": 0.9997579622275338,
+    "train_median_ae": 3.865916490042309e-06,
+    "train_explained_variance": 0.9997579627105551,
+    "train_mape": 0.004846484376703748,
+    "validation_mae": 23.504139348426715,
+    "validation_rmse": 31.13974771036587,
+    "validation_r2": 0.30054313631116747,
+    "validation_median_ae": 18.576985027031256,
+    "validation_explained_variance": 0.3176247880863715,
+    "validation_mape": 0.3862020104837542,
+    "test_mae": 24.417721119407126,
+    "test_rmse": 32.35196555903973,
+    "test_r2": 0.3237198704407793,
+    "test_median_ae": 18.721524839129614,
+    "test_explained_variance": 0.3677932733207162,
+    "test_mape": 0.36604948339211124
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "model_name": "GradientBoostingRegressor",
+  "target": "total_rentals",
+  "feature_columns": [
+    "start_station_id",
+    "tempmax",
+    "humidity",
+    "precip",
+    "precipcover",
+    "cloudcover",
+    "windspeed",
+    "visibility",
+    "sealevelpressure",
+    "uvindex",
+    "sunset_minutes",
+    "month",
+    "weekday",
+    "year",
+    "time_idx",
+    "snow",
+    "snowdepth"
+  ],
+  "best_params": {
+    "n_estimators": 200,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "min_samples_leaf": 5,
+    "subsample": 1.0
+  },
+  "param_grid": [
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.03,
+      "max_depth": 2,
+      "min_samples_leaf": 5,
+      "subsample": 1.0
+    },
+    {
+      "n_estimators": 200,
+      "learning_rate": 0.03,
+      "max_depth": 2,
+      "min_samples_leaf": 5,
+      "subsample": 1.0
+    },
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.05,
+      "max_depth": 2,
+      "min_samples_leaf": 5,
+      "subsample": 1.0
+    },
+    {
+      "n_estimators": 200,
+      "learning_rate": 0.05,
+      "max_depth": 2,
+      "min_samples_leaf": 5,
+      "subsample": 1.0
+    },
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.05,
+      "max_depth": 3,
+      "min_samples_leaf": 5,
+      "subsample": 1.0
+    },
+    {
+      "n_estimators": 200,
+      "learning_rate": 0.05,
+      "max_depth": 3,
+      "min_samples_leaf": 5,
+      "subsample": 1.0
+    },
+    {
+      "n_estimators": 300,
+      "learning_rate": 0.03,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    },
+    {
+      "n_estimators": 300,
+      "learning_rate": 0.05,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    }
+  ],
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/07_gradient_boosting/results",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/07_gradient_boosting/results/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/07_gradient_boosting/model/gradient_boosting.joblib",
+  "metrics": {
+    "model_name": "GradientBoostingRegressor",
+    "target": "total_rentals",
+    "best_n_estimators": 200,
+    "best_learning_rate": 0.05,
+    "best_max_depth": 3,
+    "best_min_samples_leaf": 5,
+    "best_subsample": 1.0,
+    "n_features": 17,
+    "n_train": 21787,
+    "n_validation": 4747,
+    "n_test": 4755,
+    "fit_time_seconds": 6.232395999999426,
+    "predict_time_seconds": 0.0498234579936252,
+    "train_mae": 14.778888558927438,
+    "train_rmse": 21.15057811775842,
+    "train_r2": 0.6871267934822833,
+    "train_median_ae": 11.0870496106577,
+    "train_explained_variance": 0.6871267934822833,
+    "train_mape": 0.4762146126763163,
+    "validation_mae": 20.52547730958501,
+    "validation_rmse": 27.0031171099064,
+    "validation_r2": 0.4740329272767785,
+    "validation_median_ae": 16.25149518179886,
+    "validation_explained_variance": 0.496129093021628,
+    "validation_mape": 0.3714462507519241,
+    "test_mae": 23.708015231302582,
+    "test_rmse": 30.569207371893317,
+    "test_r2": 0.3961992610862606,
+    "test_median_ae": 19.574222752142177,
+    "test_explained_variance": 0.45936900514333556,
+    "test_mape": 0.3803870227844641
+  }
+}
