@@ -1,0 +1,102 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+% --- Essential Packages ---
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs} % For beautiful tables
+\usepackage{hyperref}
+
+\begin{document}
+
+% --- Title and Authors ---
+\title{Deliverable 2: Preliminary Results \\ 
+\large Bike Rental Demand Forecasting}
+
+\author{
+Author 1 \\
+Student ID 1 \\
+{\tt\small author1@university.edu}
+\and
+Author 2 \\
+Student ID 2 \\
+{\tt\small author2@university.edu}
+% Add more authors if needed
+}
+
+\maketitle
+
+% --- Abstract ---
+\begin{abstract}
+This report presents the preliminary results for the Bike Rental Demand Forecasting project using the Capital Bikeshare dataset. Following the initial proposal, this deliverable outlines our data processing methodology, explores baseline and advanced tree-based models, and addresses data imbalance issues. We introduce the integration of an extended dataset (2020-2024) to ensure robust training and discuss initial ethical considerations regarding predictive resource allocation in urban mobility.
+\end{abstract}
+
+% --- 1. Adjustments made since Deliverable 1 ---
+\section{Adjustments made since Deliverable 1}
+Based on the formative feedback from the project proposal, several critical adjustments were integrated into our methodology:
+\begin{itemize}
+    \item \textbf{Data Size Expansion:} To address concerns that 17,000 observations might be insufficient for hourly data, we incorporated an additional Kaggle dataset spanning from 2020 to 2024.
+    \item \textbf{Additional Evaluation Metrics:} In addition to MAE, RMSE, and $R^2$, we have included RMSLE (Root Mean Squared Logarithmic Error) to better handle relative errors and the non-negative nature of our demand data.
+    \item \textbf{Dataset Statistics:} Comprehensive descriptive statistics have been computed and are now explicitly provided to establish a baseline understanding of the data distribution.
+\end{itemize}
+
+% --- 2. Data processing methodology ---
+\section{Data Processing Methodology}
+\subsection{Data Statistics}
+% Insert your table here
+Table \ref{tab:stats} summarizes the key statistics of our features. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Feature & Mean & Std. Dev. & Missing \\
+\midrule
+cnt & 189.46 & 181.38 & 0 \\
+temp & 0.49 & 0.19 & 0 \\
+hum & 0.62 & 0.19 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Descriptive statistics of the dataset.}
+\label{tab:stats}
+\end{table}
+
+\subsection{Handling Unbalanced Data}
+The target variable \textit{cnt} exhibits a strong right-skewness due to off-peak hours with near-zero rentals and extreme peaks during rush hours. We apply a log transformation ($\log(x+1)$) to stabilize the variance. Furthermore, categorical imbalances (e.g., extreme weather conditions) are managed by regrouping rare categories.
+
+\subsection{Data Splitting}
+Given the temporal nature of the data, a random split would cause data leakage. Therefore, we utilize a chronological train-test split, reserving the final 20\% of the timeline for testing.
+
+% --- 3. Models explored and justification ---
+\section{Models Explored and Justification}
+We selected models that effectively handle both non-linear relationships and temporal features.
+\begin{itemize}
+    \item \textbf{Linear Regression (Baseline):} Used to establish a fundamental performance benchmark.
+    \item \textbf{Random Forest:} Selected for its robustness against overfitting and ability to handle non-linear weather and temporal patterns without extensive feature engineering.
+    \item \textbf{XGBoost:} Chosen specifically to address the feedback regarding \textit{feature importance}. XGBoost provides intrinsic mechanisms to evaluate the impact of individual features (e.g., hour, temperature), which will be further analyzed using SHAP values.
+\end{itemize}
+
+% --- 4. Preliminary ethical considerations ---
+\section{Preliminary Ethical Considerations}
+While our model aims to optimize bike availability, relying heavily on historical demand can create negative feedback loops. For instance, areas that historically had fewer bikes will show lower rental counts, leading the model to predict low future demand. This could systematically disadvantage marginalized neighborhoods, reducing their access to public mobility infrastructure. We will monitor these spatial biases during our final evaluation.
+
+% --- References ---
+{\small
+\bibliographystyle{plain}
+\begin{thebibliography}{1}
+
+\bibitem{fanaee2013event}
+Hadi Fanaee-T and Joao Gama.
+\newblock Event labeling combining ensemble detectors and background knowledge.
+\newblock {\em Progress in Artificial Intelligence}, 2(2):113--127, 2013.
+
+\bibitem{kaggle2024}
+Tawei Lo.
+\newblock Capital Bikeshare Dataset (2020-05 to 2024-08).
+\newblock {\em Kaggle}, 2024.
+
+\end{thebibliography}
+}
+
+\end{document}
