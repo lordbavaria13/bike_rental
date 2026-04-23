@@ -1,0 +1,51 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {II}From Deliverable 1 to Deliverable 2}{1}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III}Data Preparation Methodology}{1}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Why we reduced the raw data}{1}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Why we stored station names separately}{1}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Why we changed the date representation}{2}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Why we analysed correlations before modelling}{2}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Why we simplified the target to one output}{2}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-F}}Why we did not apply PCA}{2}{subsection.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-G}}Final reduced dataset}{2}{subsection.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Modelling Pipeline After Data Preparation}{2}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Why we created a shared modelling structure}{2}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Why we used a chronological split}{2}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Why we scaled only selected models}{3}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Model Selection Strategy and Justification}{3}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Dummy Regressor}{3}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Linear Regression}{3}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Ridge Regression}{3}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-D}}Lasso Regression}{3}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-E}}Decision Tree}{3}{subsection.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-F}}KNN Regressor}{3}{subsection.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-G}}Random Forest}{3}{subsection.5.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-H}}Gradient Boosting}{3}{subsection.5.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Evaluation Strategy and Metrics}{3}{section.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Main comparison results for all evaluated models}}{4}{table.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:main-results}{{I}{4}{Main comparison results for all evaluated models}{table.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Results and Model Comparison}{4}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Visual Comparison of the Models}{4}{section.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces RMSE and MAE comparison across train, validation, and test splits. These plots show that ensemble trees reduce error substantially compared with the baseline and the linear models.}}{4}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:error-main}{{2}{4}{RMSE and MAE comparison across train, validation, and test splits. These plots show that ensemble trees reduce error substantially compared with the baseline and the linear models}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overview of the most important comparison dimensions. The figure highlights that Gradient Boosting is strongest on validation, while Random Forest is strongest on the held-out test set.}}{5}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:overview}{{1}{5}{Overview of the most important comparison dimensions. The figure highlights that Gradient Boosting is strongest on validation, while Random Forest is strongest on the held-out test set}{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces $R^2$ and explained variance comparison. The same pattern appears in both views: the ensemble models explain the largest share of the target variation.}}{5}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:variance-metrics}{{3}{5}{$R^2$ and explained variance comparison. The same pattern appears in both views: the ensemble models explain the largest share of the target variation}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IX}Interpretation of the Current Results}{5}{section.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces MAPE and median absolute error. These metrics support the same overall conclusion, while also showing that some models differ in how stable their typical errors are.}}{5}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:robust-metrics}{{4}{5}{MAPE and median absolute error. These metrics support the same overall conclusion, while also showing that some models differ in how stable their typical errors are}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Ranking by validation RMSE and test RMSE. Gradient Boosting wins the validation phase, but Random Forest becomes the best model on the final test set.}}{6}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:rmse-rankings}{{5}{6}{Ranking by validation RMSE and test RMSE. Gradient Boosting wins the validation phase, but Random Forest becomes the best model on the final test set}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {X}Direct Weaknesses Visible in the Current Setup}{6}{section.10}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Rank-sum comparison across multiple metrics. This gives a broader summary than a single metric and again shows Gradient Boosting on top for validation and Random Forest on top for the final test comparison.}}{6}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:rank-sum}{{6}{6}{Rank-sum comparison across multiple metrics. This gives a broader summary than a single metric and again shows Gradient Boosting on top for validation and Random Forest on top for the final test comparison}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {XI}Long Critical Reflection and Next Steps}{7}{section.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {XII}Preliminary Ethical Considerations}{7}{section.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {XIII}AI Tool Use}{7}{section.13}\protected@file@percent }
+\gdef \@abspage@last{7}

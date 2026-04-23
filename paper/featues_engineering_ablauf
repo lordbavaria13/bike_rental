@@ -1,0 +1,23 @@
+die daily_rent_data datei ist zu groß (2,8 gb). sie enthält zeilen weise jeden ausleihvorgang.
+daher wollen wir die daten verkleinern. 
+wir überlegen nur für die 20 größten stationen die daten zu verwenden (siehe skript)
+wir wollen von diesen daten dann auf die tägliche Ausleihen kommen und aggregieren zu folgenden features:
+jahr, monat, tag, stationid, member, bike_type, 
+dann die jeweiligen täglichen wetter features (diese werden wir anhand Domain Knowledge und Korrelarität aus)
+und als zielvariable ist die pickup_count (insgesamt ausleihten)
+
+jahr, monat, tag wurden auf index zahlen umgerechnet
+z.b. 2020 = 1, usw
+
+Notizen für nach Deliverable 2:
++ die aktuelle data tabelle: daily_rentals_top20_reduced.csv
+- zu beachten: sortierung nach nach station_id ; jeder Tag für vier Jahre -> danach neue station_id
+==> die lösung in nach time_index zu sotierten
+
++ one-hot aufteilung der 20 stationen muss noch gemacht werden
+
++ es müssen lag features (als ausleihten von gestern, vor 7 tagen) eingebaut werden
+
++ evtl doch auf stündliche ausleihen (wären circa 750.000 zeilen)
+
++ andere prediction algorithmen verwenden
