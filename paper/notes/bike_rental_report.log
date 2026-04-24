@@ -1,13 +1,13 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.3.4)  23 APR 2026 23:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  24 APR 2026 12:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/Alex/Documents/ml_projekt/bike_rental/paper/notes/bike_rental_report.tex
-(c:/Users/Alex/Documents/ml_projekt/bike_rental/paper/notes/bike_rental_report.tex
+**/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.tex
+(/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
-(C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/ieeetran\IEEEtran.cls
+(/usr/local/texlive/2026/texmf-dist/tex/latex/ieeetran/IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
 -- http://www.michaelshell.org/tex/ieeetran/
@@ -19,7 +19,7 @@ Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 \@IEEEtrantmpcountC=\count277
 \@IEEEtrantmptoksA=\toks17
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 503.
-(C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
+(/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 -- Using 8.5in x 11in (letter) paper.
@@ -104,34 +104,34 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 \IEEEPARstartletwidth=\dimen171
 \c@IEEEbiography=\count289
 \@IEEEtranrubishbin=\box54
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 116.
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
-)) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+)) (/usr/local/texlive/2026/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks18
 \inpenc@posthook=\toks19
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks20
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen172
 \Gin@req@width=\dimen173
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen174
 \lightrulewidth=\dimen175
@@ -150,7 +150,7 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count292
 \@lastruleclass=\count293
 \@thisrulewidth=\dimen186
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen187
 \ar@mcellbox=\box55
@@ -159,62 +159,62 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \extratabsurround=\skip52
 \backup@length=\skip53
 \ar@cellbox=\box56
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip54
 \multirow@cntb=\count294
 \multirow@dima=\skip55
 \bigstrutjot=\dimen189
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+)) (/usr/local/texlive/2026/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count295
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count296
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \@linkdim=\dimen190
 \Hy@linkcounter=\count297
 \Hy@pagecounter=\count298
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count299
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -227,15 +227,15 @@ Package hyperref Info: Backreferencing OFF on input line 4221.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4468.
 \c@Hy@tempcnt=\count300
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4807.
 \XeTeXLinkMargin=\dimen191
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count301
@@ -253,25 +253,25 @@ Package hyperref Info: PDF/A mode OFF on input line 6114.
 \c@Hfootnote=\count304
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2026-01-29 v7.01p Hyperref driver for pdfTeX
 \Fld@listcount=\count305
 \c@bookmark@seq@number=\count306
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip56
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -281,7 +281,7 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip57
 \enit@outerparindent=\dimen194
@@ -289,21 +289,21 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \enit@inbox=\box57
 \enit@count@id=\count307
 \enitdp@description=\count308
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip58
 
 For additional information on amsmath, use the `?' option.
-(C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks23
 \ex@=\dimen195
-)) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+)) (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen196
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count309
@@ -353,7 +353,7 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks27
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@col@width=\dimen260
 \TX@old@table=\dimen261
@@ -362,16 +362,16 @@ Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@delta=\dimen264
 \TX@cols=\count321
 \TX@ftn=\toks28
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count322
 \float@exts=\toks29
 \float@box=\box60
 \@float@everytoks=\toks30
 \@floatcapt=\box61
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen265
 \captionmargin=\dimen266
@@ -394,10 +394,10 @@ See the caption package documentation for explanation.
 \c@continuedfloat=\count324
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count325
-) (bike_rental_report.aux)
+) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.aux)
 \openout1 = `bike_rental_report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
@@ -420,7 +420,7 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
 
 -- Lines per column: 56 (exact).
-(C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+(/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count326
 \scratchdimen=\dimen273
@@ -433,28 +433,28 @@ LaTeX Font Info:    ... okay on input line 26.
 \MPnumerator=\count330
 \makeMPintoPDFobject=\count331
 \everyMPtoPDFconversion=\toks32
-) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 26.
- (bike_rental_report.out) (bike_rental_report.out)
+ (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.out) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.out)
 \@outlinefile=\write3
 \openout3 = `bike_rental_report.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 30.
- (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Underfull \hbox (badness 1412) in paragraph at lines 83--88
 []\T1/ptm/m/n/10 At one stage the pro-cessed data still con-tained both
  []
 
-[1{C:/Users/Alex/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
+[1{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
@@ -473,75 +473,74 @@ Underfull \hbox (badness 10000) in paragraph at lines 146--147
  []
 
 [2] [3]
-<../../modelling/99_model_comparison/results/plots/model_comparison_overview.png, id=149, 1011.78pt x 578.16pt>
+<../../modelling/99_model_comparison/results/plots/model_comparison_overview.png, id=150, 1011.78pt x 578.16pt>
 File: ../../modelling/99_model_comparison/results/plots/model_comparison_overview.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/model_comparison_overview.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/model_comparison_overview.png  used on input line 295.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/model_comparison_overview.png  used on input line 330.
 (pdftex.def)             Requested size: 490.19843pt x 280.11613pt.
-<../../modelling/99_model_comparison/results/plots/rmse_comparison.png, id=151, 867.24pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/rmse_comparison.png, id=152, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/rmse_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/rmse_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/rmse_comparison.png  used on input line 304.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/rmse_comparison.png  used on input line 339.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
-<../../modelling/99_model_comparison/results/plots/mae_comparison.png, id=152, 867.24pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/mae_comparison.png, id=153, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/mae_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/mae_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/mae_comparison.png  used on input line 309.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/mae_comparison.png  used on input line 344.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 302--311
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 337--346
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 302--311
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 337--346
  []$ 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-<../../modelling/99_model_comparison/results/plots/r2_comparison.png, id=153, 867.24pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/r2_comparison.png, id=154, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/r2_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/r2_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/r2_comparison.png  used on input line 319.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/r2_comparison.png  used on input line 354.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
-<../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png, id=154, 867.24pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png, id=155, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png  used on input line 324.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png  used on input line 359.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 317--326
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 352--361
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 317--326
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 352--361
  []$ 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4 <../../modelling/99_model_comparison/results/plots/rmse_comparison.png> <../../modelling/99_model_comparison/results/plots/mae_comparison.png>]
+ [4 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/rmse_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/mae_comparison.png>]
+Overfull \vbox (37.75865pt too high) has occurred while \output is active []
+
 <../../modelling/99_model_comparison/results/plots/mape_comparison.png, id=165, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/mape_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/mape_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/mape_comparison.png  used on input line 334.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/mape_comparison.png  used on input line 369.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
 <../../modelling/99_model_comparison/results/plots/median_ae_comparison.png, id=166, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/median_ae_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/median_ae_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/median_ae_comparison.png  used on input line 339.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/median_ae_comparison.png  used on input line 374.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 332--341
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 367--376
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 332--341
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 367--376
  []$ 
  []
 
@@ -551,20 +550,20 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png, id=167, 722.7pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png  used on input line 349.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png  used on input line 384.
 (pdftex.def)             Requested size: 252.84283pt x 126.41925pt.
 <../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png, id=168, 722.7pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png  used on input line 354.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png  used on input line 389.
 (pdftex.def)             Requested size: 252.84283pt x 126.41925pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 347--356
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 382--391
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 347--356
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 382--391
  []$ 
  []
 
@@ -574,32 +573,32 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <../../modelling/99_model_comparison/results/plots/validation_rank_sum.png, id=169, 722.7pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/validation_rank_sum.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/validation_rank_sum.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/validation_rank_sum.png  used on input line 364.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/validation_rank_sum.png  used on input line 399.
 (pdftex.def)             Requested size: 252.84283pt x 126.41925pt.
 <../../modelling/99_model_comparison/results/plots/test_rank_sum.png, id=170, 722.7pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/test_rank_sum.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/test_rank_sum.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/test_rank_sum.png  used on input line 369.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/test_rank_sum.png  used on input line 404.
 (pdftex.def)             Requested size: 252.84283pt x 126.41925pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 362--371
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 397--406
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 362--371
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 397--406
  []$ 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5 <../../modelling/99_model_comparison/results/plots/model_comparison_overview.png> <../../modelling/99_model_comparison/results/plots/r2_comparison.png> <../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png> <../../modelling/99_model_comparison/results/plots/mape_comparison.png> <../../modelling/99_model_comparison/results/plots/median_ae_comparison.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 403--408
+[5 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/model_comparison_overview.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/r2_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 438--443
 []\T1/ptm/m/n/10 The first weak-ness is the rep-re-sen-ta-tion of
  []
 
-[6 <../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png> <../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png> <../../modelling/99_model_comparison/results/plots/validation_rank_sum.png> <../../modelling/99_model_comparison/results/plots/test_rank_sum.png>]
+[6 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/mape_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/median_ae_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/validation_rank_sum.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/test_rank_sum.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -611,7 +610,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7] (bike_rental_report.aux)
+[7] (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -620,17 +619,18 @@ Package rerunfilecheck Info: File `bike_rental_report.out' has not changed.
 (rerunfilecheck)             Checksum: 5134C6D0822DEC74586654B2E7E95C5E;6317.
  ) 
 Here is how much of TeX's memory you used:
- 12886 strings out of 467866
- 213071 string characters out of 5418810
- 642956 words of memory out of 5000000
- 41574 multiletter control sequences out of 15000+600000
+ 12883 strings out of 467525
+ 212967 string characters out of 5418982
+ 643500 words of memory out of 5000000
+ 41598 multiletter control sequences out of 15000+600000
  734595 words of font info for 146 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,1262b,448s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on bike_rental_report.pdf (7 pages, 775359 bytes).
+ 75i,9n,79p,1336b,445s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.pdf (7 pages, 728847 bytes).
 PDF statistics:
- 254 PDF objects out of 1000 (max. 8388607)
+ 258 PDF objects out of 1000 (max. 8388607)
+ 204 compressed objects within 3 object streams
  46 named destinations out of 1000 (max. 500000)
  304 words of extra memory for PDF output out of 10000 (max. 10000000)
 

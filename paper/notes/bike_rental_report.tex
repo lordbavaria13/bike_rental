@@ -237,18 +237,53 @@ demand structure. It is typically more powerful than a single tree, but also mor
 expensive and more sensitive to hyperparameter choices.
 
 \section{Evaluation Strategy and Metrics}
-We used multiple regression metrics because one metric alone would give an incomplete picture.
+We used several regression metrics because one single number cannot describe model quality well enough. 
+Each metric shows a different side of the prediction error. This is important in our bike rental problem, 
+because we do not only want a model that is good on average. We also want to understand whether it makes 
+large mistakes, whether it performs consistently, and whether it explains the main demand patterns.
 
-\textbf{MAE} reports the average absolute error in the original rental units. This is easy to interpret.\newline
-\textbf{RMSE} penalizes large errors more strongly than MAE and is therefore useful when large misses are especially problematic.\newline
-\textbf{Median Absolute Error} gives a robust estimate of the typical error and is less influenced by extreme values.\newline
-\textbf{MAPE} gives a relative error view, which is useful but must be interpreted carefully when actual demand is small.\newline
-\textbf{$R^2$} reports how much variance of the target is explained by the model.\newline
-\textbf{Explained Variance} adds a second variance-based interpretation and supports the same general idea from a slightly different angle.
+\textbf{Mean Absolute Error (MAE)} measures the average absolute difference between the predicted rentals 
+and the real rentals. It tells us, in simple units, how many bikes the model is off on average. For example, 
+an MAE of 20 means that the prediction is wrong by about 20 rentals on a typical day. This metric is very 
+easy to understand, because it is expressed in the original target unit. For our problem, MAE is relevant 
+because the final goal is to predict the number of rented bikes as directly and clearly as possible.
 
-Using this metric set is important because different models may look good under one measure and less 
-good under another. A model that minimizes RMSE may not be the fastest model or the one with the best 
-MAPE. The broader view is therefore more honest.
+\textbf{Root Mean Squared Error (RMSE)} stands for Root Mean Squared Error. It is also measured in rental units, 
+but it punishes large errors more strongly than MAE. This happens because the errors are squared before they are 
+averaged. As a result, a few very large mistakes increase RMSE a lot. This is useful in our problem because 
+big misses are especially problematic. If the model strongly underestimates or overestimates bike demand on a day 
+with unusual weather or strong seasonal effects, this can be much more harmful than many small mistakes.
+
+\textbf{Median Absolute Error} measures the median of the absolute prediction errors. In simple words, it tells us 
+what a typical middle-sized error looks like. It is more robust than MAE and RMSE because it is less influenced by 
+a few extreme cases. This is relevant for our dataset because bike demand can vary strongly across stations and days. 
+Some days may have unusual peaks or drops. Median Absolute Error helps us see how the model performs in the more normal 
+cases, without being dominated by rare outliers.
+
+\textbf{Mean Absolute Percentage Error (MAPE)} stands for Mean Absolute Percentage Error. It measures the prediction 
+error relative to the real value and expresses it as a percentage. This helps us understand whether the model is wrong 
+by a small or large proportion of the actual demand. For example, an error of 10 rentals is much more serious when the 
+true demand is 20 than when it is 100. That is why MAPE gives an additional perspective that MAE and RMSE do not show. 
+For our problem, this is useful because rental counts are not equally large on all days. However, MAPE must be interpreted 
+carefully when the true number of rentals is very small, because percentage errors can then become unstable.
+
+\textbf{$R^2$}, also called the coefficient of determination, measures how much of the variation in bike rentals is explained 
+by the model. A higher $R^2$ means that the model captures more of the underlying demand structure. If $R^2$ is close to 1, 
+the model explains the data very well. If it is close to 0, the model is not much better than a simple average prediction. 
+If it is negative, the model performs even worse than this baseline. In our case, $R^2$ is relevant because bike rentals are 
+influenced by many systematic factors such as weather, time, and station effects. We therefore want to know how much of this 
+general pattern the model can actually learn.
+
+\textbf{Explained Variance} measures how much of the variance of the target is captured by the predictions. It is similar to 
+$R^2$, but it focuses more directly on how well the spread of the target values is represented. This gives another view on the 
+same general question: does the model only predict around the mean, or does it also capture the ups and downs of real bike demand? 
+For our problem, this is important because daily rentals do not stay constant. Good models should reflect changes in demand across 
+time and weather conditions, not only produce flat average-like predictions.
+
+Using all of these metrics together gives a more complete and honest evaluation. A model may have a low MAE but still make some 
+very large mistakes, which would be visible in RMSE. Another model may explain more variance but still have weaker percentage-based 
+performance, which would appear in MAPE. Looking at several metrics at the same time helps us compare models more carefully and 
+choose a model that is not only strong in one narrow sense, but useful for the full prediction task.
 
 \section{Results and Model Comparison}
 Table~\ref{tab:main-results} summarizes the most relevant validation and test results for all eight models.
