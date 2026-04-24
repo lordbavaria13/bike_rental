@@ -40,24 +40,35 @@ sense if the data representation is clear. Second, it describes the modelling pi
 from this reduced dataset and compares several regression models under the same evaluation protocol.
 
 \section{From Deliverable 1 to Deliverable 2}
-The first deliverable framed the task as bike rental demand forecasting and already highlighted 
-several relevant ideas: the problem is a regression problem, the target should be a rental count, 
-time-aware splitting is necessary, and leakage variables must be removed. These ideas stayed central 
-in the second phase.
+After the feedback on Deliverable 1, we decided to change the dataset. One important reason was that 
+the new dataset contains much more data than the old one. This gives a stronger basis for model training, 
+testing, and comparison. A larger dataset is useful because the models can learn from more examples and 
+the final results become more reliable. For this reason, we switched to the Capital Bikeshare dataset 
+from Kaggle:
+\url{https://www.kaggle.com/datasets/taweilo/capital-bikeshare-dataset-202005202408}
 
-However, after the first deliverable we also made important adjustments. The main change is that we 
-built a much more explicit data processing pipeline. Instead of directly going from raw data to 
-modelling, we first created a structured daily station-level dataset, analysed feature redundancy, 
-simplified the target, and produced one final numeric modelling table. This adjustment was necessary 
-because a clean input representation is the basis of a fair model comparison.
+This change was important because the new dataset fits the task more directly. Our goal is to predict 
+bike rental demand. The new dataset provides a good basis for this because it includes rental data, 
+station information, and weather information in a form that can be transformed into a daily demand 
+prediction dataset.
 
-We extended the evaluation to MAE, RMSE, median absolute error, MAPE, $R^2$, and explained variance. 
-This gives a much more complete view of model behaviour.
+The first deliverable already defined the task as a regression problem. It also identified important 
+core ideas: the target should be a rental count, time-aware splitting is necessary, and leakage variables 
+must be removed. These ideas stayed central in Deliverable 2.
 
-A third change is that we built a shared project structure for modelling. All models now use the 
-same common utilities, the same split logic, the same target, and the same output structure. This 
-makes the experiments easier to compare and also reduces the risk that one model appears better 
-only because it was run under a different setup.
+However, after Deliverable 1 we made several important adjustments. The main change is that we built a 
+much clearer data processing pipeline. Instead of moving directly from raw data to modelling, we first 
+created a structured daily station-level dataset, analysed feature redundancy, simplified the target, 
+and built one final numeric modelling table. This step was necessary because a clean and transparent 
+input table is the basis for a fair comparison of models.
+
+We also expanded the evaluation. In Deliverable 2 we used MAE, RMSE, Median Absolute Error, MAPE, 
+$R^2$, and Explained Variance. This gives a broader and more reliable picture of model behaviour.
+
+A further change is the modelling structure itself. We created one shared project structure for all 
+models. Every model now uses the same utilities, the same split logic, the same target variable, and 
+the same output format. This makes the experiments directly comparable. It also reduces the risk that 
+one model looks better only because it was trained or evaluated under a different setup.
 
 \section{Data Preparation Methodology}
 \subsection{Why we reduced the raw data}

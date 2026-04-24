@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  24 APR 2026 12:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  24 APR 2026 12:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -449,156 +449,157 @@ Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 30.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-Underfull \hbox (badness 1412) in paragraph at lines 83--88
-[]\T1/ptm/m/n/10 At one stage the pro-cessed data still con-tained both
- []
-
-[1{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
+) [1{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 1412) in paragraph at lines 94--99
+[]\T1/ptm/m/n/10 At one stage the pro-cessed data still con-tained both
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
 []\T1/pcr/m/n/9 start_station_id\T1/ptm/m/n/9 , \T1/pcr/m/n/9 tempmax\T1/ptm/m/n/9 , \T1/pcr/m/n/9 humidity\T1/ptm/m/n/9 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
 \T1/pcr/m/n/9 visibility\T1/ptm/m/n/9 , \T1/pcr/m/n/9 sealevelpressure\T1/ptm/m/n/9 , \T1/pcr/m/n/9 uvindex\T1/ptm/m/n/9 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
 \T1/pcr/m/n/9 sunset_minutes\T1/ptm/m/n/9 , \T1/pcr/m/n/9 month\T1/ptm/m/n/9 , \T1/pcr/m/n/9 weekday\T1/ptm/m/n/9 , \T1/pcr/m/n/9 year\T1/ptm/m/n/9 ,
  []
 
 [2] [3]
-<../../modelling/99_model_comparison/results/plots/model_comparison_overview.png, id=150, 1011.78pt x 578.16pt>
+<../../modelling/99_model_comparison/results/plots/model_comparison_overview.png, id=152, 1011.78pt x 578.16pt>
 File: ../../modelling/99_model_comparison/results/plots/model_comparison_overview.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/model_comparison_overview.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/model_comparison_overview.png  used on input line 330.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/model_comparison_overview.png  used on input line 341.
 (pdftex.def)             Requested size: 490.19843pt x 280.11613pt.
-<../../modelling/99_model_comparison/results/plots/rmse_comparison.png, id=152, 867.24pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/rmse_comparison.png, id=154, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/rmse_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/rmse_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/rmse_comparison.png  used on input line 339.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/rmse_comparison.png  used on input line 350.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
-<../../modelling/99_model_comparison/results/plots/mae_comparison.png, id=153, 867.24pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/mae_comparison.png, id=155, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/mae_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/mae_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/mae_comparison.png  used on input line 344.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/mae_comparison.png  used on input line 355.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 337--346
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 348--357
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 337--346
- []$ 
- []
-
-<../../modelling/99_model_comparison/results/plots/r2_comparison.png, id=154, 867.24pt x 361.35pt>
-File: ../../modelling/99_model_comparison/results/plots/r2_comparison.png Graphic file (type png)
-<use ../../modelling/99_model_comparison/results/plots/r2_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/r2_comparison.png  used on input line 354.
-(pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
-<../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png, id=155, 867.24pt x 361.35pt>
-File: ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png Graphic file (type png)
-<use ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png  used on input line 359.
-(pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
-
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 352--361
- []$[]$ 
- []
-
-
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 352--361
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 348--357
  []$ 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/rmse_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/mae_comparison.png>]
-Overfull \vbox (37.75865pt too high) has occurred while \output is active []
+ [4]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<../../modelling/99_model_comparison/results/plots/mape_comparison.png, id=165, 867.24pt x 361.35pt>
+
+Overfull \vbox (72.79863pt too high) has occurred while \output is active []
+
+ [5 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/model_comparison_overview.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/rmse_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/mae_comparison.png>]
+<../../modelling/99_model_comparison/results/plots/r2_comparison.png, id=173, 867.24pt x 361.35pt>
+File: ../../modelling/99_model_comparison/results/plots/r2_comparison.png Graphic file (type png)
+<use ../../modelling/99_model_comparison/results/plots/r2_comparison.png>
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/r2_comparison.png  used on input line 365.
+(pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
+<../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png, id=174, 867.24pt x 361.35pt>
+File: ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png Graphic file (type png)
+<use ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png>
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png  used on input line 370.
+(pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
+
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 363--372
+ []$[]$ 
+ []
+
+
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 363--372
+ []$ 
+ []
+
+<../../modelling/99_model_comparison/results/plots/mape_comparison.png, id=175, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/mape_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/mape_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/mape_comparison.png  used on input line 369.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/mape_comparison.png  used on input line 380.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
-<../../modelling/99_model_comparison/results/plots/median_ae_comparison.png, id=166, 867.24pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/median_ae_comparison.png, id=176, 867.24pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/median_ae_comparison.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/median_ae_comparison.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/median_ae_comparison.png  used on input line 374.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/median_ae_comparison.png  used on input line 385.
 (pdftex.def)             Requested size: 252.84283pt x 105.35121pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 367--376
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 378--387
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 367--376
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 378--387
  []$ 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png, id=167, 722.7pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png, id=177, 722.7pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png  used on input line 384.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png  used on input line 395.
 (pdftex.def)             Requested size: 252.84283pt x 126.41925pt.
-<../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png, id=168, 722.7pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png, id=178, 722.7pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png  used on input line 389.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png  used on input line 400.
 (pdftex.def)             Requested size: 252.84283pt x 126.41925pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 382--391
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 393--402
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 382--391
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 393--402
  []$ 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../../modelling/99_model_comparison/results/plots/validation_rank_sum.png, id=169, 722.7pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/validation_rank_sum.png, id=179, 722.7pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/validation_rank_sum.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/validation_rank_sum.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/validation_rank_sum.png  used on input line 399.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/validation_rank_sum.png  used on input line 410.
 (pdftex.def)             Requested size: 252.84283pt x 126.41925pt.
-<../../modelling/99_model_comparison/results/plots/test_rank_sum.png, id=170, 722.7pt x 361.35pt>
+<../../modelling/99_model_comparison/results/plots/test_rank_sum.png, id=180, 722.7pt x 361.35pt>
 File: ../../modelling/99_model_comparison/results/plots/test_rank_sum.png Graphic file (type png)
 <use ../../modelling/99_model_comparison/results/plots/test_rank_sum.png>
-Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/test_rank_sum.png  used on input line 404.
+Package pdftex.def Info: ../../modelling/99_model_comparison/results/plots/test_rank_sum.png  used on input line 415.
 (pdftex.def)             Requested size: 252.84283pt x 126.41925pt.
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 397--406
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 408--417
  []$[]$ 
  []
 
 
-Overfull \hbox (0.84283pt too wide) in paragraph at lines 397--406
+Overfull \hbox (0.84283pt too wide) in paragraph at lines 408--417
  []$ 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/model_comparison_overview.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/r2_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 438--443
+
+Underfull \hbox (badness 10000) in paragraph at lines 449--454
 []\T1/ptm/m/n/10 The first weak-ness is the rep-re-sen-ta-tion of
  []
 
-[6 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/mape_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/median_ae_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/validation_rank_sum.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/test_rank_sum.png>]
+[6 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/r2_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/explained_variance_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/mape_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/median_ae_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/validation_rmse_ranking.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/test_rmse_ranking.png>] [7 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/validation_rank_sum.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/../../modelling/99_model_comparison/results/plots/test_rank_sum.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -610,7 +611,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7] (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.aux)
+[8
+
+] (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -619,18 +622,18 @@ Package rerunfilecheck Info: File `bike_rental_report.out' has not changed.
 (rerunfilecheck)             Checksum: 5134C6D0822DEC74586654B2E7E95C5E;6317.
  ) 
 Here is how much of TeX's memory you used:
- 12883 strings out of 467525
- 212967 string characters out of 5418982
+ 12884 strings out of 467525
+ 212973 string characters out of 5418982
  643500 words of memory out of 5000000
  41598 multiletter control sequences out of 15000+600000
  734595 words of font info for 146 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,1336b,445s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,1336b,448s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.pdf (7 pages, 728847 bytes).
+Output written on /Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/notes/bike_rental_report.pdf (8 pages, 729946 bytes).
 PDF statistics:
- 258 PDF objects out of 1000 (max. 8388607)
- 204 compressed objects within 3 object streams
- 46 named destinations out of 1000 (max. 500000)
+ 264 PDF objects out of 1000 (max. 8388607)
+ 209 compressed objects within 3 object streams
+ 47 named destinations out of 1000 (max. 500000)
  304 words of extra memory for PDF output out of 10000 (max. 10000000)
 
