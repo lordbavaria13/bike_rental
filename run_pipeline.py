@@ -5,7 +5,7 @@ run_pipeline.py
 
 How we use this script
 ----------------------
-We use this script to rerun the whole project pipeline from one single file.
+We use this script to run the whole project pipeline from one file.
 
 Before running it:
 1. Open the project root folder.
@@ -14,24 +14,24 @@ Before running it:
 3. Start the script:
        python run_pipeline.py
 
-How to configure it
+How we configure it
 -------------------
-We set everything directly in the configuration block below.
+We change the settings directly in the configuration block below.
 
 Example:
 - STEP_1_DATA_PROCESSING = 1   -> run data processing
 - STEP_1_DATA_PROCESSING = 0   -> skip data processing
 
-The same logic is used for all other steps.
+The same logic is used for all model steps and for the final comparison.
 
 If we only want to run some models, we set them to 1.
 If we want to skip a model, we set it to 0.
 
 Why we wrote it this way
 ------------------------
-We wanted one simple script that we can edit quickly without passing command line
-arguments every time. This makes it easy to rerun the full workflow and keep all
-models under the same setup.
+We wanted one simple script that we can edit quickly without using command
+line arguments every time. This makes it easy to rerun the full workflow
+and keep all models under the same setup.
 """
 
 import subprocess
@@ -47,7 +47,7 @@ from pathlib import Path
 # =============================================================================
 
 # Step 1: data processing
-STEP_1_DATA_PROCESSING = 0
+STEP_1_DATA_PROCESSING = 1
 
 # Step 2: model training
 RUN_00_DUMMY = 1
@@ -71,11 +71,26 @@ STEP_3_MODEL_COMPARISON = 1
 PROJECT_ROOT = Path(__file__).resolve().parent
 PYTHON_EXECUTABLE = sys.executable
 
+
+# =============================================================================
+# PREPROCESSING SCRIPTS
+# These scripts rebuild the processed modelling dataset.
+# They are run in this exact order.
+# =============================================================================
+
 PREPROCESSING_SCRIPTS = [
     PROJECT_ROOT / "src" / "scripts" / "02_build_top20_daily_dataset.py",
     PROJECT_ROOT / "src" / "scripts" / "03_analyze_feature_correlations.py",
     PROJECT_ROOT / "src" / "scripts" / "04_build_reduced_feature_dataset.py",
 ]
+
+
+# =============================================================================
+# MODEL MODULES
+# These are started with "python -m ...".
+# This is important because the project uses imports like:
+# from modelling.common.config import ...
+# =============================================================================
 
 MODEL_STEPS = [
     (RUN_00_DUMMY, "00_dummy_regressor", "modelling.00_dummy_regressor.train_dummy"),
@@ -88,6 +103,11 @@ MODEL_STEPS = [
     (RUN_07_GRADIENT_BOOSTING, "07_gradient_boosting", "modelling.07_gradient_boosting.train_gradient_boosting"),
     (RUN_08_NEURAL_NETWORK, "08_neural_network", "modelling.08_neural_network.train_neural_network"),
 ]
+
+
+# =============================================================================
+# FINAL MODEL COMPARISON
+# =============================================================================
 
 COMPARISON_MODULE = "modelling.99_model_comparison.model_comparison"
 
@@ -112,7 +132,9 @@ def format_runtime(seconds: float) -> str:
 
 
 def check_required_files() -> None:
-    """Check if all preprocessing scripts exist before the pipeline starts."""
+    """
+    Check if all preprocessing scripts exist before the pipeline starts.
+    """
     missing_paths: list[Path] = []
 
     for script_path in PREPROCESSING_SCRIPTS:
@@ -129,7 +151,7 @@ def check_required_files() -> None:
 
 def run_command(command: list[str], description: str) -> float:
     """
-    Run one command in the project root.
+    Run one command inside the project root.
 
     We stop the whole pipeline if one step fails.
     """
@@ -155,7 +177,9 @@ def run_command(command: list[str], description: str) -> float:
 # =============================================================================
 
 def run_data_processing() -> list[tuple[str, float]]:
-    """Run all data processing scripts in the correct order."""
+    """
+    Run all preprocessing scripts in the correct order.
+    """
     print_header("STEP 1: DATA PROCESSING")
 
     timings: list[tuple[str, float]] = []
@@ -172,7 +196,9 @@ def run_data_processing() -> list[tuple[str, float]]:
 
 
 def run_model_training() -> list[tuple[str, float]]:
-    """Run all selected model scripts."""
+    """
+    Run all selected model scripts in chronological order.
+    """
     print_header("STEP 2: MODEL TRAINING")
 
     timings: list[tuple[str, float]] = []
@@ -192,7 +218,9 @@ def run_model_training() -> list[tuple[str, float]]:
 
 
 def run_model_comparison() -> float:
-    """Run the final comparison script and recreate all comparison plots."""
+    """
+    Run the final comparison script and rebuild all comparison plots.
+    """
     print_header("STEP 3: MODEL COMPARISON")
 
     return run_command(
@@ -207,7 +235,9 @@ def print_summary(
     comparison_timing: float | None,
     total_runtime: float,
 ) -> None:
-    """Print a short summary at the end."""
+    """
+    Print a short summary at the end.
+    """
     print_header("PIPELINE SUMMARY")
 
     if data_processing_timings:

@@ -3,6 +3,7 @@ from __future__ import annotations
 import time
 from pathlib import Path
 
+import joblib
 import pandas as pd
 from sklearn.dummy import DummyRegressor
 
@@ -25,20 +26,14 @@ from modelling.common.plotting import (
     plot_residuals_histogram,
     plot_residuals_vs_predicted,
 )
-from modelling.common.preprocessing import (
-    get_numeric_feature_columns,
-    load_dataset,
-    split_X_y,
-)
+from modelling.common.preprocessing import load_dataset, prepare_feature_matrices
 from modelling.common.split import chronological_split
 from modelling.common.utils import ensure_dirs, save_dataframe, save_json
 
 
-# Basic model settings
 MODEL_NAME = "DummyRegressor"
 DUMMY_STRATEGY = "mean"
 
-# Folder structure for this model
 BASE_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = BASE_DIR / "results"
 PLOTS_DIR = RESULTS_DIR / "plots"
@@ -54,28 +49,20 @@ def save_predictions(
     test_pred,
 ) -> pd.DataFrame:
     """
-    Save predictions for train, validation, and test split in one file.
+    Save predictions for train, validation, and test in one file.
 
-    I keep only the most important columns:
-    - time index
-    - station id
-    - true target
-    - prediction
-    - residual
-
-    Residual = actual value - predicted value
+    We keep the most important columns so we can later inspect
+    predictions, residuals, and time patterns.
     """
     keep_cols = [TIME_COL, "start_station_id", TARGET_COL]
 
     def build_split_df(df_part: pd.DataFrame, preds, split_name: str) -> pd.DataFrame:
-        # Create one prediction table for one split
         out = df_part[keep_cols].copy()
         out["split"] = split_name
         out["prediction"] = preds
         out["residual"] = out[TARGET_COL] - out["prediction"]
         return out
 
-    # Combine all three splits into one dataframe
     pred_df = pd.concat(
         [
             build_split_df(train_df, train_pred, "train"),
@@ -85,45 +72,41 @@ def save_predictions(
         ignore_index=True,
     )
 
-    # Save combined predictions
     save_dataframe(pred_df, RESULTS_DIR / "predictions.csv", index=False)
     return pred_df
 
 
-def save_model_info(feature_cols: list[str], metrics: dict) -> None:
+def save_model_info(feature_names: list[str], metrics: dict) -> None:
     """
-    Save simple model metadata.
+    Save a small summary of the final model setup.
 
-    This is useful later so I can quickly check:
-    - which model was used
-    - which target was predicted
-    - which features were used
-    - where results and plots were saved
-    - final metrics
+    This helps us document which processed features were used.
     """
     model_info = {
         "model_name": MODEL_NAME,
         "strategy": DUMMY_STRATEGY,
         "target": TARGET_COL,
-        "feature_columns": feature_cols,
+        "feature_names": feature_names,
+        "n_final_features": len(feature_names),
+        "station_id_encoding": "one_hot",
+        "scaling_used": False,
         "results_dir": str(RESULTS_DIR),
         "plots_dir": str(PLOTS_DIR),
+        "model_file": str(MODEL_DIR / "dummy_regressor.joblib"),
+        "preprocessor_file": str(MODEL_DIR / "preprocessor.joblib"),
         "metrics": metrics,
     }
     save_json(model_info, MODEL_DIR / "model_info.json")
 
 
 def main() -> None:
-    # Make sure all output folders exist before saving anything
+    # Create output folders before the script starts.
     ensure_dirs(RESULTS_DIR, PLOTS_DIR, MODEL_DIR)
 
-    # Load the final modelling dataset
     print("Loading dataset...")
     df = load_dataset(DATA_PATH)
     print(f"Dataset shape: {df.shape}")
 
-    # Split the data in chronological order
-    # This is important because the problem is time-based
     print("Creating chronological split...")
     train_df, val_df, test_df = chronological_split(
         df=df,
@@ -137,57 +120,67 @@ def main() -> None:
     print(f"Validation shape: {val_df.shape}")
     print(f"Test shape: {test_df.shape}")
 
-    # Use only numeric feature columns and remove the target column
-    feature_cols = get_numeric_feature_columns(df, TARGET_COL)
-    print(f"Using {len(feature_cols)} numeric feature columns.")
+    print("Preparing feature matrices...")
+    # We now use the shared preprocessing step.
+    # Important:
+    # - start_station_id is treated as a categorical feature
+    # - it is one-hot encoded after the chronological split
+    # - numeric features are not scaled for the dummy model
+    (
+        preprocessor,
+        feature_names,
+        X_train_ready,
+        X_val_ready,
+        X_test_ready,
+        y_train,
+        y_val,
+        y_test,
+    ) = prepare_feature_matrices(
+        train_df=train_df,
+        val_df=val_df,
+        test_df=test_df,
+        target_col=TARGET_COL,
+        categorical_cols=["start_station_id"],
+        scale_numeric=False,
+    )
 
-    # Build X and y for all splits
-    X_train, y_train = split_X_y(train_df, feature_cols, TARGET_COL)
-    X_val, y_val = split_X_y(val_df, feature_cols, TARGET_COL)
-    X_test, y_test = split_X_y(test_df, feature_cols, TARGET_COL)
+    print(f"Using {len(feature_names)} final features after preprocessing.")
 
-    # Dummy regressor predicts a simple baseline
-    # Here it always predicts the mean of the training target
     model = DummyRegressor(strategy=DUMMY_STRATEGY)
 
-    # Fit the model and measure training time
     print("Training dummy regressor...")
     fit_start = time.perf_counter()
-    model.fit(X_train, y_train)
+    model.fit(X_train_ready, y_train)
     fit_time = time.perf_counter() - fit_start
 
-    # Predict on all splits and measure prediction time
     print("Generating predictions...")
     pred_start = time.perf_counter()
-    train_pred = model.predict(X_train)
-    val_pred = model.predict(X_val)
-    test_pred = model.predict(X_test)
+    train_pred = model.predict(X_train_ready)
+    val_pred = model.predict(X_val_ready)
+    test_pred = model.predict(X_test_ready)
     predict_time = time.perf_counter() - pred_start
 
-    # Store general run information
+    # Convert values to normal Python types so JSON export stays safe.
     metrics = {
         "model_name": MODEL_NAME,
         "strategy": DUMMY_STRATEGY,
         "target": TARGET_COL,
-        "n_features": len(feature_cols),
-        "n_train": len(train_df),
-        "n_validation": len(val_df),
-        "n_test": len(test_df),
-        "fit_time_seconds": fit_time,
-        "predict_time_seconds": predict_time,
+        "n_features": int(len(feature_names)),
+        "n_train": int(len(train_df)),
+        "n_validation": int(len(val_df)),
+        "n_test": int(len(test_df)),
+        "fit_time_seconds": float(fit_time),
+        "predict_time_seconds": float(predict_time),
     }
 
-    # Add regression metrics for each split
     metrics.update(compute_regression_metrics(y_train, train_pred, "train"))
     metrics.update(compute_regression_metrics(y_val, val_pred, "validation"))
     metrics.update(compute_regression_metrics(y_test, test_pred, "test"))
 
-    # Save metrics in csv and json format
     metrics_df = pd.DataFrame([metrics])
     save_dataframe(metrics_df, RESULTS_DIR / "metrics.csv", index=False)
     save_json(metrics, RESULTS_DIR / "metrics.json")
 
-    # Save detailed prediction output
     pred_df = save_predictions(
         train_df=train_df,
         val_df=val_df,
@@ -197,10 +190,12 @@ def main() -> None:
         test_pred=test_pred,
     )
 
-    # Create plots to inspect model behaviour
-    print("Creating plots...")
+    print("Saving model artifacts...")
+    # We also save the fitted preprocessor so the full pipeline can be reproduced.
+    joblib.dump(model, MODEL_DIR / "dummy_regressor.joblib")
+    joblib.dump(preprocessor, MODEL_DIR / "preprocessor.joblib")
 
-    # Plot actual values against predicted values
+    print("Creating plots...")
     plot_actual_vs_predicted(
         pred_df=pred_df,
         target_col=TARGET_COL,
@@ -212,7 +207,6 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    # Plot histogram of residuals
     plot_residuals_histogram(
         pred_df=pred_df,
         output_path=PLOTS_DIR / "residuals_histogram.png",
@@ -223,7 +217,6 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    # Plot residuals against predicted values
     plot_residuals_vs_predicted(
         pred_df=pred_df,
         output_path=PLOTS_DIR / "residuals_vs_predicted.png",
@@ -234,7 +227,6 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    # Plot prediction error over time
     plot_error_over_time(
         pred_df=pred_df,
         time_col=TIME_COL,
@@ -246,10 +238,8 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    # Save model metadata
-    save_model_info(feature_cols, metrics)
+    save_model_info(feature_names, metrics)
 
-    # Print final metrics in the terminal
     print("\nMetrics:")
     print(metrics_df.to_string(index=False))
 

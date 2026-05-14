@@ -29,26 +29,20 @@ from modelling.common.plotting import (
     plot_residuals_histogram,
     plot_residuals_vs_predicted,
 )
-from modelling.common.preprocessing import (
-    get_numeric_feature_columns,
-    load_dataset,
-    split_X_y,
-)
+from modelling.common.preprocessing import load_dataset, prepare_feature_matrices
 from modelling.common.split import chronological_split
 from modelling.common.utils import ensure_dirs, save_dataframe, save_json
 
 
-# Model name used in saved files and plot titles
 MODEL_NAME = "RandomForestRegressor"
 
-# Folder structure for this model
 BASE_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = BASE_DIR / "results"
 PLOTS_DIR = RESULTS_DIR / "plots"
 MODEL_DIR = BASE_DIR / "model"
 
-# Parameter settings that I want to test
-# I vary the number of trees and the tree complexity
+# We test a small parameter grid.
+# The goal is to control tree complexity and compare a few reasonable forest sizes.
 PARAM_GRID = [
     {
         "n_estimators": 100,
@@ -108,7 +102,6 @@ PARAM_GRID = [
     },
 ]
 
-# Use all CPU cores if possible
 N_JOBS = -1
 
 
@@ -123,26 +116,18 @@ def save_predictions(
     """
     Save predictions for train, validation, and test in one file.
 
-    I keep:
-    - time index
-    - station id
-    - true target
-    - prediction
-    - residual
-
-    Residual = actual value - predicted value
+    We keep station and time information so we can inspect
+    where the model performs well or badly later.
     """
     keep_cols = [TIME_COL, "start_station_id", TARGET_COL]
 
     def build_split_df(df_part: pd.DataFrame, preds, split_name: str) -> pd.DataFrame:
-        # Create one prediction table for one split
         out = df_part[keep_cols].copy()
         out["split"] = split_name
         out["prediction"] = preds
         out["residual"] = out[TARGET_COL] - out["prediction"]
         return out
 
-    # Combine all splits into one dataframe
     pred_df = pd.concat(
         [
             build_split_df(train_df, train_pred, "train"),
@@ -152,33 +137,33 @@ def save_predictions(
         ignore_index=True,
     )
 
-    # Save predictions to csv
     save_dataframe(pred_df, RESULTS_DIR / "predictions.csv", index=False)
     return pred_df
 
 
-def save_model_info(feature_cols: list[str], metrics: dict, best_params: dict) -> None:
+def save_model_info(feature_names: list[str], metrics: dict, best_params: dict) -> None:
     """
-    Save metadata for the final model run.
+    Save a summary of the final random forest setup.
 
-    This helps later to see:
-    - which model was used
-    - which target was predicted
-    - which features were used
-    - which parameter setting was best
-    - where the model file was saved
-    - final metrics
+    This file documents:
+    - which transformed features were used
+    - which forest parameters were selected
+    - where the saved artifacts are stored
     """
     model_info = {
         "model_name": MODEL_NAME,
         "target": TARGET_COL,
-        "feature_columns": feature_cols,
+        "feature_names": feature_names,
+        "n_final_features": len(feature_names),
+        "station_id_encoding": "one_hot",
+        "scaling_used": False,
         "best_params": best_params,
         "param_grid": PARAM_GRID,
         "n_jobs": N_JOBS,
         "results_dir": str(RESULTS_DIR),
         "plots_dir": str(PLOTS_DIR),
         "model_file": str(MODEL_DIR / "random_forest.joblib"),
+        "preprocessor_file": str(MODEL_DIR / "preprocessor.joblib"),
         "metrics": metrics,
     }
     save_json(model_info, MODEL_DIR / "model_info.json")
@@ -186,9 +171,7 @@ def save_model_info(feature_cols: list[str], metrics: dict, best_params: dict) -
 
 def plot_search_results(search_df: pd.DataFrame) -> None:
     """
-    Plot validation RMSE for all tested random forest settings.
-
-    I create one short label for each tested setup.
+    Plot validation RMSE for all tested forest settings.
     """
     plot_df = search_df.copy()
 
@@ -218,16 +201,13 @@ def plot_search_results(search_df: pd.DataFrame) -> None:
 
 
 def main() -> None:
-    # Make sure output folders exist
+    # Create output folders before the script starts.
     ensure_dirs(RESULTS_DIR, PLOTS_DIR, MODEL_DIR)
 
-    # Load the final reduced modelling dataset
     print("Loading dataset...")
     df = load_dataset(DATA_PATH)
     print(f"Dataset shape: {df.shape}")
 
-    # Create a chronological split
-    # This is important because the problem is time-based
     print("Creating chronological split...")
     train_df, val_df, test_df = chronological_split(
         df=df,
@@ -241,20 +221,37 @@ def main() -> None:
     print(f"Validation shape: {val_df.shape}")
     print(f"Test shape: {test_df.shape}")
 
-    # Keep only numeric feature columns
-    feature_cols = get_numeric_feature_columns(df, TARGET_COL)
-    print(f"Using {len(feature_cols)} numeric feature columns.")
+    print("Preparing feature matrices...")
+    # We use the shared preprocessing step for all models.
+    # Important:
+    # - start_station_id is treated as a categorical feature
+    # - it is one-hot encoded after the chronological split
+    # - numeric features are not scaled for a random forest
+    (
+        preprocessor,
+        feature_names,
+        X_train_ready,
+        X_val_ready,
+        X_test_ready,
+        y_train,
+        y_val,
+        y_test,
+    ) = prepare_feature_matrices(
+        train_df=train_df,
+        val_df=val_df,
+        test_df=test_df,
+        target_col=TARGET_COL,
+        categorical_cols=["start_station_id"],
+        scale_numeric=False,
+    )
 
-    # Build X and y for all splits
-    X_train, y_train = split_X_y(train_df, feature_cols, TARGET_COL)
-    X_val, y_val = split_X_y(val_df, feature_cols, TARGET_COL)
-    X_test, y_test = split_X_y(test_df, feature_cols, TARGET_COL)
+    print(f"Using {len(feature_names)} final features after preprocessing.")
 
     print("Searching best random forest parameters...")
-
-    # Test all parameter settings on the validation split
     search_results = []
 
+    # We train one forest for each parameter setting
+    # and compare validation performance.
     for params in PARAM_GRID:
         model = RandomForestRegressor(
             n_estimators=params["n_estimators"],
@@ -265,10 +262,10 @@ def main() -> None:
             random_state=RANDOM_STATE,
             n_jobs=N_JOBS,
         )
-        model.fit(X_train, y_train)
+        model.fit(X_train_ready, y_train)
 
-        train_pred_tmp = model.predict(X_train)
-        val_pred_tmp = model.predict(X_val)
+        train_pred_tmp = model.predict(X_train_ready)
+        val_pred_tmp = model.predict(X_val_ready)
 
         train_metrics_tmp = compute_regression_metrics(y_train, train_pred_tmp, "train")
         val_metrics_tmp = compute_regression_metrics(y_val, val_pred_tmp, "validation")
@@ -280,21 +277,20 @@ def main() -> None:
                 "min_samples_leaf": int(params["min_samples_leaf"]),
                 "min_samples_split": int(params["min_samples_split"]),
                 "max_features": params["max_features"],
-                "train_rmse": train_metrics_tmp["train_rmse"],
-                "validation_rmse": val_metrics_tmp["validation_rmse"],
-                "train_mae": train_metrics_tmp["train_mae"],
-                "validation_mae": val_metrics_tmp["validation_mae"],
+                "train_rmse": float(train_metrics_tmp["train_rmse"]),
+                "validation_rmse": float(val_metrics_tmp["validation_rmse"]),
+                "train_mae": float(train_metrics_tmp["train_mae"]),
+                "validation_mae": float(val_metrics_tmp["validation_mae"]),
             }
         )
 
-    # Save all search results and create a validation plot
     search_df = pd.DataFrame(search_results).sort_values(
         ["validation_rmse", "train_rmse"]
     )
     save_dataframe(search_df, RESULTS_DIR / "hyperparameter_search.csv", index=False)
     plot_search_results(search_df)
 
-    # Select the best setting based on validation RMSE
+    # We choose the setting with the lowest validation RMSE.
     best_row = search_df.iloc[0]
     best_params = {
         "n_estimators": int(best_row["n_estimators"]),
@@ -306,7 +302,6 @@ def main() -> None:
 
     print(f"Best params: {best_params}")
 
-    # Train final random forest with the selected parameters
     model = RandomForestRegressor(
         n_estimators=best_params["n_estimators"],
         max_depth=best_params["max_depth"],
@@ -319,45 +314,41 @@ def main() -> None:
 
     print("Training final random forest...")
     fit_start = time.perf_counter()
-    model.fit(X_train, y_train)
+    model.fit(X_train_ready, y_train)
     fit_time = time.perf_counter() - fit_start
 
-    # Predict on all splits and measure prediction time
     print("Generating predictions...")
     pred_start = time.perf_counter()
-    train_pred = model.predict(X_train)
-    val_pred = model.predict(X_val)
-    test_pred = model.predict(X_test)
+    train_pred = model.predict(X_train_ready)
+    val_pred = model.predict(X_val_ready)
+    test_pred = model.predict(X_test_ready)
     predict_time = time.perf_counter() - pred_start
 
-    # Store general run information
+    # Convert values to normal Python types so JSON export stays safe.
     metrics = {
         "model_name": MODEL_NAME,
         "target": TARGET_COL,
-        "best_n_estimators": best_params["n_estimators"],
+        "best_n_estimators": int(best_params["n_estimators"]),
         "best_max_depth": best_params["max_depth"],
-        "best_min_samples_leaf": best_params["min_samples_leaf"],
-        "best_min_samples_split": best_params["min_samples_split"],
+        "best_min_samples_leaf": int(best_params["min_samples_leaf"]),
+        "best_min_samples_split": int(best_params["min_samples_split"]),
         "best_max_features": best_params["max_features"],
-        "n_features": len(feature_cols),
-        "n_train": len(train_df),
-        "n_validation": len(val_df),
-        "n_test": len(test_df),
-        "fit_time_seconds": fit_time,
-        "predict_time_seconds": predict_time,
+        "n_features": int(len(feature_names)),
+        "n_train": int(len(train_df)),
+        "n_validation": int(len(val_df)),
+        "n_test": int(len(test_df)),
+        "fit_time_seconds": float(fit_time),
+        "predict_time_seconds": float(predict_time),
     }
 
-    # Add evaluation metrics for train, validation, and test
     metrics.update(compute_regression_metrics(y_train, train_pred, "train"))
     metrics.update(compute_regression_metrics(y_val, val_pred, "validation"))
     metrics.update(compute_regression_metrics(y_test, test_pred, "test"))
 
-    # Save metrics
     metrics_df = pd.DataFrame([metrics])
     save_dataframe(metrics_df, RESULTS_DIR / "metrics.csv", index=False)
     save_json(metrics, RESULTS_DIR / "metrics.json")
 
-    # Save detailed predictions
     pred_df = save_predictions(
         train_df=train_df,
         val_df=val_df,
@@ -368,23 +359,21 @@ def main() -> None:
     )
 
     print("Saving model artifacts...")
-
-    # Save the final trained model
+    # We save both the fitted model and the fitted preprocessor.
+    # This makes the full training pipeline reproducible later.
     joblib.dump(model, MODEL_DIR / "random_forest.joblib")
+    joblib.dump(preprocessor, MODEL_DIR / "preprocessor.joblib")
 
-    # Save feature importance values
-    # This helps to see which variables are most important for the forest
+    # Save feature importances for later inspection.
     importance_df = pd.DataFrame(
         {
-            "feature": feature_cols,
+            "feature": feature_names,
             "importance": model.feature_importances_,
         }
     ).sort_values("importance", ascending=False)
     save_dataframe(importance_df, RESULTS_DIR / "feature_importance.csv", index=False)
 
     print("Creating plots...")
-
-    # Plot actual values against predicted values
     plot_actual_vs_predicted(
         pred_df=pred_df,
         target_col=TARGET_COL,
@@ -396,7 +385,6 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    # Plot histogram of residuals
     plot_residuals_histogram(
         pred_df=pred_df,
         output_path=PLOTS_DIR / "residuals_histogram.png",
@@ -407,7 +395,6 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    # Plot residuals against predicted values
     plot_residuals_vs_predicted(
         pred_df=pred_df,
         output_path=PLOTS_DIR / "residuals_vs_predicted.png",
@@ -418,7 +405,6 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    # Plot prediction error over time
     plot_error_over_time(
         pred_df=pred_df,
         time_col=TIME_COL,
@@ -430,22 +416,23 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    # Plot feature importances of the final forest
+    # With station one-hot encoding we now have many more transformed features.
+    # We increase the figure height so the importance plot stays readable.
+    importance_plot_height = max(6, len(feature_names) * 0.20)
+
     plot_feature_importance(
-        feature_names=feature_cols,
+        feature_names=feature_names,
         importances=model.feature_importances_,
         output_path=PLOTS_DIR / "feature_importance.png",
         model_name=MODEL_NAME,
-        figsize=(10, 6),
+        figsize=(12, importance_plot_height),
         dpi=DPI,
         title_size=TITLE_SIZE,
         label_size=LABEL_SIZE,
     )
 
-    # Save metadata about the final run
-    save_model_info(feature_cols, metrics, best_params)
+    save_model_info(feature_names, metrics, best_params)
 
-    # Print final metrics in the terminal
     print("\nMetrics:")
     print(metrics_df.to_string(index=False))
 

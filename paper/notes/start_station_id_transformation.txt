@@ -1,0 +1,39 @@
+Transformation of start_station_id
+
+start_station_id was added to the modelling pipeline because demand is predicted at the station-day level. The model should therefore know for which station it makes a prediction.
+
+The raw station ID was not used as a normal numeric feature. Its number has no real numerical meaning. A larger station ID does not mean a larger demand value. Differences between station IDs are also not interpretable. Using the raw number would create a false order.
+
+For this reason, start_station_id was transformed with one-hot encoding. The original column was replaced by binary indicator columns, one for each station. This keeps the station information, but removes the false numeric structure.
+
+The encoding was done in the common preprocessing step, not inside individual model scripts. This keeps the setup identical across all models.
+
+The encoding was applied after the chronological train-validation-test split. The preprocessing object was fitted only on the training set and then applied to validation and test. This keeps the pipeline methodologically clean.
+
+The processed CSV file was not changed permanently. start_station_id remains a normal column in the stored dataset. The categorical transformation happens only during model preparation.
+
+Only start_station_id was treated as categorical. The remaining weather and time variables stayed numeric.
+
+For models that need scaling, such as:
+- Linear Regression
+- Ridge
+- Lasso
+- KNN
+- Neural Network
+
+only the numeric features were scaled. The one-hot encoded station columns were not scaled.
+
+For tree-based models, such as:
+- Decision Tree
+- Random Forest
+- Gradient Boosting
+
+no scaling was used.
+
+This change was introduced because station identity is relevant for prediction. Without station information, the models can only use weather and time variables. Then they cannot learn station-specific demand differences directly.
+
+In summary, start_station_id was converted from a raw numeric ID to a one-hot encoded categorical feature because:
+- the ID value itself has no numeric meaning,
+- the station identity is important for prediction,
+- all models should use the same station information,
+- and the comparison between models should stay fair.

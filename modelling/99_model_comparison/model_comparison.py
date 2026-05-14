@@ -8,22 +8,21 @@ import numpy as np
 import pandas as pd
 
 
-# Base project paths.
+# Base paths
 BASE_DIR = Path(__file__).resolve().parents[2]
 MODELLING_DIR = BASE_DIR / "modelling"
 
-# Output folders for the model comparison.
 THIS_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = THIS_DIR / "results"
 PLOTS_DIR = RESULTS_DIR / "plots"
 
-# Plot settings.
+# Plot settings
 FIGSIZE = (10, 5)
 DPI = 150
 TITLE_SIZE = 13
 LABEL_SIZE = 11
 
-# Metrics that will be plotted for all models.
+# Metrics that we want to compare across models
 METRIC_SPECS = [
     {"name": "mae", "title": "MAE Comparison"},
     {"name": "rmse", "title": "RMSE Comparison"},
@@ -33,15 +32,33 @@ METRIC_SPECS = [
     {"name": "explained_variance", "title": "Explained Variance Comparison"},
 ]
 
+# Fixed model order for all overview plots
+# This keeps the plots chronological and consistent.
+MODEL_ORDER = [
+    "00_dummy_regressor",
+    "01_linear_regression",
+    "02_ridge_regression",
+    "03_lasso_regression",
+    "04_decision_tree",
+    "05_knn_regressor",
+    "06_random_forest",
+    "07_gradient_boosting",
+    "08_neural_network",
+]
+
 
 def ensure_dirs(*paths: Path) -> None:
-    """Create folders if they do not exist yet."""
+    """
+    Create folders if they do not exist.
+    """
     for path in paths:
         path.mkdir(parents=True, exist_ok=True)
 
 
 def _json_converter(obj):
-    """Convert numpy and path objects so they can be saved as JSON."""
+    """
+    Convert numpy types and Path objects so they can be saved as JSON.
+    """
     if isinstance(obj, Path):
         return str(obj)
     if isinstance(obj, (np.integer,)):
@@ -52,20 +69,21 @@ def _json_converter(obj):
         return bool(obj)
     if isinstance(obj, np.ndarray):
         return obj.tolist()
+
     raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
 
 def save_json(data: dict, path: Path) -> None:
-    """Save a dictionary as a JSON file."""
+    """
+    Save a dictionary as a JSON file.
+    """
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, default=_json_converter)
 
 
 def format_model_name(folder_name: str, model_name: str | None) -> str:
     """
-    Create short display names for plots and tables.
-
-    We use fixed names for known model folders so all plots look clean and consistent.
+    Create short model labels for plots and tables.
     """
     mapping = {
         "00_dummy_regressor": "Dummy",
@@ -77,7 +95,6 @@ def format_model_name(folder_name: str, model_name: str | None) -> str:
         "06_random_forest": "Random Forest",
         "07_gradient_boosting": "Gradient Boosting",
         "08_neural_network": "Neural Network",
-        "08_xgboost": "XGBoost",
     }
 
     if folder_name in mapping:
@@ -92,9 +109,11 @@ def format_model_name(folder_name: str, model_name: str | None) -> str:
 
 def collect_model_metrics() -> tuple[pd.DataFrame, list[str]]:
     """
-    Read the metrics.csv file from every model folder.
+    Collect the metrics.csv file from every model folder.
 
-    Only folders with a valid metrics file are included in the comparison.
+    Returns:
+    - combined metrics dataframe
+    - list of skipped folders without usable metrics
     """
     rows: list[pd.DataFrame] = []
     skipped_models: list[str] = []
@@ -131,12 +150,27 @@ def collect_model_metrics() -> tuple[pd.DataFrame, list[str]]:
     return combined, skipped_models
 
 
+def sort_models_chronologically(metrics_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Sort models in the fixed project order.
+
+    This is important because the user wanted the overview plots
+    to stay chronological and not be reordered by performance.
+    """
+    df = metrics_df.copy()
+
+    order_map = {name: i for i, name in enumerate(MODEL_ORDER)}
+    df["sort_order"] = df["folder_name"].map(order_map).fillna(999)
+
+    df = df.sort_values(["sort_order", "display_name"]).reset_index(drop=True)
+    df = df.drop(columns=["sort_order"])
+
+    return df
+
+
 def add_rank_columns(metrics_df: pd.DataFrame) -> pd.DataFrame:
     """
-    Add ranking columns based on important validation and test metrics.
-
-    Lower RMSE and MAE are better.
-    Higher R² is better.
+    Add ranking columns for important validation and test metrics.
     """
     df = metrics_df.copy()
 
@@ -163,6 +197,7 @@ def build_rankings(metrics_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame
     Build separate ranking tables for validation and test performance.
 
     These ranking tables are sorted by performance.
+    The overview plots are not.
     """
     validation_rank = metrics_df.sort_values(
         by=["validation_rmse", "validation_mae", "validation_mape"]
@@ -184,10 +219,10 @@ def plot_grouped_metric_highlight(
     output_path: Path,
 ) -> None:
     """
-    Plot one grouped bar chart for train, validation, and test values.
+    Plot one grouped comparison chart for one metric.
 
-    The input order is kept unchanged.
-    This is important because overview plots should stay in chronological model order.
+    We keep the model order exactly as it appears in metrics_df.
+    That means the bars stay chronological across all overview plots.
     """
     plot_df = metrics_df.copy()
     x = np.arange(len(plot_df))
@@ -242,10 +277,9 @@ def plot_single_metric_highlight(
     higher_is_better: bool = False,
 ) -> None:
     """
-    Plot a single metric as one bar chart.
+    Plot one single metric for all models.
 
-    The order of metrics_df is kept unchanged.
-    This function is used for overview plots that should remain chronological.
+    This function keeps the model order from metrics_df unchanged.
     """
     plot_df = metrics_df.copy()
     values = plot_df[metric_col].to_numpy()
@@ -277,7 +311,7 @@ def plot_single_metric_highlight(
 
 def plot_overview_dashboard(metrics_df: pd.DataFrame, output_path: Path) -> None:
     """
-    Create one dashboard with four important overview plots.
+    Create one dashboard with the most important validation and test metrics.
 
     The model order stays chronological.
     """
@@ -321,9 +355,10 @@ def plot_overview_dashboard(metrics_df: pd.DataFrame, output_path: Path) -> None
 
 def plot_rank_sum(metrics_df: pd.DataFrame, rank_col: str, title: str, output_path: Path) -> None:
     """
-    Plot the rank sum comparison.
+    Plot rank sums.
 
-    Here sorting by performance is intended, because this is a ranking plot.
+    Here we sort by rank sum because the whole purpose of this chart
+    is to show the ranking result directly.
     """
     plot_df = metrics_df.sort_values(rank_col).reset_index(drop=True)
     x = np.arange(len(plot_df))
@@ -350,7 +385,9 @@ def build_summary(
     test_rank_df: pd.DataFrame,
     skipped_models: list[str],
 ) -> dict:
-    """Build a compact JSON summary of the comparison results."""
+    """
+    Build a compact summary JSON with the most important comparison results.
+    """
     best_validation = validation_rank_df.iloc[0]
     best_test = test_rank_df.iloc[0]
 
@@ -394,27 +431,8 @@ def main() -> None:
     print("Collecting model metrics...")
     metrics_df, skipped_models = collect_model_metrics()
 
-    # This order defines the chronological order of the models.
-    # All overview plots should follow this order.
-    preferred_order = [
-        "00_dummy_regressor",
-        "01_linear_regression",
-        "02_ridge_regression",
-        "03_lasso_regression",
-        "04_decision_tree",
-        "05_knn_regressor",
-        "06_random_forest",
-        "07_gradient_boosting",
-        "08_neural_network",
-        "08_xgboost",
-    ]
-
-    order_map = {name: i for i, name in enumerate(preferred_order)}
-    metrics_df["sort_order"] = metrics_df["folder_name"].map(order_map).fillna(999)
-    metrics_df = metrics_df.sort_values(["sort_order", "display_name"]).reset_index(drop=True)
-    metrics_df = metrics_df.drop(columns=["sort_order"])
-
-    # Add ranking columns after the chronological sorting.
+    # Keep the main comparison dataframe in chronological project order.
+    metrics_df = sort_models_chronologically(metrics_df)
     metrics_df = add_rank_columns(metrics_df)
 
     print(f"Models found: {len(metrics_df)}")
@@ -423,15 +441,15 @@ def main() -> None:
         for name in skipped_models:
             print(f"  - {name}")
 
-    # Save the full metrics table.
+    # Save full metrics table
     metrics_df.to_csv(RESULTS_DIR / "all_model_metrics.csv", index=False)
 
-    # Build performance rankings.
+    # Build separate ranking tables
     validation_rank_df, test_rank_df = build_rankings(metrics_df)
     validation_rank_df.to_csv(RESULTS_DIR / "model_ranking_validation_rmse.csv", index=False)
     test_rank_df.to_csv(RESULTS_DIR / "model_ranking_test_rmse.csv", index=False)
 
-    # Save a smaller table with the most important comparison columns.
+    # Save a smaller comparison table for quick reading
     compact_cols = [
         "display_name",
         "folder_name",
@@ -452,7 +470,7 @@ def main() -> None:
 
     print("Creating comparison plots...")
 
-    # These are overview plots and stay in chronological order.
+    # Main overview plots in chronological order
     for spec in METRIC_SPECS:
         plot_grouped_metric_highlight(
             metrics_df=metrics_df,
@@ -479,12 +497,7 @@ def main() -> None:
         higher_is_better=False,
     )
 
-    plot_overview_dashboard(
-        metrics_df=metrics_df,
-        output_path=PLOTS_DIR / "model_comparison_overview.png",
-    )
-
-    # These are ranking plots and are intentionally sorted by performance.
+    # Ranking plots
     plot_single_metric_highlight(
         metrics_df=validation_rank_df,
         metric_col="validation_rmse",
@@ -517,7 +530,11 @@ def main() -> None:
         output_path=PLOTS_DIR / "test_rank_sum.png",
     )
 
-    # Save a JSON summary.
+    plot_overview_dashboard(
+        metrics_df=metrics_df,
+        output_path=PLOTS_DIR / "model_comparison_overview.png",
+    )
+
     summary = build_summary(metrics_df, validation_rank_df, test_rank_df, skipped_models)
     save_json(summary, RESULTS_DIR / "comparison_summary.json")
 

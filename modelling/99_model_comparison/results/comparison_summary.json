@@ -15,25 +15,25 @@
   "best_by_validation_rmse": {
     "display_name": "Gradient Boosting",
     "folder_name": "07_gradient_boosting",
-    "validation_rmse": 29.722961964297976,
-    "validation_mae": 22.138400621775705,
-    "validation_r2": 0.3627425397711069
+    "validation_rmse": 25.609984217325295,
+    "validation_mae": 19.81298797955466,
+    "validation_r2": 0.5269038884275826
   },
   "best_by_test_rmse": {
-    "display_name": "Gradient Boosting",
-    "folder_name": "07_gradient_boosting",
-    "test_rmse": 32.440621282007115,
-    "test_mae": 23.991900356503027,
-    "test_r2": 0.3200083028037136
+    "display_name": "Neural Network",
+    "folder_name": "08_neural_network",
+    "test_rmse": 28.957637430981304,
+    "test_mae": 22.65746184322585,
+    "test_r2": 0.4581843610456174
   },
   "best_by_validation_rank_sum": {
     "display_name": "Gradient Boosting",
     "folder_name": "07_gradient_boosting",
-    "rank_sum_validation": 3
+    "rank_sum_validation": 4
   },
   "best_by_test_rank_sum": {
-    "display_name": "Gradient Boosting",
-    "folder_name": "07_gradient_boosting",
-    "rank_sum_test": 3
+    "display_name": "Neural Network",
+    "folder_name": "08_neural_network",
+    "rank_sum_test": 4
   }
 }

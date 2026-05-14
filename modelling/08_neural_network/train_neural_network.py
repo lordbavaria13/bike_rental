@@ -28,46 +28,79 @@ from modelling.common.plotting import (
     plot_residuals_histogram,
     plot_residuals_vs_predicted,
 )
-from modelling.common.preprocessing import (
-    get_numeric_feature_columns,
-    load_dataset,
-    scale_features,
-    split_X_y,
-)
+from modelling.common.preprocessing import load_dataset, prepare_feature_matrices
 from modelling.common.split import chronological_split
 from modelling.common.utils import ensure_dirs, save_dataframe, save_json
 
 
-# Name of the model that will appear in saved results.
 MODEL_NAME = "NeuralNetworkRegressor"
 
-# Paths for the current model folder and its outputs.
 BASE_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = BASE_DIR / "results"
 PLOTS_DIR = RESULTS_DIR / "plots"
 MODEL_DIR = BASE_DIR / "model"
 
-# We only test a small grid of neural network settings.
-# This keeps the search simple and makes the setup comparable to the other models.
+# We test a small set of reasonable neural network settings.
+# hidden_layer_sizes controls the network architecture.
+# activation controls the non-linear transformation.
+# alpha is the L2 regularization strength.
+# learning_rate_init is the starting learning rate.
 PARAM_GRID = [
-    {"hidden_layer_sizes": (32, 16), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.0005},
-    {"hidden_layer_sizes": (32, 16), "activation": "tanh", "alpha": 0.001, "learning_rate_init": 0.0005},
-    {"hidden_layer_sizes": (64, 32), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.0005},
-    {"hidden_layer_sizes": (64, 32), "activation": "tanh", "alpha": 0.001, "learning_rate_init": 0.0005},
-    {"hidden_layer_sizes": (64, 32), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (64, 32), "activation": "tanh", "alpha": 0.001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (64, 32), "activation": "relu", "alpha": 0.0001, "learning_rate_init": 0.0005},
-    {"hidden_layer_sizes": (64, 32), "activation": "relu", "alpha": 0.001, "learning_rate_init": 0.0005},
-    {"hidden_layer_sizes": (64, 32), "activation": "relu", "alpha": 0.0001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (64, 32), "activation": "relu", "alpha": 0.001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (128, 64), "activation": "tanh", "alpha": 0.001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (128, 64), "activation": "relu", "alpha": 0.001, "learning_rate_init": 0.001},
+    {
+        "hidden_layer_sizes": (64,),
+        "activation": "relu",
+        "alpha": 0.0001,
+        "learning_rate_init": 0.001,
+    },
+    {
+        "hidden_layer_sizes": (128,),
+        "activation": "relu",
+        "alpha": 0.0001,
+        "learning_rate_init": 0.001,
+    },
+    {
+        "hidden_layer_sizes": (128, 64),
+        "activation": "relu",
+        "alpha": 0.0001,
+        "learning_rate_init": 0.001,
+    },
+    {
+        "hidden_layer_sizes": (64,),
+        "activation": "tanh",
+        "alpha": 0.0001,
+        "learning_rate_init": 0.001,
+    },
+    {
+        "hidden_layer_sizes": (128,),
+        "activation": "tanh",
+        "alpha": 0.0001,
+        "learning_rate_init": 0.001,
+    },
+    {
+        "hidden_layer_sizes": (128, 64),
+        "activation": "tanh",
+        "alpha": 0.0001,
+        "learning_rate_init": 0.001,
+    },
+    {
+        "hidden_layer_sizes": (128, 64),
+        "activation": "relu",
+        "alpha": 0.001,
+        "learning_rate_init": 0.001,
+    },
+    {
+        "hidden_layer_sizes": (128, 64),
+        "activation": "tanh",
+        "alpha": 0.001,
+        "learning_rate_init": 0.001,
+    },
 ]
 
-# Fixed training settings for all tested neural networks.
 SOLVER = "adam"
-MAX_ITER = 500
-EARLY_STOPPING = False
+MAX_ITER = 400
+EARLY_STOPPING = True
+VALIDATION_FRACTION = 0.1
+N_ITER_NO_CHANGE = 20
 
 
 def save_predictions(
@@ -81,12 +114,12 @@ def save_predictions(
     """
     Save predictions for train, validation, and test in one file.
 
-    We also save residuals because they are needed for later analysis and plots.
+    We keep station and time information so we can inspect
+    where the model performs well or badly later.
     """
     keep_cols = [TIME_COL, "start_station_id", TARGET_COL]
 
     def build_split_df(df_part: pd.DataFrame, preds, split_name: str) -> pd.DataFrame:
-        # Keep only the most important columns and add prediction info.
         out = df_part[keep_cols].copy()
         out["split"] = split_name
         out["prediction"] = preds
@@ -106,16 +139,16 @@ def save_predictions(
     return pred_df
 
 
-def save_model_info(feature_cols: list[str], metrics: dict, best_params: dict) -> None:
+def save_model_info(feature_names: list[str], metrics: dict, best_params: dict) -> None:
     """
-    Save a summary file with the final model setup.
-
-    This makes it easier to understand later which settings were used.
+    Save a summary of the final neural network setup.
     """
     model_info = {
         "model_name": MODEL_NAME,
         "target": TARGET_COL,
-        "feature_columns": feature_cols,
+        "feature_names": feature_names,
+        "n_final_features": len(feature_names),
+        "station_id_encoding": "one_hot",
         "scaling_used": True,
         "best_params": {
             "hidden_layer_sizes": list(best_params["hidden_layer_sizes"]),
@@ -135,10 +168,12 @@ def save_model_info(feature_cols: list[str], metrics: dict, best_params: dict) -
         "solver": SOLVER,
         "max_iter": MAX_ITER,
         "early_stopping": EARLY_STOPPING,
+        "validation_fraction": VALIDATION_FRACTION,
+        "n_iter_no_change": N_ITER_NO_CHANGE,
         "results_dir": str(RESULTS_DIR),
         "plots_dir": str(PLOTS_DIR),
         "model_file": str(MODEL_DIR / "neural_network.joblib"),
-        "scaler_file": str(MODEL_DIR / "scaler.joblib"),
+        "preprocessor_file": str(MODEL_DIR / "preprocessor.joblib"),
         "metrics": metrics,
     }
     save_json(model_info, MODEL_DIR / "model_info.json")
@@ -147,24 +182,22 @@ def save_model_info(feature_cols: list[str], metrics: dict, best_params: dict) -
 def plot_search_results(search_df: pd.DataFrame) -> None:
     """
     Plot validation RMSE for all tested parameter settings.
-
-    This plot helps us see which neural network setup worked best on validation data.
     """
     plot_df = search_df.copy()
 
     plot_df["label"] = plot_df.apply(
         lambda row: (
-            f"layers={row['hidden_layer_sizes']} | "
-            f"act={row['activation']} | "
-            f"alpha={row['alpha']} | "
-            f"lr={row['learning_rate_init']}"
+            f"{row['hidden_layer_sizes']}"
+            f" | {row['activation']}"
+            f" | a={row['alpha']}"
+            f" | lr={row['learning_rate_init']}"
         ),
         axis=1,
     )
 
     x_pos = list(range(len(plot_df)))
 
-    plt.figure(figsize=(14, 5))
+    plt.figure(figsize=(13, 5))
     plt.plot(x_pos, plot_df["validation_rmse"].to_numpy(), marker="o")
     plt.xticks(x_pos, plot_df["label"].tolist(), rotation=45, ha="right")
     plt.title(
@@ -178,48 +211,28 @@ def plot_search_results(search_df: pd.DataFrame) -> None:
     plt.close()
 
 
-def plot_loss_curves(loss_curves: list[dict], top_n: int = 3) -> None:
+def plot_loss_curve(loss_values: list[float], output_path: Path) -> None:
     """
-    Plot the training loss curves of the best tested parameter settings.
-
-    We only plot the top few models to keep the figure readable.
+    Plot the training loss over epochs for the final neural network.
     """
-    top_curves = sorted(loss_curves, key=lambda x: x["validation_rmse"])[:top_n]
+    if not loss_values:
+        return
 
-    plt.figure(figsize=(10, 6))
-    for curve_info in top_curves:
-        plt.plot(curve_info["loss_curve"], label=curve_info["label"])
+    x_pos = list(range(1, len(loss_values) + 1))
 
-    plt.title(f"{MODEL_NAME} - Training Loss Curves", fontsize=TITLE_SIZE)
-    plt.xlabel("iteration", fontsize=LABEL_SIZE)
-    plt.ylabel("training loss", fontsize=LABEL_SIZE)
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(PLOTS_DIR / "training_loss_curves.png", dpi=DPI)
-    plt.close()
-
-
-def plot_final_training_loss(loss_curve: list[float]) -> None:
-    """
-    Plot the final model's training loss over iterations.
-
-    This gives a quick view of whether the optimization became more stable over time.
-    """
     plt.figure(figsize=FIGSIZE)
-    plt.plot(loss_curve, marker="o", markersize=2)
-    plt.title(f"{MODEL_NAME} - Final Training Loss", fontsize=TITLE_SIZE)
-    plt.xlabel("iteration", fontsize=LABEL_SIZE)
-    plt.ylabel("training loss", fontsize=LABEL_SIZE)
+    plt.plot(x_pos, loss_values, marker="o", markersize=2)
+    plt.title(f"{MODEL_NAME} - Training Loss Curve", fontsize=TITLE_SIZE)
+    plt.xlabel("Iteration", fontsize=LABEL_SIZE)
+    plt.ylabel("Loss", fontsize=LABEL_SIZE)
     plt.tight_layout()
-    plt.savefig(PLOTS_DIR / "final_training_loss.png", dpi=DPI)
+    plt.savefig(output_path, dpi=DPI)
     plt.close()
 
 
 def build_model(params: dict) -> MLPRegressor:
     """
-    Create one neural network model from a parameter dictionary.
-
-    We use the same base settings for every run so that the comparison stays fair.
+    Build one neural network with the chosen parameter setting.
     """
     return MLPRegressor(
         hidden_layer_sizes=params["hidden_layer_sizes"],
@@ -229,12 +242,14 @@ def build_model(params: dict) -> MLPRegressor:
         solver=SOLVER,
         max_iter=MAX_ITER,
         early_stopping=EARLY_STOPPING,
+        validation_fraction=VALIDATION_FRACTION,
+        n_iter_no_change=N_ITER_NO_CHANGE,
         random_state=RANDOM_STATE,
     )
 
 
 def main() -> None:
-    # Make sure all output folders exist before we start.
+    # Create output folders before the script starts.
     ensure_dirs(RESULTS_DIR, PLOTS_DIR, MODEL_DIR)
 
     print("Loading dataset...")
@@ -254,46 +269,47 @@ def main() -> None:
     print(f"Validation shape: {val_df.shape}")
     print(f"Test shape: {test_df.shape}")
 
-    # Use exactly the same numeric feature selection as in the other models.
-    # This keeps the experiment comparable.
-    feature_cols = get_numeric_feature_columns(df, TARGET_COL)
-    print(f"Using {len(feature_cols)} numeric feature columns.")
-
-    # Split each dataset into X and y.
-    X_train, y_train = split_X_y(train_df, feature_cols, TARGET_COL)
-    X_val, y_val = split_X_y(val_df, feature_cols, TARGET_COL)
-    X_test, y_test = split_X_y(test_df, feature_cols, TARGET_COL)
-
-    print("Scaling features...")
-    # Neural networks need scaled input values.
-    # We fit the scaler only on the training set and apply it to validation and test.
-    scaler, X_train_scaled, X_val_scaled, X_test_scaled = scale_features(
-        X_train, X_val, X_test
+    print("Preparing feature matrices...")
+    # We use the shared preprocessing step for all models.
+    # Important:
+    # - start_station_id is treated as a categorical feature
+    # - it is one-hot encoded after the chronological split
+    # - numeric features are scaled because neural networks are scale-sensitive
+    (
+        preprocessor,
+        feature_names,
+        X_train_ready,
+        X_val_ready,
+        X_test_ready,
+        y_train,
+        y_val,
+        y_test,
+    ) = prepare_feature_matrices(
+        train_df=train_df,
+        val_df=val_df,
+        test_df=test_df,
+        target_col=TARGET_COL,
+        categorical_cols=["start_station_id"],
+        scale_numeric=True,
     )
+
+    print(f"Using {len(feature_names)} final features after preprocessing.")
 
     print("Searching best neural network parameters...")
     search_results = []
-    loss_curves = []
 
-    # Train one model for each parameter setting and evaluate it on validation data.
+    # We train one neural network for each parameter setting
+    # and compare validation performance.
     for params in PARAM_GRID:
         model = build_model(params)
-        model.fit(X_train_scaled, y_train)
+        model.fit(X_train_ready, y_train)
 
-        train_pred_tmp = model.predict(X_train_scaled)
-        val_pred_tmp = model.predict(X_val_scaled)
+        train_pred_tmp = model.predict(X_train_ready)
+        val_pred_tmp = model.predict(X_val_ready)
 
         train_metrics_tmp = compute_regression_metrics(y_train, train_pred_tmp, "train")
         val_metrics_tmp = compute_regression_metrics(y_val, val_pred_tmp, "validation")
 
-        label = (
-            f"layers={params['hidden_layer_sizes']} | "
-            f"act={params['activation']} | "
-            f"alpha={params['alpha']} | "
-            f"lr={params['learning_rate_init']}"
-        )
-
-        # Save the most important results from this parameter run.
         search_results.append(
             {
                 "hidden_layer_sizes": str(params["hidden_layer_sizes"]),
@@ -305,29 +321,17 @@ def main() -> None:
                 "train_mae": float(train_metrics_tmp["train_mae"]),
                 "validation_mae": float(val_metrics_tmp["validation_mae"]),
                 "iterations_used": int(model.n_iter_),
-                "final_training_loss": float(model.loss_curve_[-1]),
+                "final_training_loss": float(model.loss_),
             }
         )
 
-        # Save the training loss curve so we can compare learning behaviour.
-        loss_curves.append(
-            {
-                "label": label,
-                "validation_rmse": float(val_metrics_tmp["validation_rmse"]),
-                "loss_curve": model.loss_curve_,
-            }
-        )
-
-    # Sort models by validation RMSE.
-    # The model with the lowest validation RMSE is selected as the final model.
     search_df = pd.DataFrame(search_results).sort_values(
         ["validation_rmse", "train_rmse"]
     )
     save_dataframe(search_df, RESULTS_DIR / "hyperparameter_search.csv", index=False)
-
     plot_search_results(search_df)
-    plot_loss_curves(loss_curves, top_n=3)
 
+    # We choose the setting with the lowest validation RMSE.
     best_row = search_df.iloc[0]
     best_params = {
         "hidden_layer_sizes": eval(best_row["hidden_layer_sizes"]),
@@ -338,22 +342,21 @@ def main() -> None:
 
     print(f"Best params: {best_params}")
 
-    # Train the final model again with the best settings.
     model = build_model(best_params)
 
     print("Training final neural network...")
     fit_start = time.perf_counter()
-    model.fit(X_train_scaled, y_train)
+    model.fit(X_train_ready, y_train)
     fit_time = time.perf_counter() - fit_start
 
     print("Generating predictions...")
     pred_start = time.perf_counter()
-    train_pred = model.predict(X_train_scaled)
-    val_pred = model.predict(X_val_scaled)
-    test_pred = model.predict(X_test_scaled)
+    train_pred = model.predict(X_train_ready)
+    val_pred = model.predict(X_val_ready)
+    test_pred = model.predict(X_test_ready)
     predict_time = time.perf_counter() - pred_start
 
-    # Save metadata and performance numbers.
+    # Convert values to normal Python types so JSON export stays safe.
     metrics = {
         "model_name": MODEL_NAME,
         "target": TARGET_COL,
@@ -365,13 +368,13 @@ def main() -> None:
         "max_iter": MAX_ITER,
         "early_stopping": EARLY_STOPPING,
         "iterations_used": int(model.n_iter_),
-        "final_training_loss": float(model.loss_curve_[-1]),
-        "n_features": len(feature_cols),
-        "n_train": len(train_df),
-        "n_validation": len(val_df),
-        "n_test": len(test_df),
-        "fit_time_seconds": fit_time,
-        "predict_time_seconds": predict_time,
+        "final_training_loss": float(model.loss_),
+        "n_features": int(len(feature_names)),
+        "n_train": int(len(train_df)),
+        "n_validation": int(len(val_df)),
+        "n_test": int(len(test_df)),
+        "fit_time_seconds": float(fit_time),
+        "predict_time_seconds": float(predict_time),
     }
 
     metrics.update(compute_regression_metrics(y_train, train_pred, "train"))
@@ -392,14 +395,12 @@ def main() -> None:
     )
 
     print("Saving model artifacts...")
-    # Save the trained model and the scaler so the predictions can be reproduced later.
+    # We save both the fitted model and the fitted preprocessor.
+    # This makes the full training pipeline reproducible later.
     joblib.dump(model, MODEL_DIR / "neural_network.joblib")
-    joblib.dump(scaler, MODEL_DIR / "scaler.joblib")
+    joblib.dump(preprocessor, MODEL_DIR / "preprocessor.joblib")
 
     print("Creating plots...")
-    # Create the same main diagnostic plots that we used for the other models.
-    plot_final_training_loss(model.loss_curve_)
-
     plot_actual_vs_predicted(
         pred_df=pred_df,
         target_col=TARGET_COL,
@@ -442,7 +443,12 @@ def main() -> None:
         label_size=LABEL_SIZE,
     )
 
-    save_model_info(feature_cols, metrics, best_params)
+    plot_loss_curve(
+        loss_values=model.loss_curve_,
+        output_path=PLOTS_DIR / "training_loss_curve.png",
+    )
+
+    save_model_info(feature_names, metrics, best_params)
 
     print("\nMetrics:")
     print(metrics_df.to_string(index=False))
