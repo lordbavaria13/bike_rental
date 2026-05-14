@@ -1,0 +1,75 @@
+\section{Dataset and Feature Engineering}
+\label{sec:dataset}
+
+\subsection{Data Origin and Structure}
+The dataset used in this project is based on the Capital Bikeshare system from the Washington D.C. area. It contains historical bike rental and weather data from May 2020 to August 2024. In our final analytical table, each row represents exactly one day at one specific station. This daily aggregation aligns the demand outcome with the available weather data.
+
+\subsection{The Target Variable}
+The main goal of our machine learning models is to predict the daily bike demand. Therefore, the task was formulated as a clean regression problem with a single numeric target variable.
+
+\begin{table}[htbp]
+\centering
+\caption{Target Variable}
+\label{tab:target}
+\begin{tabularx}{\columnwidth}{l X}
+\toprule
+\textbf{Column Name} & \textbf{Description} \\
+\midrule
+\texttt{total\_rentals} & The absolute number of bikes rented at a specific station on a given day. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Temporal and Weather Features}
+To make accurate predictions, the models need to understand seasonal patterns and weather conditions, as both strongly influence the decision to ride a bike. We replaced string-based dates with numerical time representations to make them trainable for our models.
+
+\begin{table}[htbp]
+\centering
+\caption{Temporal Features}
+\label{tab:temporal}
+\begin{tabularx}{\columnwidth}{l X}
+\toprule
+\textbf{Column Name} & \textbf{Description} \\
+\midrule
+\texttt{year} & The year of the observation. \\
+\texttt{month} & The month (1 to 12) to capture seasonal changes. \\
+\texttt{weekday} & The day of the week (0 to 6) to separate commuting days from weekends. \\
+\texttt{time\_idx} & A continuous chronological index. It helps the model to recognize long-term trends over the years. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The dataset also contains several daily aggregated weather metrics. Before finalizing the features, we analyzed correlations to remove redundant weather variables (like \texttt{feelslike} temperature).
+
+\begin{table}[htbp]
+\centering
+\caption{Weather Features}
+\label{tab:weather}
+\begin{tabularx}{\columnwidth}{l X}
+\toprule
+\textbf{Column Name} & \textbf{Description} \\
+\midrule
+\texttt{tempmax} & The maximum temperature of the day (in Celsius). \\
+\texttt{humidity} & The average relative humidity (in percent). \\
+\texttt{precip} & The absolute amount of precipitation (in mm). \\
+\texttt{precipcover} & The percentage of the day with precipitation. \\
+\texttt{cloudcover} & The average cloud cover (in percent). \\
+\texttt{windspeed} & The measured wind speed. \\
+\texttt{visibility} & The average visibility distance. \\
+\texttt{sealevelpressure} & The atmospheric pressure at sea level. \\
+\texttt{uvindex} & The strength of the UV radiation. \\
+\texttt{sunset\_minutes} & The time of sunset, expressed in minutes from midnight. This acts as an indicator for daylight duration. \\
+\texttt{snow} & The amount of fresh snow (in mm). \\
+\texttt{snowdepth} & The total depth of snow on the ground (in mm). \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Station Filtering and One-Hot Encoding}
+Instead of using all available stations, we decided to focus on the 20 most popular start stations. This was a methodological decision to reduce noise from rare stations and to provide a stronger, more stable signal for the models. It also reduced the data size and allowed for faster experimentation.
+
+In earlier stages, the station identity was stored as a single numeric identifier (\texttt{start\_station\_id}). However, this creates a major problem: machine learning models might wrongly interpret this ID as a continuous mathematical value, assuming that a meaningful distance exists between the numbers. 
+    
+To fix this weakness, we removed the ID column and applied one-hot encoding. We created 20 separate binary columns, one for each of the top 20 stations.
+
+TODO: Reduced Data and why implementieren! (Tabellen / Grafiken verwenden)
