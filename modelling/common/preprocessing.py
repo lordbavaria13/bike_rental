@@ -6,6 +6,9 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 
+EXCLUDE_FROM_FEATURES = {'start_station_id'}
+
+
 def load_dataset(path: Path) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(f"Dataset not found: {path}")
@@ -14,7 +17,10 @@ def load_dataset(path: Path) -> pd.DataFrame:
 
 def get_numeric_feature_columns(df: pd.DataFrame, target_col: str) -> list[str]:
     numeric_cols = df.select_dtypes(include=["number"]).columns.tolist()
-    return [col for col in numeric_cols if col != target_col]
+    return [
+        col for col in numeric_cols 
+        if col != target_col and col not in EXCLUDE_FROM_FEATURES
+    ]
 
 
 def split_X_y(df: pd.DataFrame, feature_cols: list[str], target_col: str):
