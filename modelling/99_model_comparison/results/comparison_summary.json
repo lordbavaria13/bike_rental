@@ -1,5 +1,5 @@
 {
-  "n_models_compared": 8,
+  "n_models_compared": 9,
   "models_compared": [
     "Dummy",
     "Linear",
@@ -8,7 +8,8 @@
     "Decision Tree",
     "KNN",
     "Random Forest",
-    "Gradient Boosting"
+    "Gradient Boosting",
+    "Neural Network"
   ],
   "skipped_models_without_metrics": [],
   "best_by_validation_rmse": {

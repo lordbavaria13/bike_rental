@@ -8,18 +8,22 @@ import numpy as np
 import pandas as pd
 
 
+# Base project paths.
 BASE_DIR = Path(__file__).resolve().parents[2]
 MODELLING_DIR = BASE_DIR / "modelling"
 
+# Output folders for the model comparison.
 THIS_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = THIS_DIR / "results"
 PLOTS_DIR = RESULTS_DIR / "plots"
 
+# Plot settings.
 FIGSIZE = (10, 5)
 DPI = 150
 TITLE_SIZE = 13
 LABEL_SIZE = 11
 
+# Metrics that will be plotted for all models.
 METRIC_SPECS = [
     {"name": "mae", "title": "MAE Comparison"},
     {"name": "rmse", "title": "RMSE Comparison"},
@@ -31,11 +35,13 @@ METRIC_SPECS = [
 
 
 def ensure_dirs(*paths: Path) -> None:
+    """Create folders if they do not exist yet."""
     for path in paths:
         path.mkdir(parents=True, exist_ok=True)
 
 
 def _json_converter(obj):
+    """Convert numpy and path objects so they can be saved as JSON."""
     if isinstance(obj, Path):
         return str(obj)
     if isinstance(obj, (np.integer,)):
@@ -50,11 +56,17 @@ def _json_converter(obj):
 
 
 def save_json(data: dict, path: Path) -> None:
+    """Save a dictionary as a JSON file."""
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, default=_json_converter)
 
 
 def format_model_name(folder_name: str, model_name: str | None) -> str:
+    """
+    Create short display names for plots and tables.
+
+    We use fixed names for known model folders so all plots look clean and consistent.
+    """
     mapping = {
         "00_dummy_regressor": "Dummy",
         "01_linear_regression": "Linear",
@@ -64,6 +76,7 @@ def format_model_name(folder_name: str, model_name: str | None) -> str:
         "05_knn_regressor": "KNN",
         "06_random_forest": "Random Forest",
         "07_gradient_boosting": "Gradient Boosting",
+        "08_neural_network": "Neural Network",
         "08_xgboost": "XGBoost",
     }
 
@@ -78,6 +91,11 @@ def format_model_name(folder_name: str, model_name: str | None) -> str:
 
 
 def collect_model_metrics() -> tuple[pd.DataFrame, list[str]]:
+    """
+    Read the metrics.csv file from every model folder.
+
+    Only folders with a valid metrics file are included in the comparison.
+    """
     rows: list[pd.DataFrame] = []
     skipped_models: list[str] = []
 
@@ -114,6 +132,12 @@ def collect_model_metrics() -> tuple[pd.DataFrame, list[str]]:
 
 
 def add_rank_columns(metrics_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add ranking columns based on important validation and test metrics.
+
+    Lower RMSE and MAE are better.
+    Higher R² is better.
+    """
     df = metrics_df.copy()
 
     df["rank_validation_rmse"] = df["validation_rmse"].rank(method="min", ascending=True).astype(int)
@@ -135,6 +159,11 @@ def add_rank_columns(metrics_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_rankings(metrics_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Build separate ranking tables for validation and test performance.
+
+    These ranking tables are sorted by performance.
+    """
     validation_rank = metrics_df.sort_values(
         by=["validation_rmse", "validation_mae", "validation_mape"]
     ).reset_index(drop=True)
@@ -148,20 +177,18 @@ def build_rankings(metrics_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame
     return validation_rank, test_rank
 
 
-def get_best_model_name(metrics_df: pd.DataFrame, metric_col: str, higher_is_better: bool) -> str:
-    if higher_is_better:
-        idx = metrics_df[metric_col].idxmax()
-    else:
-        idx = metrics_df[metric_col].idxmin()
-    return str(metrics_df.loc[idx, "display_name"])
-
-
 def plot_grouped_metric_highlight(
     metrics_df: pd.DataFrame,
     metric_name: str,
     title: str,
     output_path: Path,
 ) -> None:
+    """
+    Plot one grouped bar chart for train, validation, and test values.
+
+    The input order is kept unchanged.
+    This is important because overview plots should stay in chronological model order.
+    """
     plot_df = metrics_df.copy()
     x = np.arange(len(plot_df))
     width = 0.24
@@ -170,7 +197,10 @@ def plot_grouped_metric_highlight(
     val_values = plot_df[f"validation_{metric_name}"].to_numpy()
     test_values = plot_df[f"test_{metric_name}"].to_numpy()
 
-    best_test_idx = int(np.argmin(test_values)) if metric_name not in {"r2", "explained_variance"} else int(np.argmax(test_values))
+    if metric_name in {"r2", "explained_variance"}:
+        best_test_idx = int(np.argmax(test_values))
+    else:
+        best_test_idx = int(np.argmin(test_values))
 
     train_colors = ["C0"] * len(plot_df)
     val_colors = ["C1"] * len(plot_df)
@@ -180,7 +210,7 @@ def plot_grouped_metric_highlight(
     plt.figure(figsize=(12, 5))
     plt.bar(x - width, train_values, width=width, label="Train", color=train_colors)
     plt.bar(x, val_values, width=width, label="Validation", color=val_colors)
-    bars = plt.bar(x + width, test_values, width=width, label="Test", color=test_colors)
+    plt.bar(x + width, test_values, width=width, label="Test", color=test_colors)
 
     best_height = test_values[best_test_idx]
     plt.text(
@@ -211,6 +241,12 @@ def plot_single_metric_highlight(
     output_path: Path,
     higher_is_better: bool = False,
 ) -> None:
+    """
+    Plot a single metric as one bar chart.
+
+    The order of metrics_df is kept unchanged.
+    This function is used for overview plots that should remain chronological.
+    """
     plot_df = metrics_df.copy()
     values = plot_df[metric_col].to_numpy()
 
@@ -240,6 +276,11 @@ def plot_single_metric_highlight(
 
 
 def plot_overview_dashboard(metrics_df: pd.DataFrame, output_path: Path) -> None:
+    """
+    Create one dashboard with four important overview plots.
+
+    The model order stays chronological.
+    """
     plot_df = metrics_df.copy()
     x = np.arange(len(plot_df))
 
@@ -279,6 +320,11 @@ def plot_overview_dashboard(metrics_df: pd.DataFrame, output_path: Path) -> None
 
 
 def plot_rank_sum(metrics_df: pd.DataFrame, rank_col: str, title: str, output_path: Path) -> None:
+    """
+    Plot the rank sum comparison.
+
+    Here sorting by performance is intended, because this is a ranking plot.
+    """
     plot_df = metrics_df.sort_values(rank_col).reset_index(drop=True)
     x = np.arange(len(plot_df))
     values = plot_df[rank_col].to_numpy()
@@ -304,6 +350,7 @@ def build_summary(
     test_rank_df: pd.DataFrame,
     skipped_models: list[str],
 ) -> dict:
+    """Build a compact JSON summary of the comparison results."""
     best_validation = validation_rank_df.iloc[0]
     best_test = test_rank_df.iloc[0]
 
@@ -347,6 +394,8 @@ def main() -> None:
     print("Collecting model metrics...")
     metrics_df, skipped_models = collect_model_metrics()
 
+    # This order defines the chronological order of the models.
+    # All overview plots should follow this order.
     preferred_order = [
         "00_dummy_regressor",
         "01_linear_regression",
@@ -356,6 +405,7 @@ def main() -> None:
         "05_knn_regressor",
         "06_random_forest",
         "07_gradient_boosting",
+        "08_neural_network",
         "08_xgboost",
     ]
 
@@ -364,6 +414,7 @@ def main() -> None:
     metrics_df = metrics_df.sort_values(["sort_order", "display_name"]).reset_index(drop=True)
     metrics_df = metrics_df.drop(columns=["sort_order"])
 
+    # Add ranking columns after the chronological sorting.
     metrics_df = add_rank_columns(metrics_df)
 
     print(f"Models found: {len(metrics_df)}")
@@ -372,12 +423,15 @@ def main() -> None:
         for name in skipped_models:
             print(f"  - {name}")
 
+    # Save the full metrics table.
     metrics_df.to_csv(RESULTS_DIR / "all_model_metrics.csv", index=False)
 
+    # Build performance rankings.
     validation_rank_df, test_rank_df = build_rankings(metrics_df)
     validation_rank_df.to_csv(RESULTS_DIR / "model_ranking_validation_rmse.csv", index=False)
     test_rank_df.to_csv(RESULTS_DIR / "model_ranking_test_rmse.csv", index=False)
 
+    # Save a smaller table with the most important comparison columns.
     compact_cols = [
         "display_name",
         "folder_name",
@@ -397,6 +451,8 @@ def main() -> None:
     metrics_df[compact_cols].to_csv(RESULTS_DIR / "model_comparison_compact.csv", index=False)
 
     print("Creating comparison plots...")
+
+    # These are overview plots and stay in chronological order.
     for spec in METRIC_SPECS:
         plot_grouped_metric_highlight(
             metrics_df=metrics_df,
@@ -423,6 +479,12 @@ def main() -> None:
         higher_is_better=False,
     )
 
+    plot_overview_dashboard(
+        metrics_df=metrics_df,
+        output_path=PLOTS_DIR / "model_comparison_overview.png",
+    )
+
+    # These are ranking plots and are intentionally sorted by performance.
     plot_single_metric_highlight(
         metrics_df=validation_rank_df,
         metric_col="validation_rmse",
@@ -455,11 +517,7 @@ def main() -> None:
         output_path=PLOTS_DIR / "test_rank_sum.png",
     )
 
-    plot_overview_dashboard(
-        metrics_df=metrics_df,
-        output_path=PLOTS_DIR / "model_comparison_overview.png",
-    )
-
+    # Save a JSON summary.
     summary = build_summary(metrics_df, validation_rank_df, test_rank_df, skipped_models)
     save_json(summary, RESULTS_DIR / "comparison_summary.json")
 
