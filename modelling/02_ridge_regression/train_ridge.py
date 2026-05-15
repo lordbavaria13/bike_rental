@@ -5,6 +5,7 @@ from pathlib import Path
 
 import joblib
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from sklearn.linear_model import Ridge
 
@@ -28,8 +29,18 @@ from modelling.common.plotting import (
     plot_residuals_histogram,
     plot_residuals_vs_predicted,
 )
-from modelling.common.preprocessing import load_dataset, prepare_feature_matrices
+from modelling.common.preprocessing import (
+    load_dataset,
+    prepare_feature_matrices,
+    load_encoded_datasets,
+    prepare_encoded_feature_matrices_for_model,
+)
 from modelling.common.split import chronological_split
+from modelling.common.config import (
+    ENCODED_TRAIN_PATH,
+    ENCODED_VAL_PATH,
+    ENCODED_TEST_PATH,
+)
 from modelling.common.utils import ensure_dirs, save_dataframe, save_json
 
 
@@ -59,14 +70,23 @@ def save_predictions(
 
     We keep station and time information so we can inspect
     where the model performs well or badly later.
+    
+    Works with both original and pre-encoded datasets.
     """
-    keep_cols = [TIME_COL, "start_station_id", TARGET_COL]
+    # Determine which columns are available
+    keep_cols = []
+    for col in [TIME_COL, "start_station_id", TARGET_COL]:
+        if col in train_df.columns:
+            keep_cols.append(col)
 
     def build_split_df(df_part: pd.DataFrame, preds, split_name: str) -> pd.DataFrame:
-        out = df_part[keep_cols].copy()
+        out = df_part[keep_cols].copy() if keep_cols else pd.DataFrame()
         out["split"] = split_name
         out["prediction"] = preds
-        out["residual"] = out[TARGET_COL] - out["prediction"]
+        if TARGET_COL in df_part.columns:
+            out["residual"] = df_part[TARGET_COL].values - preds
+        else:
+            out["residual"] = np.nan
         return out
 
     pred_df = pd.concat(
@@ -131,46 +151,88 @@ def main() -> None:
     # Create output folders before the script starts.
     ensure_dirs(RESULTS_DIR, PLOTS_DIR, MODEL_DIR)
 
-    print("Loading dataset...")
-    df = load_dataset(DATA_PATH)
-    print(f"Dataset shape: {df.shape}")
-
-    print("Creating chronological split...")
-    train_df, val_df, test_df = chronological_split(
-        df=df,
-        time_col=TIME_COL,
-        train_ratio=TRAIN_RATIO,
-        val_ratio=VAL_RATIO,
-        test_ratio=TEST_RATIO,
+    # Check if pre-encoded datasets are available
+    use_encoded = (
+        ENCODED_TRAIN_PATH.exists()
+        and ENCODED_VAL_PATH.exists()
+        and ENCODED_TEST_PATH.exists()
     )
 
-    print(f"Train shape: {train_df.shape}")
-    print(f"Validation shape: {val_df.shape}")
-    print(f"Test shape: {test_df.shape}")
+    if use_encoded:
+        print("="*70)
+        print("Using pre-encoded datasets from data/processed")
+        print("="*70)
+        print("Loading pre-encoded datasets...")
+        train_df, val_df, test_df = load_encoded_datasets(
+            train_path=ENCODED_TRAIN_PATH,
+            val_path=ENCODED_VAL_PATH,
+            test_path=ENCODED_TEST_PATH,
+            target_col=TARGET_COL,
+        )
+        print(f"Train shape: {train_df.shape}")
+        print(f"Validation shape: {val_df.shape}")
+        print(f"Test shape: {test_df.shape}")
 
-    print("Preparing feature matrices...")
-    # We use the shared preprocessing step for all models.
-    # Important:
-    # - start_station_id is treated as a categorical feature
-    # - it is one-hot encoded after the chronological split
-    # - numeric features are scaled because ridge regression uses distances in parameter space
-    (
-        preprocessor,
-        feature_names,
-        X_train_ready,
-        X_val_ready,
-        X_test_ready,
-        y_train,
-        y_val,
-        y_test,
-    ) = prepare_feature_matrices(
-        train_df=train_df,
-        val_df=val_df,
-        test_df=test_df,
-        target_col=TARGET_COL,
-        categorical_cols=["start_station_id"],
-        scale_numeric=True,
-    )
+        print("Preparing feature matrices from pre-encoded data...")
+        scaler, feature_names, X_train_ready, X_val_ready, X_test_ready = (
+            prepare_encoded_feature_matrices_for_model(
+                train_df=train_df,
+                val_df=val_df,
+                test_df=test_df,
+                target_col=TARGET_COL,
+                feature_names=None,
+                scale_numeric=True,  # Ridge regression needs scaling
+            )
+        )
+
+        y_train = train_df[TARGET_COL].values
+        y_val = val_df[TARGET_COL].values
+        y_test = test_df[TARGET_COL].values
+
+    else:
+        print("="*70)
+        print("Using raw dataset with on-the-fly encoding")
+        print("="*70)
+        print("Loading dataset...")
+        df = load_dataset(DATA_PATH)
+        print(f"Dataset shape: {df.shape}")
+
+        print("Creating chronological split...")
+        train_df, val_df, test_df = chronological_split(
+            df=df,
+            time_col=TIME_COL,
+            train_ratio=TRAIN_RATIO,
+            val_ratio=VAL_RATIO,
+            test_ratio=TEST_RATIO,
+        )
+
+        print(f"Train shape: {train_df.shape}")
+        print(f"Validation shape: {val_df.shape}")
+        print(f"Test shape: {test_df.shape}")
+
+        print("Preparing feature matrices...")
+        # We use the shared preprocessing step for all models.
+        # Important:
+        # - start_station_id is treated as a categorical feature
+        # - it is one-hot encoded after the chronological split
+        # - numeric features are scaled because ridge regression uses distances in parameter space
+        (
+            preprocessor,
+            feature_names,
+            X_train_ready,
+            X_val_ready,
+            X_test_ready,
+            y_train,
+            y_val,
+            y_test,
+        ) = prepare_feature_matrices(
+            train_df=train_df,
+            val_df=val_df,
+            test_df=test_df,
+            target_col=TARGET_COL,
+            categorical_cols=["start_station_id"],
+            scale_numeric=True,
+        )
 
     print(f"Using {len(feature_names)} final features after preprocessing.")
 
@@ -258,7 +320,12 @@ def main() -> None:
     # We save both the fitted model and the fitted preprocessor.
     # This makes the full training pipeline reproducible later.
     joblib.dump(model, MODEL_DIR / "ridge.joblib")
-    joblib.dump(preprocessor, MODEL_DIR / "preprocessor.joblib")
+    
+    # Only save preprocessor if it was created (not when using pre-encoded datasets)
+    if use_encoded:
+        print("(Preprocessor skipped - using pre-encoded data)")
+    else:
+        joblib.dump(preprocessor, MODEL_DIR / "preprocessor.joblib")
 
     # Save coefficients for later inspection.
     coef_df = pd.DataFrame(

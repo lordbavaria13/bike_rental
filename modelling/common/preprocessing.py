@@ -230,3 +230,105 @@ def prepare_feature_matrices(
         y_val,
         y_test,
     )
+
+
+def load_encoded_datasets(
+    train_path: Path,
+    val_path: Path,
+    test_path: Path,
+    target_col: str,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """
+    Load pre-encoded datasets from disk.
+
+    These datasets should have been created by the encoding script
+    (05_create_encoded_dataset.py) and contain one-hot encoded features.
+
+    Parameters
+    ----------
+    train_path, val_path, test_path:
+        Paths to the encoded CSV files for train, validation, and test.
+
+    target_col:
+        Name of the target column.
+
+    Returns
+    -------
+    train_df, val_df, test_df:
+        DataFrames with encoded features and target column.
+    """
+    for path in [train_path, val_path, test_path]:
+        if not path.exists():
+            raise FileNotFoundError(f"Encoded dataset not found: {path}")
+
+    train_df = pd.read_csv(train_path, low_memory=False)
+    val_df = pd.read_csv(val_path, low_memory=False)
+    test_df = pd.read_csv(test_path, low_memory=False)
+
+    return train_df, val_df, test_df
+
+
+def prepare_encoded_feature_matrices_for_model(
+    train_df: pd.DataFrame,
+    val_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    target_col: str,
+    feature_names: list[str] | None = None,
+    scale_numeric: bool = False,
+) -> tuple[StandardScaler | None, list[str], pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """
+    Prepare feature matrices from pre-encoded datasets for model training.
+
+    This function takes already encoded datasets (with one-hot encoded station IDs)
+    and optionally scales numeric features.
+
+    Parameters
+    ----------
+    train_df, val_df, test_df:
+        Pre-encoded dataframes from load_encoded_datasets().
+
+    target_col:
+        Name of the target column.
+
+    feature_names:
+        List of feature column names. If None, will use all columns except target and split.
+
+    scale_numeric:
+        If True, scales all features with StandardScaler fitted on training data.
+
+    Returns
+    -------
+    scaler:
+        StandardScaler if scale_numeric=True, else None.
+
+    feature_names:
+        Final list of feature column names.
+
+    X_train_ready, X_val_ready, X_test_ready:
+        Feature matrices as numpy arrays (or scaled versions).
+    """
+    # Determine feature names
+    if feature_names is None:
+        exclude_cols = {target_col, "split"}
+        feature_names = [
+            col for col in train_df.columns
+            if col not in exclude_cols
+        ]
+
+    # Extract features
+    X_train = train_df[feature_names].values
+    X_val = val_df[feature_names].values
+    X_test = test_df[feature_names].values
+
+    # Optionally scale
+    if scale_numeric:
+        scaler, X_train_ready, X_val_ready, X_test_ready = scale_features(
+            X_train, X_val, X_test
+        )
+    else:
+        scaler = None
+        X_train_ready = X_train
+        X_val_ready = X_val
+        X_test_ready = X_test
+
+    return scaler, feature_names, X_train_ready, X_val_ready, X_test_ready

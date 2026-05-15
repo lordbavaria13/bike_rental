@@ -82,6 +82,7 @@ PREPROCESSING_SCRIPTS = [
     PROJECT_ROOT / "src" / "scripts" / "02_build_top20_daily_dataset.py",
     PROJECT_ROOT / "src" / "scripts" / "03_analyze_feature_correlations.py",
     PROJECT_ROOT / "src" / "scripts" / "04_build_reduced_feature_dataset.py",
+    PROJECT_ROOT / "src" / "scripts" / "05_create_encoded_dataset.py",
 ]
 
 
