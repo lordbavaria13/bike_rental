@@ -6,17 +6,20 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
+from modelling.common.config import (
+    CONTEXT_COLUMNS,
+    RAW_STATION_CONTEXT_COL,
+    STATION_COL,
+    TARGET_COL,
+    TIME_COL,
+    get_experiment_paths,
+)
+
 
 def load_dataset(path: Path) -> pd.DataFrame:
-    """
-    Load the final modelling dataset from disk.
-
-    We raise an error immediately if the file does not exist,
-    because all model scripts depend on this file.
-    """
+    """Load a modelling dataset from disk."""
     if not path.exists():
         raise FileNotFoundError(f"Dataset not found: {path}")
-
     return pd.read_csv(path, low_memory=False)
 
 
@@ -25,23 +28,14 @@ def get_numeric_feature_columns(
     target_col: str,
     categorical_cols: list[str] | None = None,
 ) -> list[str]:
-    """
-    Return all numeric feature columns that should be used as model inputs.
-
-    Important:
-    - the target column is removed
-    - categorical columns like start_station_id are removed here,
-      because they will be encoded separately
-    """
+    """Return numeric input features, excluding target, categorical and context columns."""
     if categorical_cols is None:
         categorical_cols = []
 
+    excluded = {target_col, *categorical_cols, *CONTEXT_COLUMNS, "split"}
     numeric_cols = df.select_dtypes(include=["number"]).columns.tolist()
 
-    return [
-        col for col in numeric_cols
-        if col != target_col and col not in categorical_cols
-    ]
+    return [col for col in numeric_cols if col not in excluded]
 
 
 def split_X_y(
@@ -49,36 +43,23 @@ def split_X_y(
     feature_cols: list[str],
     target_col: str,
 ):
-    """
-    Simple helper to split a dataframe into X and y.
-
-    We keep this function because some older scripts may still use it.
-    """
+    """Split a dataframe into X and y."""
     X = df[feature_cols].copy()
     y = df[target_col].to_numpy()
     return X, y
 
 
 def scale_features(X_train, X_val, X_test):
-    """
-    Scale three feature matrices with one shared scaler.
-
-    The scaler is fitted only on the training data.
-    """
+    """Scale train/validation/test feature matrices with one StandardScaler."""
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_val_scaled = scaler.transform(X_val)
     X_test_scaled = scaler.transform(X_test)
-
     return scaler, X_train_scaled, X_val_scaled, X_test_scaled
 
 
 def _clean_feature_names(raw_feature_names: list[str]) -> list[str]:
-    """
-    Clean feature names returned by ColumnTransformer.
-
-    This makes plots and saved files easier to read.
-    """
+    """Clean ColumnTransformer feature names for readable outputs."""
     cleaned_names: list[str] = []
 
     for name in raw_feature_names:
@@ -101,124 +82,56 @@ def prepare_feature_matrices(
     scale_numeric: bool = False,
 ):
     """
-    Prepare final feature matrices for model training.
+    Prepare raw split dataframes for modelling.
 
-    What this function does:
-    1. Split target from features
-    2. Use numeric columns as normal model inputs
-    3. Treat start_station_id as a categorical feature
-    4. Fit preprocessing only on the training set
-    5. Transform validation and test with the same fitted preprocessor
-
-    Why this is important:
-    - start_station_id is an ID, not a real numeric quantity
-    - therefore we use one-hot encoding instead of raw numeric values
-    - fitting only on train keeps the setup methodologically clean
-
-    Parameters
-    ----------
-    train_df, val_df, test_df:
-        Chronologically split dataframes.
-
-    target_col:
-        Name of the prediction target column.
-
-    categorical_cols:
-        Columns that should be one-hot encoded.
-        Default: ["start_station_id"]
-
-    scale_numeric:
-        If True, numeric features are scaled with StandardScaler.
-        This should be used for models like:
-        - Linear Regression
-        - Ridge
-        - Lasso
-        - KNN
-        - Neural Network
-
-        For tree-based models this should usually stay False.
-
-    Returns
-    -------
-    preprocessor:
-        Fitted ColumnTransformer
-
-    feature_names:
-        Final transformed feature names after encoding
-
-    X_train_ready, X_val_ready, X_test_ready:
-        Prepared feature matrices
-
-    y_train, y_val, y_test:
-        Target arrays
+    This is kept for fallback use. In the main pipeline, encoded datasets from
+    src/scripts/05_create_encoded_dataset.py are preferred.
     """
     if categorical_cols is None:
-        categorical_cols = ["start_station_id"]
+        categorical_cols = [STATION_COL]
 
-    # Check that all categorical columns really exist.
-    missing_categorical_cols = [
-        col for col in categorical_cols if col not in train_df.columns
-    ]
+    missing_categorical_cols = [col for col in categorical_cols if col not in train_df.columns]
     if missing_categorical_cols:
-        raise ValueError(
-            f"Missing categorical columns in training data: {missing_categorical_cols}"
-        )
+        raise ValueError(f"Missing categorical columns in training data: {missing_categorical_cols}")
 
-    # Get all numeric features except the target and the categorical columns.
     numeric_cols = get_numeric_feature_columns(
         train_df,
         target_col=target_col,
         categorical_cols=categorical_cols,
     )
 
-    # Build raw X dataframes.
-    # We copy them to avoid modifying the original train/val/test dataframes.
     X_train = train_df[numeric_cols + categorical_cols].copy()
     X_val = val_df[numeric_cols + categorical_cols].copy()
     X_test = test_df[numeric_cols + categorical_cols].copy()
 
-    # Extract targets.
     y_train = train_df[target_col].to_numpy()
     y_val = val_df[target_col].to_numpy()
     y_test = test_df[target_col].to_numpy()
 
-    # Convert categorical ID columns to string before encoding.
-    # This avoids treating station IDs like regular numeric values.
     for col in categorical_cols:
         X_train[col] = X_train[col].astype(str)
         X_val[col] = X_val[col].astype(str)
         X_test[col] = X_test[col].astype(str)
 
-    # Scale numeric features only if the model type needs it.
     numeric_transformer = StandardScaler() if scale_numeric else "passthrough"
 
-    # Build the preprocessing pipeline.
-    # Numeric columns are either scaled or passed through.
-    # Station IDs are one-hot encoded.
     preprocessor = ColumnTransformer(
         transformers=[
             ("num", numeric_transformer, numeric_cols),
             (
                 "cat",
-                OneHotEncoder(
-                    handle_unknown="ignore",
-                    drop="first",
-                    sparse_output=False,
-                ),
+                OneHotEncoder(handle_unknown="ignore", drop="first", sparse_output=False),
                 categorical_cols,
             ),
         ],
         remainder="drop",
     )
 
-    # Fit only on the training data.
     X_train_ready = preprocessor.fit_transform(X_train)
     X_val_ready = preprocessor.transform(X_val)
     X_test_ready = preprocessor.transform(X_test)
 
-    # Get readable names for all transformed features.
-    raw_feature_names = preprocessor.get_feature_names_out().tolist()
-    feature_names = _clean_feature_names(raw_feature_names)
+    feature_names = _clean_feature_names(preprocessor.get_feature_names_out().tolist())
 
     return (
         preprocessor,
@@ -238,25 +151,7 @@ def load_encoded_datasets(
     test_path: Path,
     target_col: str,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """
-    Load pre-encoded datasets from disk.
-
-    These datasets should have been created by the encoding script
-    (05_create_encoded_dataset.py) and contain one-hot encoded features.
-
-    Parameters
-    ----------
-    train_path, val_path, test_path:
-        Paths to the encoded CSV files for train, validation, and test.
-
-    target_col:
-        Name of the target column.
-
-    Returns
-    -------
-    train_df, val_df, test_df:
-        DataFrames with encoded features and target column.
-    """
+    """Load already encoded train/validation/test datasets."""
     for path in [train_path, val_path, test_path]:
         if not path.exists():
             raise FileNotFoundError(f"Encoded dataset not found: {path}")
@@ -265,7 +160,25 @@ def load_encoded_datasets(
     val_df = pd.read_csv(val_path, low_memory=False)
     test_df = pd.read_csv(test_path, low_memory=False)
 
+    for name, df in [("train", train_df), ("validation", val_df), ("test", test_df)]:
+        if target_col not in df.columns:
+            raise ValueError(f"{name} encoded dataset is missing target column: {target_col}")
+
     return train_df, val_df, test_df
+
+
+def load_encoded_datasets_for_experiment(
+    experiment: str,
+    target_col: str = TARGET_COL,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Load encoded train/validation/test datasets for with_lag or without_lag."""
+    paths = get_experiment_paths(experiment)
+    return load_encoded_datasets(
+        train_path=paths["encoded_train_path"],
+        val_path=paths["encoded_val_path"],
+        test_path=paths["encoded_test_path"],
+        target_col=target_col,
+    )
 
 
 def prepare_encoded_feature_matrices_for_model(
@@ -276,55 +189,21 @@ def prepare_encoded_feature_matrices_for_model(
     feature_names: list[str] | None = None,
     scale_numeric: bool = False,
 ) -> tuple[StandardScaler | None, list[str], pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """
-    Prepare feature matrices from pre-encoded datasets for model training.
-
-    This function takes already encoded datasets (with one-hot encoded station IDs)
-    and optionally scales numeric features.
-
-    Parameters
-    ----------
-    train_df, val_df, test_df:
-        Pre-encoded dataframes from load_encoded_datasets().
-
-    target_col:
-        Name of the target column.
-
-    feature_names:
-        List of feature column names. If None, will use all columns except target and split.
-
-    scale_numeric:
-        If True, scales all features with StandardScaler fitted on training data.
-
-    Returns
-    -------
-    scaler:
-        StandardScaler if scale_numeric=True, else None.
-
-    feature_names:
-        Final list of feature column names.
-
-    X_train_ready, X_val_ready, X_test_ready:
-        Feature matrices as numpy arrays (or scaled versions).
-    """
-    # Determine feature names
+    """Prepare X matrices from already one-hot encoded datasets."""
     if feature_names is None:
-        exclude_cols = {target_col, "split"}
-        feature_names = [
-            col for col in train_df.columns
-            if col not in exclude_cols
-        ]
+        exclude_cols = {target_col, "split", *CONTEXT_COLUMNS}
+        feature_names = [col for col in train_df.columns if col not in exclude_cols]
 
-    # Extract features
+    missing_features = [col for col in feature_names if col not in train_df.columns]
+    if missing_features:
+        raise ValueError(f"Missing encoded feature columns: {missing_features}")
+
     X_train = train_df[feature_names].values
     X_val = val_df[feature_names].values
     X_test = test_df[feature_names].values
 
-    # Optionally scale
     if scale_numeric:
-        scaler, X_train_ready, X_val_ready, X_test_ready = scale_features(
-            X_train, X_val, X_test
-        )
+        scaler, X_train_ready, X_val_ready, X_test_ready = scale_features(X_train, X_val, X_test)
     else:
         scaler = None
         X_train_ready = X_train
@@ -332,3 +211,25 @@ def prepare_encoded_feature_matrices_for_model(
         X_test_ready = X_test
 
     return scaler, feature_names, X_train_ready, X_val_ready, X_test_ready
+
+
+def extract_prediction_context(df: pd.DataFrame) -> pd.DataFrame:
+    """Return context columns used in predictions.csv."""
+    context = pd.DataFrame(index=df.index)
+
+    if TIME_COL in df.columns:
+        context[TIME_COL] = df[TIME_COL].values
+    else:
+        context[TIME_COL] = pd.NA
+
+    if RAW_STATION_CONTEXT_COL in df.columns:
+        context[STATION_COL] = df[RAW_STATION_CONTEXT_COL].astype(str).values
+    elif STATION_COL in df.columns:
+        context[STATION_COL] = df[STATION_COL].astype(str).values
+    else:
+        context[STATION_COL] = pd.NA
+
+    if TARGET_COL in df.columns:
+        context[TARGET_COL] = df[TARGET_COL].values
+
+    return context.reset_index(drop=True)

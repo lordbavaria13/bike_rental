@@ -1,39 +1,26 @@
 {
-  "n_models_compared": 9,
-  "models_compared": [
-    "Dummy",
-    "Linear",
-    "Ridge",
-    "Lasso",
-    "Decision Tree",
-    "KNN",
-    "Random Forest",
-    "Gradient Boosting",
-    "Neural Network"
+  "n_rows_compared": 18,
+  "n_models": 9,
+  "experiments": [
+    "without_lag",
+    "with_lag"
   ],
-  "skipped_models_without_metrics": [],
+  "skipped_model_experiments": [],
   "best_by_validation_rmse": {
-    "display_name": "Gradient Boosting",
-    "folder_name": "07_gradient_boosting",
-    "validation_rmse": 25.609984217325295,
-    "validation_mae": 19.81298797955466,
-    "validation_r2": 0.5269038884275826
+    "display_variant": "Random Forest (with lag)",
+    "validation_rmse": 21.575830132943956,
+    "validation_mae": 16.205454755911106,
+    "validation_r2": 0.6642760360930721
   },
   "best_by_test_rmse": {
-    "display_name": "Neural Network",
-    "folder_name": "08_neural_network",
-    "test_rmse": 28.957637430981304,
-    "test_mae": 22.65746184322585,
-    "test_r2": 0.4581843610456174
+    "display_variant": "Gradient Boosting (with lag)",
+    "test_rmse": 22.79038536270228,
+    "test_mae": 16.862673725447944,
+    "test_r2": 0.6623688539012569
   },
-  "best_by_validation_rank_sum": {
-    "display_name": "Gradient Boosting",
-    "folder_name": "07_gradient_boosting",
-    "rank_sum_validation": 4
-  },
-  "best_by_test_rank_sum": {
-    "display_name": "Neural Network",
-    "folder_name": "08_neural_network",
-    "rank_sum_test": 4
+  "largest_test_rmse_gain_from_lag": {
+    "display_name": "Linear",
+    "test_rmse_delta_with_minus_without": -10.779276247858952,
+    "test_rmse_improvement_percent": 30.153540498732497
   }
 }

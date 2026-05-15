@@ -3,37 +3,20 @@ from __future__ import annotations
 """
 run_pipeline.py
 
-How we use this script
-----------------------
-We use this script to run the whole project pipeline from one file.
+Runs the complete bike rental modelling workflow.
 
-Before running it:
-1. Open the project root folder.
-2. Activate the virtual environment:
-       source .venv/bin/activate
-3. Start the script:
-       python run_pipeline.py
+The current pipeline creates two comparable experiment variants:
+- without_lag: same station-day rows as with_lag, but no lag features
+- with_lag: station-specific total_rentals_lag_1 and total_rentals_lag_7
 
-How we configure it
--------------------
-We change the settings directly in the configuration block below.
-
-Example:
-- STEP_1_DATA_PROCESSING = 1   -> run data processing
-- STEP_1_DATA_PROCESSING = 0   -> skip data processing
-
-The same logic is used for all model steps and for the final comparison.
-
-If we only want to run some models, we set them to 1.
-If we want to skip a model, we set it to 0.
-
-Why we wrote it this way
-------------------------
-We wanted one simple script that we can edit quickly without using command
-line arguments every time. This makes it easy to rerun the full workflow
-and keep all models under the same setup.
+Every model writes results and model artifacts into separate subfolders:
+- modelling/<model>/results/without_lag/
+- modelling/<model>/results/with_lag/
+- modelling/<model>/model/without_lag/
+- modelling/<model>/model/with_lag/
 """
 
+import shutil
 import subprocess
 import sys
 import time
@@ -42,25 +25,22 @@ from pathlib import Path
 
 # =============================================================================
 # CONFIGURATION
-# Change 1 to run a step.
-# Change 0 to skip a step.
+# Change 1 to run a step. Change 0 to skip a step.
 # =============================================================================
 
-# Step 1: data processing
-STEP_1_DATA_PROCESSING = 1
+STEP_1_DATA_PROCESSING = 0
+STEP_2_CLEAN_OLD_MODEL_OUTPUTS = 0
 
-# Step 2: model training
-RUN_00_DUMMY = 1
-RUN_01_LINEAR = 1
-RUN_02_RIDGE = 1
-RUN_03_LASSO = 1
-RUN_04_DECISION_TREE = 1
-RUN_05_KNN = 1
-RUN_06_RANDOM_FOREST = 1
-RUN_07_GRADIENT_BOOSTING = 1
-RUN_08_NEURAL_NETWORK = 1
+RUN_00_DUMMY = 0
+RUN_01_LINEAR = 0
+RUN_02_RIDGE = 0
+RUN_03_LASSO = 0
+RUN_04_DECISION_TREE = 0
+RUN_05_KNN = 0
+RUN_06_RANDOM_FOREST = 0
+RUN_07_GRADIENT_BOOSTING = 0
+RUN_08_NEURAL_NETWORK = 0
 
-# Step 3: final model comparison
 STEP_3_MODEL_COMPARISON = 1
 
 
@@ -74,8 +54,6 @@ PYTHON_EXECUTABLE = sys.executable
 
 # =============================================================================
 # PREPROCESSING SCRIPTS
-# These scripts rebuild the processed modelling dataset.
-# They are run in this exact order.
 # =============================================================================
 
 PREPROCESSING_SCRIPTS = [
@@ -88,9 +66,6 @@ PREPROCESSING_SCRIPTS = [
 
 # =============================================================================
 # MODEL MODULES
-# These are started with "python -m ...".
-# This is important because the project uses imports like:
-# from modelling.common.config import ...
 # =============================================================================
 
 MODEL_STEPS = [
@@ -105,12 +80,8 @@ MODEL_STEPS = [
     (RUN_08_NEURAL_NETWORK, "08_neural_network", "modelling.08_neural_network.train_neural_network"),
 ]
 
-
-# =============================================================================
-# FINAL MODEL COMPARISON
-# =============================================================================
-
 COMPARISON_MODULE = "modelling.99_model_comparison.model_comparison"
+EXPERIMENT_ARG = "all"
 
 
 # =============================================================================
@@ -133,9 +104,6 @@ def format_runtime(seconds: float) -> str:
 
 
 def check_required_files() -> None:
-    """
-    Check if all preprocessing scripts exist before the pipeline starts.
-    """
     missing_paths: list[Path] = []
 
     for script_path in PREPROCESSING_SCRIPTS:
@@ -144,18 +112,10 @@ def check_required_files() -> None:
 
     if missing_paths:
         missing_text = "\n".join(str(path) for path in missing_paths)
-        raise FileNotFoundError(
-            "Some preprocessing scripts are missing:\n"
-            f"{missing_text}"
-        )
+        raise FileNotFoundError(f"Some preprocessing scripts are missing:\n{missing_text}")
 
 
 def run_command(command: list[str], description: str) -> float:
-    """
-    Run one command inside the project root.
-
-    We stop the whole pipeline if one step fails.
-    """
     print(f"\nRunning: {description}")
     print("Command:", " ".join(command))
 
@@ -173,35 +133,43 @@ def run_command(command: list[str], description: str) -> float:
     return runtime
 
 
+def clean_old_model_outputs() -> None:
+    """Remove old model outputs so only with_lag/without_lag results remain."""
+    print_header("CLEAN OLD MODEL OUTPUTS")
+
+    model_folder_names = [label for _, label, _ in MODEL_STEPS]
+    model_folder_names.append("99_model_comparison")
+
+    for folder_name in model_folder_names:
+        folder = PROJECT_ROOT / "modelling" / folder_name
+        if not folder.exists():
+            continue
+
+        for subfolder_name in ["results", "model"]:
+            path = folder / subfolder_name
+            if path.exists():
+                shutil.rmtree(path)
+                print(f"Removed: {path.relative_to(PROJECT_ROOT)}")
+
+
 # =============================================================================
 # PIPELINE STEPS
 # =============================================================================
 
 def run_data_processing() -> list[tuple[str, float]]:
-    """
-    Run all preprocessing scripts in the correct order.
-    """
     print_header("STEP 1: DATA PROCESSING")
-
     timings: list[tuple[str, float]] = []
 
     for script_path in PREPROCESSING_SCRIPTS:
         relative_name = script_path.relative_to(PROJECT_ROOT).as_posix()
-        runtime = run_command(
-            [PYTHON_EXECUTABLE, str(script_path)],
-            relative_name,
-        )
+        runtime = run_command([PYTHON_EXECUTABLE, str(script_path)], relative_name)
         timings.append((relative_name, runtime))
 
     return timings
 
 
 def run_model_training() -> list[tuple[str, float]]:
-    """
-    Run all selected model scripts in chronological order.
-    """
     print_header("STEP 2: MODEL TRAINING")
-
     timings: list[tuple[str, float]] = []
 
     for should_run, label, module_name in MODEL_STEPS:
@@ -210,8 +178,8 @@ def run_model_training() -> list[tuple[str, float]]:
             continue
 
         runtime = run_command(
-            [PYTHON_EXECUTABLE, "-m", module_name],
-            f"{label} -> {module_name}",
+            [PYTHON_EXECUTABLE, "-m", module_name, "--experiment", EXPERIMENT_ARG],
+            f"{label} -> {module_name} ({EXPERIMENT_ARG})",
         )
         timings.append((label, runtime))
 
@@ -219,15 +187,8 @@ def run_model_training() -> list[tuple[str, float]]:
 
 
 def run_model_comparison() -> float:
-    """
-    Run the final comparison script and rebuild all comparison plots.
-    """
     print_header("STEP 3: MODEL COMPARISON")
-
-    return run_command(
-        [PYTHON_EXECUTABLE, "-m", COMPARISON_MODULE],
-        COMPARISON_MODULE,
-    )
+    return run_command([PYTHON_EXECUTABLE, "-m", COMPARISON_MODULE], COMPARISON_MODULE)
 
 
 def print_summary(
@@ -236,9 +197,6 @@ def print_summary(
     comparison_timing: float | None,
     total_runtime: float,
 ) -> None:
-    """
-    Print a short summary at the end.
-    """
     print_header("PIPELINE SUMMARY")
 
     if data_processing_timings:
@@ -285,6 +243,9 @@ def main() -> None:
     else:
         print("\nSTEP 1: DATA PROCESSING was skipped.")
 
+    if STEP_2_CLEAN_OLD_MODEL_OUTPUTS == 1:
+        clean_old_model_outputs()
+
     selected_model_count = sum(1 for should_run, _, _ in MODEL_STEPS if should_run == 1)
 
     if selected_model_count > 0:
@@ -298,7 +259,6 @@ def main() -> None:
         print("\nSTEP 3: MODEL COMPARISON was skipped.")
 
     total_runtime = time.perf_counter() - total_start
-
     print_summary(
         data_processing_timings=data_processing_timings,
         model_timings=model_timings,

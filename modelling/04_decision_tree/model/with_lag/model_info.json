@@ -1,0 +1,145 @@
+{
+  "model_name": "DecisionTreeRegressor",
+  "experiment": "with_lag",
+  "uses_lag_features": true,
+  "target": "total_rentals",
+  "feature_names": [
+    "time_idx",
+    "tempmax",
+    "humidity",
+    "precip",
+    "precipcover",
+    "cloudcover",
+    "windspeed",
+    "visibility",
+    "sealevelpressure",
+    "uvindex",
+    "sunset_minutes",
+    "month",
+    "weekday",
+    "year",
+    "snow",
+    "snowdepth",
+    "total_rentals_lag_1",
+    "total_rentals_lag_7",
+    "station_31125.0",
+    "station_31200.0",
+    "station_31201.0",
+    "station_31202.0",
+    "station_31203.0",
+    "station_31214.0",
+    "station_31229.0",
+    "station_31247.0",
+    "station_31248.0",
+    "station_31258.0",
+    "station_31266.0",
+    "station_31281.0",
+    "station_31288.0",
+    "station_31289.0",
+    "station_31600.0",
+    "station_31603.0",
+    "station_31613.0",
+    "station_31623.0",
+    "station_31627.0"
+  ],
+  "n_final_features": 37,
+  "station_id_encoding": "one_hot",
+  "scaling_used": false,
+  "best_params": {
+    "max_depth": 8.0,
+    "min_samples_leaf": 10.0,
+    "min_samples_split": 20.0
+  },
+  "param_grid": [
+    {
+      "max_depth": 3,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 5,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 8,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 10,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 12,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": null,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 5,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": 8,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": 10,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": null,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    }
+  ],
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/results/with_lag",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/results/with_lag/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/model/with_lag/decision_tree.joblib",
+  "metrics": {
+    "model_name": "DecisionTreeRegressor",
+    "experiment": "with_lag",
+    "uses_lag_features": true,
+    "target": "total_rentals",
+    "n_features": 37,
+    "n_train": 21410,
+    "n_validation": 4705,
+    "n_test": 4725,
+    "fit_time_seconds": 0.07351941699744202,
+    "predict_time_seconds": 0.0017023330146912485,
+    "station_id_encoding": "one_hot",
+    "scaling_used": false,
+    "best_params": {
+      "max_depth": 8.0,
+      "min_samples_leaf": 10.0,
+      "min_samples_split": 20.0
+    },
+    "train_mae": 13.656046564049387,
+    "train_rmse": 19.520638882175042,
+    "train_r2": 0.7298463941119375,
+    "train_median_ae": 9.956458635703925,
+    "train_explained_variance": 0.7298463941119375,
+    "train_mape": 0.32801512712256614,
+    "validation_mae": 18.393539868753507,
+    "validation_rmse": 24.599465095886124,
+    "validation_r2": 0.5635860332546587,
+    "validation_median_ae": 14.038461538461533,
+    "validation_explained_variance": 0.5643399820323972,
+    "validation_mape": 0.3502190900014604,
+    "test_mae": 19.466709763113595,
+    "test_rmse": 26.67575172655365,
+    "test_r2": 0.5374352872981776,
+    "test_median_ae": 14.629032258064512,
+    "test_explained_variance": 0.5500494216825538,
+    "test_mape": 0.2823117481135546
+  }
+}
