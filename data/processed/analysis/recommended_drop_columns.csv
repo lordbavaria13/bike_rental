@@ -1,0 +1,10 @@
+drop_feature,keep_feature,abs_feature_feature_corr,drop_feature_target_score,keep_feature_target_score,reason
+solarenergy,solarradiation,0.9998206344990312,0.3977429485581465,0.39775281167686277,kept feature with stronger target correlation
+feelslike,temp,0.9968995917997648,0.44031829000397205,0.4405119269283556,kept feature with stronger target correlation
+tempmin,feelslikemin,0.9946947136420645,0.40011413716348365,0.41378523484416463,kept feature with stronger target correlation
+feelslikemax,tempmax,0.9918911333940342,0.43908341220830704,0.4587729315960029,kept feature with stronger target correlation
+daylight_minutes,sunset_minutes,0.9852113636852796,0.3719608945468241,0.3912658017703165,kept feature with stronger target correlation
+feelslikemin,temp,0.9818054484237484,0.41378523484416463,0.4405119269283556,kept feature with stronger target correlation
+temp,tempmax,0.9817425128390503,0.4405119269283556,0.4587729315960029,kept feature with stronger target correlation
+dew,tempmax,0.9002841560560345,0.34253443912027776,0.4587729315960029,kept feature with stronger target correlation
+solarradiation,uvindex,0.8779474188034295,0.39775281167686277,0.4365148949960598,kept feature with stronger target correlation
