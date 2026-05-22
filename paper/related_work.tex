@@ -1,0 +1,27 @@
+\section{Related Work and Comparable Projects}
+Bike rental demand forecasting is a common regression benchmark because rental counts are influenced by calendar patterns, weather, and local mobility habits. The older UCI Bike Sharing Dataset uses Capital Bikeshare data from 2011--2012 and is widely used for hourly or daily rental prediction \cite{uci_bike}. Kaggle's Bike Sharing Demand competition uses a similar forecasting framing and shows that engineered time and weather features are standard for this task \cite{kaggle_competition}. Our project differs by using a newer Capital Bikeshare dataset from 2020/05--2024/08 and by modelling demand at station-day level instead of city-wide hourly demand \cite{taweilo_kaggle,capital_system_data}.
+
+\begin{table*}[t]
+\caption{Comparable work and what was adopted or avoided in this project.}
+\centering
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.18\textwidth}Y Y Y}
+\toprule
+Source & Problem and data & Methods / focus & Consequence for our design \\
+\midrule
+UCI Bike Sharing Dataset \cite{uci_bike} & Hourly and daily Capital Bikeshare demand from 2011--2012. & Regression benchmark using weather and calendar variables. & Confirms the task type and feature groups, but the data is older and less station-specific than our final setup. \\
+\addlinespace
+Kaggle Bike Sharing Demand \cite{kaggle_competition} & Forecast rental demand using historical usage and weather information. & Many solutions rely on time features, weather variables, and nonlinear regression. & Supports a regression pipeline with feature engineering instead of a purely raw-table approach. \\
+\addlinespace
+Capital Bikeshare open data \cite{capital_system_data} & Public trip and system data for the Washington, D.C. bike-sharing system. & Operational data source for station-level demand construction. & Justifies our station-day aggregation and the focus on real operational station behaviour. \\
+\addlinespace
+owenpb GitHub project \cite{owenpb_github} & Bike-sharing demand prediction. & Linear, Lasso, Ridge, KNN, Decision Tree, Random Forest, AdaBoost, XGBoost. & Motivates comparing multiple model families rather than reporting only one algorithm. \\
+\addlinespace
+nicolasfguillaume GitHub project \cite{nicolas_github} & Kaggle bike-sharing demand forecasting. & Weather/time features and Random Forest. & Supports tree ensembles as a reasonable candidate for nonlinear demand patterns. \\
+\addlinespace
+gradinarualex GitHub project \cite{gradinaru_github} & UCI bike rental prediction. & Baseline first, then feature engineering and stronger models. & Matches our structure: baseline, data representation, then model comparison. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+The reviewed work shows that strong demand forecasts usually depend on both model choice and feature construction. This is why the paper gives more space to the pipeline decisions than to a long list of final plots.

@@ -1,0 +1,35 @@
+\section{Discussion and Critical Reflection}
+The strongest lesson from the project is that representation decisions mattered more than simply adding more algorithms. Before lag features, even flexible models still missed a large part of the demand structure. After adding exact station-specific lags, every model improved. This means the project is not mainly a story about one winning algorithm; it is a story about converting a raw mobility dataset into a representation that matches the forecasting problem.
+
+\subsection{Why Gradient Boosting Wins}
+Gradient Boosting performs best because it combines weak regression trees sequentially and focuses later trees on remaining errors. This is useful for bike demand because effects are not purely additive. Rain, weekday, station identity, and previous demand can interact: a rainy weekday at a commuter station may behave differently from a rainy weekend at a leisure station. A linear model can only capture such interactions if they are explicitly engineered. Gradient Boosting can approximate many of them through tree splits.
+
+\subsection{Why the Result Is Still Not Perfect}
+A test $R^2$ of 0.663 is useful but not complete. Around one third of the variance remains unexplained. Some reasons are visible from the data design. The model does not include public events, strikes, road works, station outages, local tourism, or detailed hourly weather changes. Daily aggregation also hides commuting peaks and short-term demand shocks. Therefore, remaining errors are not only model errors; they also reflect missing explanatory information.
+
+\begin{table}[t]
+\caption{Main limitations and practical consequence.}
+\centering
+\scriptsize
+\begin{tabularx}{\linewidth}{p{0.34\linewidth}Y}
+\toprule
+Limitation & Consequence \\
+\midrule
+Top-20 station focus & Excludes smaller stations; results should not be generalized to the complete system. \\
+Daily aggregation & Removes hourly rush-hour peaks and short weather changes. \\
+Missing event variables & Large peaks or drops caused by events may remain unexplained. \\
+Chronological drift & Later demand behaviour can differ from earlier training data. \\
+High-demand days & The model may still underestimate rare high-demand situations. \\
+Weather-only context & Social, infrastructure, and operational factors are mostly absent. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Overfitting and Underfitting}
+The model family comparison gives a clear diagnosis. Linear models without lag underfit because they cannot describe the temporal structure. KNN and single trees can fit local structure, but they are more sensitive to variance and specific samples. Ensemble trees reduce this problem: Random Forest reduces variance by averaging trees, while Gradient Boosting reduces bias by fitting residuals. The final results therefore fit the expected bias-variance behaviour from the course.
+
+\subsection{Ethical and Responsible Use}
+The task is low-risk compared with personal classification tasks because the data is aggregated and no individual user is predicted. Still, operational bias is possible. If the model is trained only on popular stations, it may support decisions that favour already busy areas. In a real deployment, forecasts should be monitored by neighbourhood and station type. The model should support planners, not replace human judgement.
+
+\subsection{Next Steps}
+The most useful next steps are data improvements rather than simply adding more models. First, add hourly modelling to capture commute peaks. Second, add holiday and event information. Third, analyse residuals by station, season, and demand level. Fourth, monitor drift because mobility patterns can change over time. Fifth, extend the station set carefully so that less frequent stations are represented without destroying model stability.

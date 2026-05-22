@@ -1,1 +1,53 @@
-hier kommt die modeling pipeline mit allen models
+\section{Modelling Pipeline}
+All models use one shared pipeline structure. This is important because a model comparison is only meaningful when models receive the same rows, target, split, preprocessing rules, and metrics. The repository therefore separates common utilities from model-specific scripts.
+
+\begin{table}[t]
+\caption{Pipeline stages and purpose.}
+\centering
+\scriptsize
+\begin{tabularx}{\linewidth}{p{0.31\linewidth}Y}
+\toprule
+Stage & Purpose \\
+\midrule
+Raw data loading & Read trip, station, and weather files. \\
+Station-day table & Aggregate rentals and merge weather by date. \\
+Feature reduction & Remove leakage columns and redundant predictors. \\
+Lag/no-lag variants & Create two comparable datasets with identical row keys. \\
+Encoding & Apply one-hot encoding to station identity. \\
+Model-specific scaling & Scale only models that require it. \\
+Chronological split & Use older data for training and later data for validation/test. \\
+Training and tuning & Fit all models first, then optimize hyperparameters on validation data. \\
+Evaluation & Save metrics, predictions, rankings, and the final comparison figure. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Chronological Split}
+A random split would mix past and future observations. This would make the task easier than real forecasting and could hide temporal drift. The final split is therefore chronological: 70\% training, 15\% validation, and 15\% test. The validation set is used for development decisions and hyperparameter tuning. The test set is used only for final reporting.
+
+\section{Model Selection Strategy}
+The model set was chosen to cover increasing complexity and different learning principles taught or discussed in the course: baseline modelling, linear regression, regularization, local neighbourhood methods, decision trees, bagging, boosting, and a nonlinear neural reference. This is more informative than testing many similar variants of one algorithm.
+
+\begin{table*}[t]
+\caption{Models, used input variant, scaling, and reason for inclusion.}
+\centering
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.14\textwidth}p{0.14\textwidth}p{0.11\textwidth}Y}
+\toprule
+Model & Data used & Scaling & Reason for inclusion \\
+\midrule
+Dummy Regressor & no-lag baseline & no & Minimum reference; real models must clearly beat it. \\
+Linear Regression & no-lag and lag & yes & Tests whether the selected features contain an approximately linear signal. \\
+Ridge & no-lag and lag & yes & L2 regularization checks whether coefficient shrinkage helps under remaining collinearity. \\
+Lasso & no-lag and lag & yes & L1 regularization adds feature-selection behaviour and gives a transparent benchmark. \\
+Decision Tree & no-lag and lag & no & Tests nonlinear threshold rules; useful but prone to overfitting. \\
+KNN & no-lag and lag & yes & Tests whether similar station-days have similar demand; distance model needs scaling. \\
+Random Forest & no-lag and lag & no & Bagging ensemble reduces single-tree variance and gives a strong nonlinear baseline. \\
+Gradient Boosting & no-lag and lag & no & Sequential trees fit residual structure and target remaining bias. \\
+Neural Network & no-lag and lag & yes & Flexible nonlinear reference; included to compare against tree ensembles. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{Overfitting Logic}
+The model comparison also serves as an overfitting diagnosis. Linear models are expected to be stable but may underfit. KNN and single trees can memorize local patterns and therefore risk high variance. Random Forest combats variance through bagging. Gradient Boosting can reduce bias, but must be tuned carefully because too many or too deep trees can overfit. This is why every model is evaluated on train, validation, and test data and why the final choice is not based on training error.

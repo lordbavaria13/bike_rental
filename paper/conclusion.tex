@@ -1,0 +1,6 @@
+\section{Conclusion}
+This project built a complete station-level bike rental demand forecasting pipeline. The final model predicts daily rentals for the 20 most used Capital Bikeshare start stations. The most important technical decisions were: remove leakage-prone count decompositions, reduce redundant weather variables using correlation analysis, one-hot encode station identity, respect chronological order, and add exact station-specific lag features.
+
+The best final model is Gradient Boosting with lag features, with test RMSE 22.78, MAE 16.92, and $R^2$ 0.663. The most important insight is not only that Gradient Boosting wins, but why it wins: the final representation gives the model station identity, weather context, calendar structure, and recent demand memory. Lag features improved every model, which shows that temporal information is essential for this forecasting task.
+
+Future work should move from daily to hourly forecasting, add event and holiday context, and evaluate fairness across all stations rather than only the most used ones. This would make the model more realistic for operational planning.

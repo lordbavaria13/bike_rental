@@ -1,75 +1,77 @@
-\section{Dataset and Feature Engineering}
-\label{sec:dataset}
+\section{Dataset Construction and Used Features}
+The raw project data contains trip usage information, station metadata, and weather data. The final learning table is not the raw trip table. It is a reduced and reproducible station-day dataset: one row means one start station on one calendar day, and the target is the total number of rentals started at that station on that day. This reduction is necessary because it aligns trip counts with daily weather information, gives a clear target variable, and avoids mixing row granularities.
 
-\subsection{Data Origin and Structure}
-The dataset used in this project is based on the Capital Bikeshare system from the Washington D.C. area. It contains historical bike rental and weather data from May 2020 to August 2024. In our final analytical table, each row represents exactly one day at one specific station. This daily aggregation aligns the demand outcome with the available weather data.
-
-\subsection{The Target Variable}
-The main goal of our machine learning models is to predict the daily bike demand. Therefore, the task was formulated as a clean regression problem with a single numeric target variable.
-
-\begin{table}[htbp]
+\begin{table}[t]
+\caption{Final dataset definition.}
 \centering
-\caption{Target Variable}
-\label{tab:target}
-\begin{tabularx}{\columnwidth}{l X}
+\scriptsize
+\begin{tabularx}{\linewidth}{p{0.36\linewidth}Y}
 \toprule
-\textbf{Column Name} & \textbf{Description} \\
+Item & Value / decision \\
 \midrule
-\texttt{total\_rentals} & The absolute number of bikes rented at a specific station on a given day. \\
+Source & Capital Bikeshare dataset 2020/05--2024/08 \cite{taweilo_kaggle}. \\
+Raw inputs & Trip records, station list, weather table. \\
+Selected stations & Top 20 start stations by total rentals. \\
+Observation level & Daily start-station demand. \\
+Target variable & \code{total\_rentals}. \\
+Initial reduced rows & 31,289 station-day rows. \\
+Comparable rows & 30,840 rows after filtering lag and no-lag variants to identical station-day keys. \\
+Train / validation / test & 21,410 / 4,705 / 4,725 rows. \\
+Encoded features & 35 without lag; 37 with \code{lag\_1} and \code{lag\_7}. \\
+Split logic & Chronological 70/15/15 split. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Temporal and Weather Features}
-To make accurate predictions, the models need to understand seasonal patterns and weather conditions, as both strongly influence the decision to ride a bike. We replaced string-based dates with numerical time representations to make them trainable for our models.
-
-\begin{table}[htbp]
+\begin{table*}[t]
+\caption{Features used in the final modelling dataset. Count decompositions are not used as inputs.}
 \centering
-\caption{Temporal Features}
-\label{tab:temporal}
-\begin{tabularx}{\columnwidth}{l X}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{0.18\textwidth}p{0.38\textwidth}Y}
 \toprule
-\textbf{Column Name} & \textbf{Description} \\
+Feature group & Variables & Why used \\
 \midrule
-\texttt{year} & The year of the observation. \\
-\texttt{month} & The month (1 to 12) to capture seasonal changes. \\
-\texttt{weekday} & The day of the week (0 to 6) to separate commuting days from weekends. \\
-\texttt{time\_idx} & A continuous chronological index. It helps the model to recognize long-term trends over the years. \\
+Station identity & \code{start\_station\_id} $\rightarrow$ 20 one-hot station columns & Captures persistent station-specific demand differences without treating IDs as ordered numbers. \\
+\addlinespace
+Weather level & \code{tempmax}, \code{humidity}, \code{sealevelpressure}, \code{visibility}, \code{uvindex} & Describes general daily riding conditions. Temperature and visibility usually affect comfort and willingness to ride. \\
+\addlinespace
+Bad-weather / surface conditions & \code{precip}, \code{precipcover}, \code{cloudcover}, \code{windspeed}, \code{snow}, \code{snowdepth} & Captures conditions that can reduce bike usage or create unusual demand days. \\
+\addlinespace
+Calendar and time & \code{month}, \code{weekday}, \code{year}, \code{time\_idx}, \code{sunset\_minutes} & Preserves seasonality, weekday patterns, long-term order, and daylight information. \\
+\addlinespace
+Temporal memory & \code{total\_rentals\_lag\_1}, \code{total\_rentals\_lag\_7} & Adds station-specific demand history: yesterday and the same weekday one week earlier. \\
+\addlinespace
+Target only & \code{total\_rentals} & Output variable; never used as current-day input, only its past values are allowed as lag features. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{Target Variable and Distribution}
+The target was simplified to one output, \code{total\_rentals}. Intermediate count columns for member/casual users or bike types were removed from the predictor set because they are components of the same total. Keeping them would create a leakage-like shortcut: the model could reconstruct demand instead of forecasting it.
+
+\begin{table}[t]
+\caption{Target distribution after final comparable filtering.}
+\centering
+\scriptsize
+\begin{tabularx}{\linewidth}{p{0.33\linewidth}Y}
+\toprule
+Statistic & \code{total\_rentals} \\
+\midrule
+Mean & 73.77 rentals per station-day. \\
+Median & 70 rentals. \\
+Standard deviation & 39.75 rentals. \\
+Minimum / maximum & 1 / 377 rentals. \\
+Interpretation & Demand contains low, normal, and high-demand days. Therefore MAE alone is insufficient; RMSE and relative errors are also needed. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-The dataset also contains several daily aggregated weather metrics. Before finalizing the features, we analyzed correlations to remove redundant weather variables (like \texttt{feelslike} temperature).
+\subsection{Why the Top 20 Stations Were Used}
+The top-20 filter is a methodological reduction. Rare stations contain fewer repeated observations, which makes station-specific patterns unstable and weakens evaluation. Highly used stations provide enough examples for model comparison and reduce random noise. The limitation is explicit: the final model represents busy stations, not the complete bikeshare system.
 
-\begin{table}[htbp]
+\begin{figure}[t]
 \centering
-\caption{Weather Features}
-\label{tab:weather}
-\begin{tabularx}{\columnwidth}{l X}
-\toprule
-\textbf{Column Name} & \textbf{Description} \\
-\midrule
-\texttt{tempmax} & The maximum temperature of the day (in Celsius). \\
-\texttt{humidity} & The average relative humidity (in percent). \\
-\texttt{precip} & The absolute amount of precipitation (in mm). \\
-\texttt{precipcover} & The percentage of the day with precipitation. \\
-\texttt{cloudcover} & The average cloud cover (in percent). \\
-\texttt{windspeed} & The measured wind speed. \\
-\texttt{visibility} & The average visibility distance. \\
-\texttt{sealevelpressure} & The atmospheric pressure at sea level. \\
-\texttt{uvindex} & The strength of the UV radiation. \\
-\texttt{sunset\_minutes} & The time of sunset, expressed in minutes from midnight. This acts as an indicator for daylight duration. \\
-\texttt{snow} & The amount of fresh snow (in mm). \\
-\texttt{snowdepth} & The total depth of snow on the ground (in mm). \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\subsection{Station Filtering and One-Hot Encoding}
-Instead of using all available stations, we decided to focus on the 20 most popular start stations. This was a methodological decision to reduce noise from rare stations and to provide a stronger, more stable signal for the models. It also reduced the data size and allowed for faster experimentation.
-
-In earlier stages, the station identity was stored as a single numeric identifier (\texttt{start\_station\_id}). However, this creates a major problem: machine learning models might wrongly interpret this ID as a continuous mathematical value, assuming that a meaningful distance exists between the numbers. 
-    
-To fix this weakness, we removed the ID column and applied one-hot encoding. We created 20 separate binary columns, one for each of the top 20 stations.
-
-TODO: Reduced Data and why implementieren! (Tabellen / Grafiken verwenden)
+\includegraphics[width=\linewidth]{predictor_correlation_heatmap.png}
+\caption{Correlation matrix used during feature reduction. Strong blocks identified near-duplicate weather variables and supported removing redundant predictors before modelling.}
+\label{fig:corr}
+\end{figure}

@@ -1,9 +1,25 @@
 \section{Introduction}
+Bike-sharing systems depend on local and time-dependent demand. If too few bikes are available, users cannot start trips; if too many bikes accumulate at one station, docks and redistribution capacity are wasted. We therefore study the following machine learning question: given station, calendar, weather, and recent demand information, how accurately can daily bike rentals be predicted for a station?
 
-Accurately predicting bike rental demand is a crucial operational challenge for bike-sharing systems. The goal of this project is to forecast this demand using machine learning in a way that is technically sound, reproducible, and easy to justify. 
+The task is a supervised regression problem because the output is a numeric rental count. The final target is \code{total\_rentals}. The main input groups are station identity, weather, calendar variables, chronological order, and lagged demand. The project deliberately focuses on a transparent pipeline rather than a single black-box result. Each data transformation is justified because the final model quality depends strongly on representation choices.
 
-To achieve this, we frame the task as a regression problem, utilizing daily data from the Capital Bikeshare system combined with historical weather metrics. This report combines two core phases of the project into one coherent document:
+\begin{table}[t]
+\caption{Problem formulation and design constraints.}
+\centering
+\scriptsize
+\begin{tabularx}{\linewidth}{p{0.33\linewidth}Y}
+\toprule
+Element & Final formulation \\
+\midrule
+Learning type & Supervised learning, regression. \\
+Prediction target & Daily rentals per station: \code{total\_rentals}. \\
+Observation unit & One row equals one start station on one calendar day. \\
+Practical goal & Support operational planning by estimating future station-level demand. \\
+Main constraint & Time order must be respected; future data cannot influence training. \\
+Main risk & Leakage through rental sub-counts or lag features computed across stations. \\
+Model choice principle & Start with simple baselines, then add complexity only when results justify it. \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-First, it outlines the complete data preparation and feature engineering process. Explaining the final reduced dataset is essential, because the modelling results only make sense if the underlying data representation is clear and robust.
-
-Second, it presents the modelling pipeline and the final evaluation. We train and compare eight different regression models under a strict chronological train-validation-test split. The report provides a detailed performance analysis using error metrics such as RMSE, MAE, and $R^2$. By summarizing these results in comparative tables and visual diagnostics, we evaluate which models perform best, interpret their behavior, and critically discuss the current limitations of our forecasting system.
+The final report follows the project requirements: related work, data description, preprocessing, modelling strategy, evaluation, results, limitations, critical reflection, and AI tool acknowledgement. The paper also reflects the feedback from earlier deliverables: stronger dataset description, explicit metrics, careful handling of imbalance across demand levels, and more critical analysis of feature importance and overfitting.

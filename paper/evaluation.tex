@@ -1,0 +1,27 @@
+\section{Evaluation Strategy}
+The main ranking metric is RMSE because large demand misses are operationally more problematic than small errors. However, one metric is not enough. The final comparison reports MAE, RMSE, MAPE, $R^2$, explained variance, and training/prediction time.
+
+\begin{table}[t]
+\caption{Evaluation metrics and reason for use.}
+\centering
+\scriptsize
+\begin{tabularx}{\linewidth}{p{0.23\linewidth}Y}
+\toprule
+Metric & Interpretation in this project \\
+\midrule
+MAE & Average absolute error in rentals; easy operational interpretation. \\
+RMSE & Penalizes large errors; main ranking metric. \\
+Median AE & Typical robust error; less affected by rare extreme days. \\
+MAPE & Relative error; useful because stations differ in demand level. \\
+$R^2$ & Variance explained compared with a mean baseline. \\
+Explained variance & Checks whether predicted spread follows real demand spread. \\
+Fit / prediction time & Shows whether accuracy gains have a computational cost. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Overfitting Diagnosis}
+Overfitting is assessed by comparing train, validation, and test behaviour. KNN and single trees are expected to be more vulnerable because they can memorize local or threshold-specific patterns. Regularized linear models are safer but may underfit nonlinear demand structure. Ensemble trees are expected to balance flexibility and generalization, but they still require validation because boosting can overfit when depth and number of estimators are too large.
+
+\subsection{Hyperparameter Tuning}
+Hyperparameters were tuned on the validation set only. The test set was kept untouched until the final comparison. This separation is necessary because selecting parameters directly on the test set would turn the test set into another development set and make the final score too optimistic.

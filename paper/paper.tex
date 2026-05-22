@@ -1,52 +1,49 @@
 \documentclass[conference]{IEEEtran}
+
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{tabularx}
 \usepackage{array}
 \usepackage{multirow}
-\usepackage{hyperref}
-\usepackage{xcolor}
-\usepackage{enumitem}
 \usepackage{amsmath}
-\usepackage{tabularx}
-\usepackage{float}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{balance}
 
-\hypersetup{hidelinks}
-\graphicspath{{../modelling/99_model_comparison/results/plots}}
+\graphicspath{{../data/processed/analysis/}{../modelling/99_model_comparison/results/plots/}{../modelling/07_gradient_boosting/results/with_lag/plots/}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\code}[1]{\texttt{#1}}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.02}
+\setlength{\textfloatsep}{8pt plus 1pt minus 2pt}
+\setlength{\floatsep}{7pt plus 1pt minus 2pt}
+\setlength{\intextsep}{7pt plus 1pt minus 2pt}
 
-\title{Bike Rental Demand Forecasting\\From Data Preparation to Model Comparison and Critical Reflection}
+\title{Station-Level Bike Rental Demand Forecasting with Lag Features and Ensemble Regression}
 
 \author{
 \IEEEauthorblockN{Anton Wilhelmi and Alexander Harant}
 \IEEEauthorblockA{Introduction to Machine Learning\\
-Group Project - Final Deliverable}
+Group Project -- Final Deliverable}
 }
 
 \begin{document}
 \maketitle
 
 \input{abstract}
-
 \input{introduction}
-
+\input{related_work}
 \input{section_dataset}
-
+\input{feature_engineering}
 \input{modeling_pipeline}
-
+\input{evaluation}
 \input{results_models}
-
-\section{Preliminary Ethical Considerations}
-
-Predicting bike rental demand is generally a low-risk machine learning task. However, we still need to consider some ethical and social effects. 
-
-First, we decided to use only the 20 most used start stations. This was necessary to build a stable first model, but it creates a representation bias. By leaving out smaller stations, our model ignores the demand in areas that might already have fewer services. In a real-world system, this could lead to an unfair distribution of bikes, where less popular neighborhoods get even less attention.
-
-Furthermore, the data we use is completely anonymous and grouped by day and station. This means no personal user information is exposed. If we change our model in the future to use hourly data or specific user types (like registered members or casual users), we must keep this strict privacy standard. 
-
-In future steps of this project, we should also think about the social and economic background of the stations. We must make sure that our model does not systematically disadvantage certain parts of the city.
-
-\section{AI Tool Use}
-AI tools were used for drafting support, restructuring text, and helping to standardize code and reporting outputs. The final content, decisions, code execution, result interpretation, and critical reflection were reviewed and organized by the authors.
+\input{discussion_limitations}
+\input{conclusion}
+\input{ai_tools}
+\balance
+\input{references}
 
 \end{document}
