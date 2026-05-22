@@ -1,0 +1,150 @@
+{
+  "model_name": "RidgeRegression",
+  "experiment": "with_lag",
+  "uses_lag_features": true,
+  "target": "total_rentals",
+  "feature_names": [
+    "time_idx",
+    "tempmax",
+    "humidity",
+    "precip",
+    "precipcover",
+    "cloudcover",
+    "windspeed",
+    "visibility",
+    "sealevelpressure",
+    "uvindex",
+    "sunset_minutes",
+    "month",
+    "weekday",
+    "year",
+    "snow",
+    "snowdepth",
+    "total_rentals_lag_1",
+    "total_rentals_lag_7",
+    "station_31125.0",
+    "station_31200.0",
+    "station_31201.0",
+    "station_31202.0",
+    "station_31203.0",
+    "station_31214.0",
+    "station_31229.0",
+    "station_31247.0",
+    "station_31248.0",
+    "station_31258.0",
+    "station_31266.0",
+    "station_31281.0",
+    "station_31288.0",
+    "station_31289.0",
+    "station_31600.0",
+    "station_31603.0",
+    "station_31613.0",
+    "station_31623.0",
+    "station_31627.0"
+  ],
+  "n_final_features": 37,
+  "station_id_encoding": "one_hot",
+  "scaling_used": true,
+  "best_params": {
+    "alpha": 1000.0
+  },
+  "param_grid": [
+    {
+      "alpha": 0.001
+    },
+    {
+      "alpha": 0.01
+    },
+    {
+      "alpha": 0.1
+    },
+    {
+      "alpha": 1.0
+    },
+    {
+      "alpha": 5.0
+    },
+    {
+      "alpha": 10.0
+    },
+    {
+      "alpha": 50.0
+    },
+    {
+      "alpha": 100.0
+    },
+    {
+      "alpha": 500.0
+    },
+    {
+      "alpha": 1000.0
+    }
+  ],
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/02_ridge_regression/results/with_lag",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/02_ridge_regression/results/with_lag/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/02_ridge_regression/model/with_lag/ridge.joblib",
+  "metrics": {
+    "model_name": "RidgeRegression",
+    "experiment": "with_lag",
+    "uses_lag_features": true,
+    "target": "total_rentals",
+    "n_features": 37,
+    "n_train": 21410,
+    "n_validation": 4705,
+    "n_test": 4725,
+    "fit_time_seconds": 0.001670165998802986,
+    "predict_time_seconds": 0.0006885000038892031,
+    "station_id_encoding": "one_hot",
+    "scaling_used": true,
+    "best_params": {
+      "alpha": 1000.0
+    },
+    "solver": "auto",
+    "alpha_grid": [
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      5.0,
+      10.0,
+      50.0,
+      100.0,
+      500.0,
+      1000.0
+    ],
+    "intercept": 65.55193834656694,
+    "coef_l2_norm": 20.22969658698018,
+    "n_nonzero_coefficients": 37,
+    "train_mae": 14.965256659362348,
+    "train_rmse": 21.763107183935116,
+    "train_r2": 0.6642125071446604,
+    "train_median_ae": 10.738676909239963,
+    "train_explained_variance": 0.6642125071446605,
+    "train_mape": 0.4114899112886835,
+    "validation_mae": 18.12948910797895,
+    "validation_rmse": 23.813796704629794,
+    "validation_r2": 0.591017620575182,
+    "validation_median_ae": 14.560152416587513,
+    "validation_explained_variance": 0.6121766924495433,
+    "validation_mape": 0.3726494036633451,
+    "test_mae": 18.995752764903063,
+    "test_rmse": 24.919740965427863,
+    "test_r2": 0.596330243408981,
+    "test_median_ae": 14.988353908151396,
+    "test_explained_variance": 0.6226789668817472,
+    "test_mape": 0.34462974469056296
+  },
+  "solver": "auto",
+  "alpha_grid": [
+    0.001,
+    0.01,
+    0.1,
+    1.0,
+    5.0,
+    10.0,
+    50.0,
+    100.0,
+    500.0,
+    1000.0
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "model_name": "DecisionTreeRegressor",
+  "experiment": "without_lag",
+  "uses_lag_features": false,
+  "target": "total_rentals",
+  "feature_names": [
+    "time_idx",
+    "tempmax",
+    "humidity",
+    "precip",
+    "precipcover",
+    "cloudcover",
+    "windspeed",
+    "visibility",
+    "sealevelpressure",
+    "uvindex",
+    "sunset_minutes",
+    "month",
+    "weekday",
+    "year",
+    "snow",
+    "snowdepth",
+    "station_31125.0",
+    "station_31200.0",
+    "station_31201.0",
+    "station_31202.0",
+    "station_31203.0",
+    "station_31214.0",
+    "station_31229.0",
+    "station_31247.0",
+    "station_31248.0",
+    "station_31258.0",
+    "station_31266.0",
+    "station_31281.0",
+    "station_31288.0",
+    "station_31289.0",
+    "station_31600.0",
+    "station_31603.0",
+    "station_31613.0",
+    "station_31623.0",
+    "station_31627.0"
+  ],
+  "n_final_features": 35,
+  "station_id_encoding": "one_hot",
+  "scaling_used": false,
+  "best_params": {
+    "max_depth": null,
+    "min_samples_leaf": 10.0,
+    "min_samples_split": 20.0
+  },
+  "param_grid": [
+    {
+      "max_depth": 3,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 5,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 8,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 10,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 12,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": null,
+      "min_samples_leaf": 5,
+      "min_samples_split": 10
+    },
+    {
+      "max_depth": 5,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": 8,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": 10,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    },
+    {
+      "max_depth": null,
+      "min_samples_leaf": 10,
+      "min_samples_split": 20
+    }
+  ],
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/results/without_lag",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/results/without_lag/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/04_decision_tree/model/without_lag/decision_tree.joblib",
+  "metrics": {
+    "model_name": "DecisionTreeRegressor",
+    "experiment": "without_lag",
+    "uses_lag_features": false,
+    "target": "total_rentals",
+    "n_features": 35,
+    "n_train": 21410,
+    "n_validation": 4705,
+    "n_test": 4725,
+    "fit_time_seconds": 0.084686457994394,
+    "predict_time_seconds": 0.00207162500009872,
+    "station_id_encoding": "one_hot",
+    "scaling_used": false,
+    "best_params": {
+      "max_depth": null,
+      "min_samples_leaf": 10.0,
+      "min_samples_split": 20.0
+    },
+    "train_mae": 11.139975224301402,
+    "train_rmse": 16.124709850497055,
+    "train_r2": 0.8156655399369586,
+    "train_median_ae": 8.093073593073594,
+    "train_explained_variance": 0.8156655399369586,
+    "train_mape": 0.2794514982294154,
+    "validation_mae": 20.511160419151505,
+    "validation_rmse": 27.20082843836552,
+    "validation_r2": 0.4664052152205327,
+    "validation_median_ae": 16.148148148148152,
+    "validation_explained_variance": 0.49200425811267623,
+    "validation_mape": 0.3616535126342439,
+    "test_mae": 23.390684769214637,
+    "test_rmse": 30.57555289584047,
+    "test_r2": 0.39230200463547993,
+    "test_median_ae": 18.727272727272727,
+    "test_explained_variance": 0.4574578548434558,
+    "test_mape": 0.3325351381201941
+  }
+}

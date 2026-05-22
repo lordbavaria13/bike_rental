@@ -1,0 +1,153 @@
+{
+  "model_name": "GradientBoostingRegressor",
+  "experiment": "without_lag",
+  "uses_lag_features": false,
+  "target": "total_rentals",
+  "feature_names": [
+    "time_idx",
+    "tempmax",
+    "humidity",
+    "precip",
+    "precipcover",
+    "cloudcover",
+    "windspeed",
+    "visibility",
+    "sealevelpressure",
+    "uvindex",
+    "sunset_minutes",
+    "month",
+    "weekday",
+    "year",
+    "snow",
+    "snowdepth",
+    "station_31125.0",
+    "station_31200.0",
+    "station_31201.0",
+    "station_31202.0",
+    "station_31203.0",
+    "station_31214.0",
+    "station_31229.0",
+    "station_31247.0",
+    "station_31248.0",
+    "station_31258.0",
+    "station_31266.0",
+    "station_31281.0",
+    "station_31288.0",
+    "station_31289.0",
+    "station_31600.0",
+    "station_31603.0",
+    "station_31613.0",
+    "station_31623.0",
+    "station_31627.0"
+  ],
+  "n_final_features": 35,
+  "station_id_encoding": "one_hot",
+  "scaling_used": false,
+  "best_params": {
+    "n_estimators": 300.0,
+    "learning_rate": 0.03,
+    "max_depth": 4.0,
+    "min_samples_leaf": 10.0,
+    "subsample": 0.8
+  },
+  "param_grid": [
+    {
+      "n_estimators": 100,
+      "learning_rate": 0.03,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    },
+    {
+      "n_estimators": 200,
+      "learning_rate": 0.03,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    },
+    {
+      "n_estimators": 300,
+      "learning_rate": 0.03,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    },
+    {
+      "n_estimators": 400,
+      "learning_rate": 0.03,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    },
+    {
+      "n_estimators": 500,
+      "learning_rate": 0.03,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    },
+    {
+      "n_estimators": 300,
+      "learning_rate": 0.03,
+      "max_depth": 4,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    },
+    {
+      "n_estimators": 400,
+      "learning_rate": 0.03,
+      "max_depth": 4,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    },
+    {
+      "n_estimators": 600,
+      "learning_rate": 0.01,
+      "max_depth": 3,
+      "min_samples_leaf": 10,
+      "subsample": 0.8
+    }
+  ],
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/07_gradient_boosting/results/without_lag",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/07_gradient_boosting/results/without_lag/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/07_gradient_boosting/model/without_lag/gradient_boosting.joblib",
+  "metrics": {
+    "model_name": "GradientBoostingRegressor",
+    "experiment": "without_lag",
+    "uses_lag_features": false,
+    "target": "total_rentals",
+    "n_features": 35,
+    "n_train": 21410,
+    "n_validation": 4705,
+    "n_test": 4725,
+    "fit_time_seconds": 7.236281958998006,
+    "predict_time_seconds": 0.04578037499595666,
+    "station_id_encoding": "one_hot",
+    "scaling_used": false,
+    "best_params": {
+      "n_estimators": 300.0,
+      "learning_rate": 0.03,
+      "max_depth": 4.0,
+      "min_samples_leaf": 10.0,
+      "subsample": 0.8
+    },
+    "train_mae": 12.851623723873947,
+    "train_rmse": 18.49660806944096,
+    "train_r2": 0.7574468593331338,
+    "train_median_ae": 9.599854109635718,
+    "train_explained_variance": 0.7574468898039804,
+    "train_mape": 0.3544883462870884,
+    "validation_mae": 19.06168164790931,
+    "validation_rmse": 24.50583288503099,
+    "validation_r2": 0.5669019295734716,
+    "validation_median_ae": 15.855737209539072,
+    "validation_explained_variance": 0.5855292340528553,
+    "validation_mape": 0.34939509116899137,
+    "test_mae": 22.425230760755703,
+    "test_rmse": 28.244301943703725,
+    "test_r2": 0.48143779925404917,
+    "test_median_ae": 19.08462278145896,
+    "test_explained_variance": 0.5405756883644959,
+    "test_mape": 0.34844467040224736
+  }
+}
