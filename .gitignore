@@ -31,20 +31,21 @@ conda-env/
 .idea/
 *.swp
 *.swo
-.DS_Store
-Thumbs.db
 
 
 # ============================================================
-# Logs
+# OS / system files
+# ============================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+# ============================================================
+# Logs and temporary files
 # ============================================================
 *.log
 logs/
-
-
-# ============================================================
-# Temporary files
-# ============================================================
 tmp/
 temp/
 *.tmp
@@ -53,62 +54,30 @@ temp/
 
 
 # ============================================================
-# Large/raw data files
+# Raw data only
 # ============================================================
 data/raw/
+
+
+# ============================================================
+# External / very large source data
+# ============================================================
 data/external/
-data/interim/
 
 
 # ============================================================
-# Keep selected processed data
-# ============================================================
-# Ignore processed data by default
-data/processed/*
-
-# But keep important reduced/encoded datasets
-!data/processed/daily_rentals_top20_reduced.csv
-!data/processed/daily_rentals_top20_reduced_with_lag.csv
-!data/processed/encoded_train.csv
-!data/processed/encoded_validation.csv
-!data/processed/encoded_test.csv
-!data/processed/encoded_feature_names.csv
-
-# Keep folder itself
-!data/processed/.gitkeep
-
-
-# ============================================================
-# Model outputs / results
-# ============================================================
-outputs/
-results/
-reports/figures/
-figures/
-plots/
-
-
-# ============================================================
-# Saved models
+# Saved model binaries
 # ============================================================
 *.pkl
 *.joblib
 *.pickle
-models/
 
 
 # ============================================================
-# ML experiment tracking
+# Experiment tracking
 # ============================================================
 mlruns/
 wandb/
-
-
-# ============================================================
-# OS / system files
-# ============================================================
-.DS_Store
-desktop.ini
 
 
 # ============================================================
@@ -120,7 +89,7 @@ desktop.ini
 
 
 # ============================================================
-# Distribution / build files
+# Build / distribution files
 # ============================================================
 build/
 dist/
