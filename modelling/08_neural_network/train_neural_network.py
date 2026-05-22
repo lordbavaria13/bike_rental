@@ -10,21 +10,28 @@ from modelling.common.training import parse_experiment_argument, run_regression_
 MODEL_NAME = "NeuralNetworkRegressor"
 BASE_DIR = Path(__file__).resolve().parent
 SOLVER = "adam"
-MAX_ITER = 400
+MAX_ITER = 1000 
 EARLY_STOPPING = True
 VALIDATION_FRACTION = 0.1
 N_ITER_NO_CHANGE = 20
-PARAM_GRID = [
-    {"hidden_layer_sizes": (64,), "activation": "relu", "alpha": 0.0001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (128,), "activation": "relu", "alpha": 0.0001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (128, 64), "activation": "relu", "alpha": 0.0001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (64,), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (128,), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (128, 64), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (128, 64), "activation": "relu", "alpha": 0.001, "learning_rate_init": 0.001},
-    {"hidden_layer_sizes": (128, 64), "activation": "tanh", "alpha": 0.001, "learning_rate_init": 0.001},
-]
 
+# fixed 'tanh' and 'learning_rate_init' 
+PARAM_GRID = [
+    # Block 1: Architektur-Test 
+    {"hidden_layer_sizes": (64,), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
+    {"hidden_layer_sizes": (128,), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001}, 
+    {"hidden_layer_sizes": (256,), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
+    {"hidden_layer_sizes": (128, 64), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
+    {"hidden_layer_sizes": (256, 128), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
+    
+    # Block 2: Regularisation-Test 
+    {"hidden_layer_sizes": (128,), "activation": "tanh", "alpha": 0.001, "learning_rate_init": 0.001},
+    {"hidden_layer_sizes": (128,), "activation": "tanh", "alpha": 0.01, "learning_rate_init": 0.001},
+    {"hidden_layer_sizes": (128,), "activation": "tanh", "alpha": 0.1, "learning_rate_init": 0.001},
+    
+    # Block 3: complex Architektur with strong regularisation
+    {"hidden_layer_sizes": (256, 128), "activation": "tanh", "alpha": 0.01, "learning_rate_init": 0.001},
+]
 
 def _hidden_layers(value):
     if isinstance(value, list):
@@ -32,7 +39,6 @@ def _hidden_layers(value):
     if isinstance(value, tuple):
         return value
     return (int(value),)
-
 
 def build_model(params: dict):
     return MLPRegressor(
@@ -47,7 +53,6 @@ def build_model(params: dict):
         validation_fraction=VALIDATION_FRACTION,
         n_iter_no_change=N_ITER_NO_CHANGE,
     )
-
 
 def main() -> None:
     args = parse_experiment_argument()
@@ -68,7 +73,6 @@ def main() -> None:
             "n_iter_no_change": N_ITER_NO_CHANGE,
         },
     )
-
 
 if __name__ == "__main__":
     main()

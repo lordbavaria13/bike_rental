@@ -9,17 +9,23 @@ from modelling.common.training import parse_experiment_argument, run_regression_
 
 MODEL_NAME = "GradientBoostingRegressor"
 BASE_DIR = Path(__file__).resolve().parent
-PARAM_GRID = [
-    {"n_estimators": 100, "learning_rate": 0.03, "max_depth": 2, "min_samples_leaf": 5, "subsample": 1.0},
-    {"n_estimators": 200, "learning_rate": 0.03, "max_depth": 2, "min_samples_leaf": 5, "subsample": 1.0},
-    {"n_estimators": 100, "learning_rate": 0.05, "max_depth": 2, "min_samples_leaf": 5, "subsample": 1.0},
-    {"n_estimators": 200, "learning_rate": 0.05, "max_depth": 2, "min_samples_leaf": 5, "subsample": 1.0},
-    {"n_estimators": 100, "learning_rate": 0.05, "max_depth": 3, "min_samples_leaf": 5, "subsample": 1.0},
-    {"n_estimators": 200, "learning_rate": 0.05, "max_depth": 3, "min_samples_leaf": 5, "subsample": 1.0},
-    {"n_estimators": 300, "learning_rate": 0.03, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
-    {"n_estimators": 300, "learning_rate": 0.05, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
-]
 
+# param fine tuning
+PARAM_GRID = [
+    # Block 1: Fix values (learning_rate=0.03, depth=3), variiere n_estimators
+    {"n_estimators": 100, "learning_rate": 0.03, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
+    {"n_estimators": 200, "learning_rate": 0.03, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
+    {"n_estimators": 300, "learning_rate": 0.03, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8}, # Bisheriger Gewinner
+    {"n_estimators": 400, "learning_rate": 0.03, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
+    {"n_estimators": 500, "learning_rate": 0.03, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
+    
+    # Block 2: more complexity
+    {"n_estimators": 300, "learning_rate": 0.03, "max_depth": 4, "min_samples_leaf": 10, "subsample": 0.8},
+    {"n_estimators": 400, "learning_rate": 0.03, "max_depth": 4, "min_samples_leaf": 10, "subsample": 0.8},
+    
+    # Block 3: slow learning against overfitting
+    {"n_estimators": 600, "learning_rate": 0.01, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
+]
 
 def build_model(params: dict):
     return GradientBoostingRegressor(
@@ -30,7 +36,6 @@ def build_model(params: dict):
         subsample=float(params["subsample"]),
         random_state=RANDOM_STATE,
     )
-
 
 def main() -> None:
     args = parse_experiment_argument()
@@ -44,7 +49,6 @@ def main() -> None:
         scale_numeric=False,
         save_feature_importance=True,
     )
-
 
 if __name__ == "__main__":
     main()

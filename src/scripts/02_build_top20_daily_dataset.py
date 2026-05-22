@@ -8,6 +8,7 @@ import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 RAW_DIR = BASE_DIR / "data" / "raw"
+# for outsourced data: RAW_DIR = BASE_DIR / "../" / "data"
 PROCESSED_DIR = BASE_DIR / "data" / "processed"
 
 RENT_FILE = RAW_DIR / "daily_rent_detail.csv"
