@@ -1,13 +1,13 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  22 MAY 2026 12:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.3.4)  24 MAY 2026 23:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.tex
-(/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.tex
+**c:/Users/Alex/Documents/ml_projekt/bike_rental/paper/paper.tex
+(c:/Users/Alex/Documents/ml_projekt/bike_rental/paper/paper.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
-(/usr/local/texlive/2026/texmf-dist/tex/latex/ieeetran/IEEEtran.cls
+(C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/ieeetran\IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
 -- http://www.michaelshell.org/tex/ieeetran/
@@ -19,7 +19,7 @@ Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 \@IEEEtrantmpcountC=\count277
 \@IEEEtrantmptoksA=\toks17
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 503.
-(/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+(C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 -- Using 8.5in x 11in (letter) paper.
@@ -104,34 +104,34 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 \IEEEPARstartletwidth=\dimen171
 \c@IEEEbiography=\count289
 \@IEEEtranrubishbin=\box54
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 116.
- (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1ptm.fd
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
-)) (/usr/local/texlive/2026/texmf-dist/tex/latex/base/inputenc.sty
+)) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks18
 \inpenc@posthook=\toks19
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphicx.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
- (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/keyval.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks20
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphics.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
- (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/trig.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
- (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-def/pdftex.def
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen172
 \Gin@req@width=\dimen173
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen174
 \lightrulewidth=\dimen175
@@ -150,9 +150,9 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count292
 \@lastruleclass=\count293
 \@thisrulewidth=\dimen186
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
- (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen187
 \ar@mcellbox=\box55
@@ -169,27 +169,27 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \TX@delta=\dimen193
 \TX@cols=\count294
 \TX@ftn=\toks22
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/multirow/multirow.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip54
 \multirow@cntb=\count295
 \multirow@dima=\skip55
 \bigstrutjot=\dimen194
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip56
 
 For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amstext.sty
+(C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
- (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsgen.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks23
 \ex@=\dimen195
-)) (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsbsy.sty
+)) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen196
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count296
@@ -239,59 +239,59 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks27
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hyperref.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
- (/usr/local/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-) (/usr/local/texlive/2026/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (/usr/local/texlive/2026/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
- (/usr/local/texlive/2026/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (/usr/local/texlive/2026/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (/usr/local/texlive/2026/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)) (/usr/local/texlive/2026/texmf-dist/tex/latex/hycolor/hycolor.sty
+)) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/nameref.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
- (/usr/local/texlive/2026/texmf-dist/tex/latex/refcount/refcount.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/usr/local/texlive/2026/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (/usr/local/texlive/2026/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count308
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count309
-) (/usr/local/texlive/2026/texmf-dist/tex/generic/stringenc/stringenc.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \@linkdim=\dimen260
 \Hy@linkcounter=\count310
 \Hy@pagecounter=\count311
- (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/pd1enc.def
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (/usr/local/texlive/2026/texmf-dist/tex/generic/intcalc/intcalc.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count312
- (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/puenc.def
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -306,9 +306,9 @@ Package hyperref Info: Bookmarks ON on input line 4468.
 \c@Hy@tempcnt=\count313
 LaTeX Info: Redefining \url on input line 4807.
 \XeTeXLinkMargin=\dimen261
- (/usr/local/texlive/2026/texmf-dist/tex/generic/bitset/bitset.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (/usr/local/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count314
@@ -326,156 +326,279 @@ Package hyperref Info: PDF/A mode OFF on input line 6114.
 \c@Hfootnote=\count317
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
- (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hpdftex.def
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2026-01-29 v7.01p Hyperref driver for pdfTeX
 \Fld@listcount=\count318
 \c@bookmark@seq@number=\count319
- (/usr/local/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
- (/usr/local/texlive/2026/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip59
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/preprint/balance.sty
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/preprint\balance.sty
 Package: balance 1999/02/23 4.3 (PWD)
 \oldvsize=\dimen264
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count320
+\float@exts=\toks28
+\float@box=\box59
+\@float@everytoks=\toks29
+\@floatcapt=\box60
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count320
-) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.aux)
+\l__color_backend_stack_int=\count321
+) (paper.aux
+
+LaTeX Warning: Label `sec:pipeline' multiply defined.
+
+)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
 
 -- Lines per column: 56 (exact).
-(/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+(C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count321
+\scratchcounter=\count322
 \scratchdimen=\dimen265
-\scratchbox=\box59
-\nofMPsegments=\count322
-\nofMParguments=\count323
-\everyMPshowfont=\toks28
-\MPscratchCnt=\count324
+\scratchbox=\box61
+\nofMPsegments=\count323
+\nofMParguments=\count324
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count325
 \MPscratchDim=\dimen266
-\MPnumerator=\count325
-\makeMPintoPDFobject=\count326
-\everyMPtoPDFconversion=\toks29
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+\MPnumerator=\count326
+\makeMPintoPDFobject=\count327
+\everyMPtoPDFconversion=\toks31
+) (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (/usr/local/texlive/2026/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 32.
- (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.out) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.out)
+Package hyperref Info: Link coloring OFF on input line 33.
+ (paper.out) (paper.out)
 \@outlinefile=\write3
 \openout3 = `paper.out'.
 
- (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/abstract.tex
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 2.
- (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1pcr.fd
+ (abstract.tex
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 3.
+ (C:\Users\Alex\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/introduction.tex
-Underfull \hbox (badness 1521) in paragraph at lines 4--5
-[]\T1/ptm/m/n/10 The task is a su-per-vised re-gres-sion prob-lem be-cause
+)) (introduction.tex) (related_work.tex
+Underfull \hbox (badness 10000) in paragraph at lines 41--41
+[]|\T1/ptm/m/n/7 Capital Bike-share
  []
 
-) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/related_work.tex
-Underfull \hbox (badness 10000) in paragraph at lines 24--24
-[]|\T1/ptm/m/n/7 nicolasfguillaume GitHub
+) (section_dataset.tex [1{C:/Users/Alex/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
+
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.47 \subsection
+                {Station Filtering and One-Hot Encoding}]
+Underfull \hbox (badness 10000) in paragraph at lines 99--99
+[]|\T1/pcr/m/n/7 tempmax\T1/ptm/m/n/7 , \T1/pcr/m/n/7 humidity\T1/ptm/m/n/7 , \T1/pcr/m/n/7 windspeed\T1/ptm/m/n/7 , \T1/pcr/m/n/7 precip\T1/ptm/m/n/7 ,
  []
 
-) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/section_dataset.tex
-Underfull \hbox (badness 2762) in paragraph at lines 46--46
-[]|\T1/pcr/m/n/7 tempmax\T1/ptm/m/n/7 , \T1/pcr/m/n/7 humidity\T1/ptm/m/n/7 , \T1/pcr/m/n/7 sealevelpressure\T1/ptm/m/n/7 , \T1/pcr/m/n/7 visibility\T1/ptm/m/n/7 ,
+
+Underfull \hbox (badness 5924) in paragraph at lines 99--99
+\T1/pcr/m/n/7 precipcover\T1/ptm/m/n/7 , \T1/pcr/m/n/7 cloudcover\T1/ptm/m/n/7 , \T1/pcr/m/n/7 snow\T1/ptm/m/n/7 , \T1/pcr/m/n/7 snowdepth\T1/ptm/m/n/7 ,
  []
 
-[1{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--99
+\T1/pcr/m/n/7 visibility\T1/ptm/m/n/7 , \T1/pcr/m/n/7 sealevelpressure\T1/ptm/m/n/7 , \T1/pcr/m/n/7 uvindex\T1/ptm/m/n/7 ,
+ []
 
 
-]
-<../data/processed/analysis/predictor_correlation_heatmap.png, id=155, 1011.78pt x 722.7pt>
+Underfull \hbox (badness 10000) in paragraph at lines 99--99
+[]|\T1/pcr/m/n/7 total_rentals_lag_1 \T1/ptm/m/n/7 (yes-ter-day's de-mand) and
+ []
+
+<../data/processed/analysis/predictor_correlation_heatmap.png, id=161, 1011.78pt x 722.7pt>
 File: ../data/processed/analysis/predictor_correlation_heatmap.png Graphic file (type png)
 <use ../data/processed/analysis/predictor_correlation_heatmap.png>
-Package pdftex.def Info: ../data/processed/analysis/predictor_correlation_heatmap.png  used on input line 74.
+Package pdftex.def Info: ../data/processed/analysis/predictor_correlation_heatmap.png  used on input line 104.
 (pdftex.def)             Requested size: 252.0pt x 180.00188pt.
-) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/feature_engineering.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/modeling_pipeline.tex [2 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/../data/processed/analysis/predictor_correlation_heatmap.png>]) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/evaluation.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/results_models.tex [3]
-Underfull \hbox (badness 10000) in alignment at lines 23--23
-[][][][][][][][][] 
+) (feature_engineering.tex
+Underfull \hbox (badness 6510) in paragraph at lines 51--51
+[]|\T1/ptm/m/n/7 Remove mem-ber/casual and bike-type count
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 53--53
-[][][][][] 
+Underfull \hbox (badness 4048) in paragraph at lines 51--51
+[]|\T1/ptm/m/n/7 Remove near-duplicate vari-ables iden-ti-fied in
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 75--75
+Underfull \hbox (badness 5050) in paragraph at lines 51--51
+[]|\T1/ptm/m/n/7 Encode \T1/pcr/m/n/7 start_station_id \T1/ptm/m/n/7 as 20 bi-nary
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
+[]|\T1/ptm/m/n/7 Add \T1/pcr/m/n/7 total_rentals_lag_1 \T1/ptm/m/n/7 and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--63
+[]\T1/ptm/m/n/10 The first ver-sion of our pipeline used
+ []
+
+
+Underfull \hbox (badness 2600) in paragraph at lines 56--63
+\T1/ptm/m/n/10 than sta-tion 31245. Ma-chine learn-ing mod-els that use
+ []
+
+
+Underfull \hbox (badness 1590) in paragraph at lines 56--63
+\T1/ptm/m/n/10 as mean-ing-ful quan-ti-ties. We there-fore re-placed the ID
+ []
+
+[2
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.75 
+     
+pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.75 
+     
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.75 
+     
+pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.75 
+      <../data/processed/analysis/predictor_correlation_heatmap.png>]) (modeling_pipeline.tex
+
+LaTeX Warning: Citation `friedman2001' on page 3 undefined on input line 107.
+
+
+Underfull \hbox (badness 4752) in paragraph at lines 107--107
+[]|\T1/ptm/m/n/7 Flexible non-lin-ear ref-er-ence to com-pare
+ []
+
+) (evaluation.tex [3
+pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.55 
+     
+pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.55 
+     
+pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.55 
+     ]) (results_models.tex
+Underfull \hbox (badness 10000) in alignment at lines 31--31
+[][][][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in alignment at lines 63--63
 [][][][] 
  []
 
-<../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png, id=183, 867.24pt x 361.35pt>
+<../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png, id=188, 867.24pt x 361.35pt>
 File: ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png Graphic file (type png)
 <use ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>
-Package pdftex.def Info: ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png  used on input line 80.
+Package pdftex.def Info: ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png  used on input line 75.
 (pdftex.def)             Requested size: 252.0pt x 104.99834pt.
-) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/discussion_limitations.tex [4 </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>]) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/conclusion.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/ai_tools.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/references.tex
+
+Underfull \hbox (badness 10000) in alignment at lines 100--100
+[][][][][] 
+ []
+
+[4
+pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.129 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.129 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.129 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{table.10}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.129 
+       <../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>]) (discussion_limitations.tex
+
+LaTeX Warning: Citation `friedman2001' on page 5 undefined on input line 22.
+
+) (conclusion.tex) (ai_tools.tex) (references.tex
 
 Package balance Warning: You have called \balance in second column
 (balance)                Columns might not be balanced.
 
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 4--5
+[5
+pdfTeX warning (ext4): destination with the same identifier (name{table.11}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \begin{thebibliography}{00}
+                               ]
+Underfull \hbox (badness 10000) in paragraph at lines 4--6
 []\T1/ptm/m/n/8 T. Lo, ``Cap-i-tal bike-share dataset 2020/05--2024/08,'' Kag-gle.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4--5
+Underfull \hbox (badness 10000) in paragraph at lines 4--6
 \T1/ptm/m/n/8 [On-line]. Avail-able: []$https : / / www . kaggle . com / datasets / taweilo /
  []
 
 
-Underfull \hbox (badness 6364) in paragraph at lines 7--8
+Underfull \hbox (badness 6364) in paragraph at lines 8--10
 []\T1/ptm/m/n/8 Capital Bike-share, ``Sys-tem Data.'' [On-line]. Avail-able: []$https : / /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
-[]\T1/ptm/m/n/8 N. F. Guil-laume, ``Bike-Sharing-Demand-Kaggle,'' GitHub.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
-\T1/ptm/m/n/8 [On-line]. Avail-able: []$https : / / github . com / nicolasfguillaume /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 25--26
+Underfull \hbox (badness 10000) in paragraph at lines 29--31
 []\T1/ptm/m/n/8 scikit-learn, ``One-Ho-tEn-coder.'' [On-line]. Avail-able: []$https :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--26
+Underfull \hbox (badness 10000) in paragraph at lines 29--31
 \T1/ptm/m/n/8 / / scikit-[]learn . org / stable / modules / generated / sklearn . preprocessing .
  []
 
@@ -491,27 +614,33 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6] (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.aux)
+[6] (paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: DD3867E6477DCEC06F7EB3DFE68E1961;4863.
+(rerunfilecheck)             Checksum: 900A58B77B8BC2805498FF06F2E1531A;5388.
  ) 
 Here is how much of TeX's memory you used:
- 10775 strings out of 467525
- 174094 string characters out of 5418982
- 618845 words of memory out of 5000000
- 39456 multiletter control sequences out of 15000+600000
- 740948 words of font info for 152 fonts, out of 8000000 for 9000
+ 10866 strings out of 467866
+ 173012 string characters out of 5418810
+ 607587 words of memory out of 5000000
+ 39514 multiletter control sequences out of 15000+600000
+ 744919 words of font info for 157 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,1210b,451s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.pdf (6 pages, 463229 bytes).
+ 75i,13n,79p,452b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (6 pages, 524735 bytes).
 PDF statistics:
- 303 PDF objects out of 1000 (max. 8388607)
- 242 compressed objects within 3 object streams
- 59 named destinations out of 1000 (max. 500000)
- 227 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 297 PDF objects out of 1000 (max. 8388607)
+ 57 named destinations out of 1000 (max. 500000)
+ 243 words of extra memory for PDF output out of 10000 (max. 10000000)
 

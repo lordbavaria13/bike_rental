@@ -1,88 +1,135 @@
 \section{Results}
-The final comparison contains two variants for each model: without lag and with lag. This design directly answers the central question from the development process: is the improvement mainly caused by a more complex algorithm or by better temporal information?
+\label{sec:results}
 
-\begin{table*}[t]
-\caption{Final test results after hyperparameter tuning. Lower RMSE/MAE/MAPE is better; higher $R^2$ is better.}
+The final comparison contains two variants for each model: without lag 
+and with lag features. This design directly answers the central question 
+of our project: is the performance gain caused by a more complex 
+algorithm, or by better temporal information?
+
+\begin{table}[htbp]
+\caption{Final test results after hyperparameter tuning.}
+\label{tab:results}
 \centering
 \scriptsize
-\begin{tabularx}{\textwidth}{p{0.18\textwidth}p{0.08\textwidth}rrrrrrr}
+\begin{tabularx}{\columnwidth}{p{0.27\columnwidth} l r r r r}
 \toprule
-Model & Variant & Features & MAE & RMSE & $R^2$ & MAPE & Fit s & Pred. s \\
+\textbf{Model} & \textbf{Lag} & \textbf{MAE} & \textbf{RMSE} & 
+\textbf{$R^2$} & \textbf{MAPE} \\
 \midrule
-Dummy & baseline & -- & 38.14 & 48.02 & -0.499 & 0.817 & -- & -- \\
-Linear & no lag & 35 & 27.67 & 35.75 & 0.169 & 0.613 & 0.017 & 0.001 \\
-Linear & lag & 37 & 19.04 & 24.97 & 0.595 & 0.340 & 0.010 & 0.001 \\
-Ridge & lag & 37 & 19.00 & 24.92 & 0.596 & 0.345 & 0.002 & 0.001 \\
-Lasso & lag & 37 & 17.78 & 23.86 & 0.630 & 0.291 & 0.013 & 0.001 \\
-Decision Tree & lag & 37 & 19.47 & 26.68 & 0.537 & 0.282 & 0.074 & 0.002 \\
-KNN & lag & 37 & 19.55 & 25.37 & 0.582 & 0.282 & 0.001 & 2.696 \\
-Random Forest & lag & 37 & 17.17 & 23.02 & 0.656 & 0.295 & 0.322 & 0.060 \\
-Gradient Boosting & lag & 37 & \textbf{16.92} & \textbf{22.78} & \textbf{0.663} & \textbf{0.253} & 9.567 & 0.060 \\
-Neural Network & lag & 37 & 18.89 & 24.31 & 0.616 & 0.299 & 6.021 & 0.017 \\
-\bottomrule
-\end{tabularx}
-\end{table*}
-
-\begin{table}[t]
-\caption{Final top three models and why they are discussed.}
-\centering
-\scriptsize
-\begin{tabularx}{\linewidth}{p{0.33\linewidth}Y}
-\toprule
-Model & Reason \\
-\midrule
-Gradient Boosting + lag & Best final accuracy: RMSE 22.78 and $R^2$ 0.663. \\
-Random Forest + lag & Nearly equal accuracy, faster training, robust bagging alternative. \\
-Lasso + lag & Best linear model; useful transparent benchmark against ensembles. \\
+Dummy          & no  & 38.14 & 48.02 & -0.499 & 0.817 \\
+Linear         & no  & 27.67 & 35.75 &  0.169 & 0.613 \\
+Linear         & yes & 19.04 & 24.97 &  0.595 & 0.340 \\
+Ridge          & yes & 19.00 & 24.92 &  0.596 & 0.345 \\
+Lasso          & yes & 17.78 & 23.86 &  0.630 & 0.291 \\
+Decision Tree  & yes & 19.47 & 26.68 &  0.537 & 0.282 \\
+KNN            & yes & 19.55 & 25.37 &  0.582 & 0.282 \\
+Random Forest  & yes & 17.17 & 23.02 &  0.656 & 0.295 \\
+Gradient Boost & yes & \textbf{16.92} & \textbf{22.78} & 
+                       \textbf{0.663} & \textbf{0.253} \\
+Neural Network & yes & 18.89 & 24.31 &  0.616 & 0.299 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\begin{table}[t]
-\caption{Hyperparameter tuning effect for the final top three models.}
+The three best models are Gradient Boosting (RMSE 22.78, $R^2$ 0.663), 
+Random Forest (RMSE 23.02, $R^2$ 0.656), and Lasso (RMSE 23.86, 
+$R^2$ 0.630), all using lag features. Gradient Boosting achieves the 
+best accuracy but requires the longest training time (9.6 seconds). 
+Random Forest is nearly as accurate and trains much faster. Lasso is 
+the strongest linear model and serves as a transparent benchmark 
+against the ensemble methods.
+
+\subsection{Effect of Lag Features}
+
+\begin{table}[htbp]
+\caption{Effect of lag features on test RMSE (lower is better).}
+\label{tab:lag_effect}
 \centering
 \scriptsize
-\begin{tabularx}{\linewidth}{p{0.36\linewidth}rrrr}
+\begin{tabularx}{\columnwidth}{p{0.30\columnwidth} r r r}
 \toprule
-Model & RMSE before & RMSE after & $R^2$ before & $R^2$ after \\
+\textbf{Model} & \textbf{No lag} & \textbf{Lag} & 
+\textbf{Improvement} \\
 \midrule
-Gradient Boosting + lag & 22.79 & 22.78 & 0.662 & 0.663 \\
-Random Forest + lag & 23.02 & 23.02 & 0.656 & 0.656 \\
-Lasso + lag & 23.89 & 23.86 & 0.629 & 0.630 \\
+Linear         & 35.75 & 24.97 & 30.2\% \\
+Ridge          & 34.87 & 24.92 & 28.5\% \\
+Lasso          & 32.91 & 23.86 & 27.5\% \\
+Random Forest  & 29.02 & 23.02 & 20.7\% \\
+Gradient Boost & 28.24 & 22.78 & 19.3\% \\
+Decision Tree  & 30.58 & 26.68 & 12.8\% \\
+KNN            & 27.86 & 25.37 &  9.0\% \\
+Neural Network & 26.26 & 24.31 &  7.4\% \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Hyperparameter tuning only slightly improved the strongest models. This is an important result: the main performance gain came from better representation, especially lag features, not from forcing a complex parameter search.
+Lag features improve every model without exception. The improvement is 
+largest for linear models (up to 30.2\%) because the lag variables add 
+temporal information that weather and calendar features alone cannot 
+capture. Ensemble trees benefit less in relative terms because they can 
+already extract some temporal structure through nonlinear splits, but 
+they still improve by around 20\%.
 
-\begin{table}[t]
-\caption{Effect of lag features on test RMSE.}
-\centering
-\scriptsize
-\begin{tabularx}{\linewidth}{p{0.33\linewidth}rrr}
-\toprule
-Model & No lag & Lag & Improvement \\
-\midrule
-Linear & 35.75 & 24.97 & 30.2\% \\
-Ridge & 34.87 & 24.92 & 28.5\% \\
-Lasso & 32.91 & 23.86 & 27.5\% \\
-Random Forest & 29.02 & 23.02 & 20.7\% \\
-Gradient Boosting & 28.24 & 22.78 & 19.3\% \\
-Decision Tree & 30.58 & 26.68 & 12.8\% \\
-KNN & 27.86 & 25.37 & 9.0\% \\
-Neural Network & 26.26 & 24.31 & 7.4\% \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{test_rmse_lag_delta.png}
-\caption{Most informative final result: test RMSE decreases for every model when station-specific lag features are added. This directly supports the decision to prioritize temporal representation over adding more unrelated algorithms.}
+\caption{Test RMSE decreases for every model when station-specific lag 
+features are added. This supports the decision to prioritize temporal 
+representation over adding more algorithms.}
 \label{fig:lagdelta}
 \end{figure}
 
-\subsection{Result Interpretation}
-Gradient Boosting with lag features is the best final model. It reaches test RMSE 22.78, MAE 16.92, and $R^2$ 0.663. Random Forest with lag is close, and Lasso with lag is the strongest linear model. This ranking gives a useful interpretation: nonlinear ensembles are best when maximum accuracy is required, but a simple regularized model becomes competitive once the dataset contains the right temporal features.
+\subsection{Hyperparameter Tuning Effect}
 
-The most important result is not only the winning model. Lag features improve every model. The improvement is largest for linear models because lag variables add information that calendar and weather features could not express. Ensemble trees remain strongest because they can combine station, weather, calendar, and lag information through nonlinear splits.
+\begin{table}[htbp]
+\caption{Tuning effect: sklearn defaults vs.\ tuned parameters 
+(with lag, test set).}
+\label{tab:tuning}
+\centering
+\scriptsize
+\begin{tabularx}{\columnwidth}{p{0.32\columnwidth} r r r r}
+\toprule
+\textbf{Model} & \textbf{RMSE$_{\text{default}}$} & 
+\textbf{RMSE$_{\text{tuned}}$} & \textbf{$R^2_{\text{default}}$} & 
+\textbf{$R^2_{\text{tuned}}$} \\
+\midrule
+Gradient Boosting & 23.50 & 22.78 & 0.641 & 0.663 \\
+Neural Network    & 24.99 & 24.31 & 0.594 & 0.616 \\
+Lasso             & 23.89 & 23.86 & 0.629 & 0.630 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The tuning results show three different patterns. Gradient Boosting 
+improved the most: reducing the learning rate from 0.1 to 0.03 and 
+increasing the number of trees from 100 to 400 lowered the test RMSE 
+by 0.72 points (-3.1\%). This confirms that slower, more conservative 
+learning generalizes better for this dataset. The Neural Network also 
+improved clearly (-0.68, -2.7\%), but for a different reason: the 
+architecture stayed the same (one hidden layer with 128 neurons), 
+while the L2 regularization penalty was increased from 0.0001 to 0.1. 
+Forcing the network to learn smaller weights reduced overfitting more 
+effectively than adding complexity. Lasso barely changed (-0.03, 
+-0.1\%), which shows that the sklearn default of $\alpha = 1.0$ was 
+already very close to the optimal value for this dataset.
+
+The overall finding is consistent across all three models: the main 
+gain came from better regularization and more conservative learning, 
+not from increasing model capacity.
+
+\subsection{Result Interpretation}
+
+Gradient Boosting with lag features is the best final model, reaching 
+a test RMSE of 22.78, MAE of 16.92, and $R^2$ of 0.663. This means 
+that on average, the model's daily rental prediction for a station 
+deviates by about 23 rentals from the true value on unseen test data. 
+Random Forest is a strong and faster alternative with nearly identical 
+accuracy. Lasso shows that a simple regularized linear model becomes 
+competitive once the dataset contains the right temporal features.
+
+The most important result is not the winning model alone. Lag features 
+improve every model, and better regularization improves tuning results 
+across all three algorithm families. Both findings support the same 
+conclusion: for this dataset, improving the input representation and 
+controlling model complexity matters more than choosing a more 
+sophisticated algorithm.

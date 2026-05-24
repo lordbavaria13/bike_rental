@@ -1,47 +1,97 @@
 \section{Feature Engineering and Data Decisions}
-The feature engineering follows the order in the handwritten project plan: reduce the data, define the target, select features, encode categorical information, decide about scaling and PCA, then add lag features after the first modelling results showed missing temporal memory.
+\label{sec:pipeline}
 
-\begin{table*}[t]
+The feature engineering follows a clear order: reduce the data, define 
+the target, select and encode features, decide about scaling, and finally 
+add lag features after the first results showed that weather and calendar 
+information alone was not enough.
+
+\begin{table}[htbp]
 \caption{Main preprocessing and representation decisions.}
+\label{tab:preprocessing}
 \centering
 \scriptsize
-\begin{tabularx}{\textwidth}{p{0.17\textwidth}Y Y}
+\begin{tabularx}{\columnwidth}{p{0.38\columnwidth} X}
 \toprule
-Decision & Implementation & Justification \\
+\textbf{Decision} & \textbf{Implementation} \\
 \midrule
-Station-day aggregation & Group trips by \code{start\_station\_id} and date, then merge daily weather. & Gives one consistent observation unit and matches the daily weather granularity. \\
+Station-day aggregation & 
+Group trips by \texttt{start\_station\_id} and date, then merge 
+daily weather data. \\
 \addlinespace
-Feature choice & Keep station identity, selected weather variables, calendar/time variables, and later lag features. & These groups directly match the demand mechanism: location, conditions, seasonality, and recent usage. \\
+Date transformation & 
+Replace raw date strings with \texttt{month}, \texttt{weekday}, 
+\texttt{year}, and \texttt{time\_idx}. \\
 \addlinespace
-Human labels separated & Store station names in a mapping file instead of using names as predictors. & Names help interpretation but duplicate station identity and are not numeric model inputs. \\
+Leakage control & 
+Remove member/casual and bike-type count columns from input features. \\
 \addlinespace
-Date transformation & Replace raw date strings with \code{month}, \code{weekday}, \code{year}, and \code{time\_idx}. & Preserves calendar and order information in numeric form. \\
+Correlation reduction & 
+Remove near-duplicate variables identified in Fig.~\ref{fig:corr}, 
+such as \texttt{solarenergy} and \texttt{feelslike}. \\
 \addlinespace
-Leakage control & Remove member/casual and bike-type count decompositions from input features. & These variables are components of the target and would make prediction unrealistically easy. \\
+No PCA & 
+Keep original features instead of principal components. \\
 \addlinespace
-Correlation reduction & Use Fig.~\ref{fig:corr} to remove near-duplicates such as \code{solarenergy}/\code{solarradiation} and \code{feelslike}/\code{temp}. & Reduces redundant predictors and improves interpretability, especially for linear models. \\
+One-hot station encoding & 
+Encode \texttt{start\_station\_id} as 20 binary columns 
+\cite{sklearn_ohe}. \\
 \addlinespace
-No PCA & Keep original reduced predictors instead of principal components. & The feature set is already small; PCA would hide the physical meaning of weather, time, and station effects. \\
+Selective scaling & 
+Standardize inputs only for Linear, Ridge, Lasso, KNN, and 
+Neural Network models. \\
 \addlinespace
-One-hot station encoding & Encode \code{start\_station\_id} as binary station columns. & Station IDs are nominal categories, not ordered quantities. One-hot encoding creates one binary feature per category and avoids false numeric distances \cite{sklearn_ohe}. \\
+Lag features & 
+Add \texttt{total\_rentals\_lag\_1} and 
+\texttt{total\_rentals\_lag\_7} per station. \\
 \addlinespace
-Selective scaling & Standardize only Linear, Ridge, Lasso, KNN, and Neural Network inputs. & These models use coefficients, penalties, distances, or gradient optimization. Tree models split by thresholds and do not require scaling. \\
-\addlinespace
-Exact lag features & Add \code{total\_rentals\_lag\_1} and \code{total\_rentals\_lag\_7} per station. & The first no-lag results showed that weather and calendar alone miss temporal dependence. \\
-\addlinespace
-Fair lag/no-lag comparison & Filter both variants to the same station-day keys. & Prevents a false improvement caused by different rows rather than different features. \\
+Fair comparison & 
+Filter both lag and no-lag variants to the same station-day keys. \\
 \bottomrule
 \end{tabularx}
-\end{table*}
+\end{table}
 
 \subsection{Station Identity and One-Hot Encoding}
-The first implementation treated \code{start\_station\_id} as a numeric column. This was practical but conceptually wrong: station 31623 is not larger than station 31245 in a meaningful modelling sense. The final version therefore uses one-hot encoding. This is especially important for Linear, Ridge, Lasso, KNN, and Neural Network models because numeric station IDs would create artificial distances or coefficients. Tree models can sometimes split numeric IDs, but one-hot encoding gives a cleaner and comparable representation across all model families.
+
+The first version of our pipeline used \texttt{start\_station\_id} 
+as a plain numeric column. This is wrong because station 31623 is not 
+larger or more important than station 31245. Machine learning models 
+that use distances, coefficients, or penalties would treat these numbers 
+as meaningful quantities. We therefore replaced the ID column with 20 
+binary one-hot columns, one for each station. This gives every model 
+family a clean and comparable station representation.
 
 \subsection{Scaling and PCA}
-Scaling is not a universal preprocessing step. It is used only where the model logic needs it. KNN depends on distances, regularized linear models depend on coefficient penalties, and Neural Networks depend on gradient-based optimization. Decision Tree, Random Forest, and Gradient Boosting do not need scaling because their splits are threshold-based. PCA was rejected because the reduced feature set is already manageable and the paper needs interpretable decisions. A principal component may be statistically useful, but it would no longer clearly mean temperature, weekday, station, or lagged demand.
+
+Scaling is applied only where the model needs it. KNN uses distances, 
+regularized linear models use coefficient penalties, and neural networks 
+use gradient-based optimization -- all of these are sensitive to the 
+scale of the input values. Decision Tree, Random Forest, and Gradient 
+Boosting split data by thresholds and are not affected by scale. We 
+did not apply PCA because our feature set is already small and every 
+feature has a clear meaning (temperature, weekday, station, lag demand). 
+Replacing them with abstract components would make the results much 
+harder to explain.
 
 \subsection{Lag Features}
-Lag features are computed station-wise, not globally. A global shift would mix demand from different stations and create wrong information. The correct lag for a station-day is the same station's demand one day before or seven days before. Rows without exact lag history are removed. The same rows are also removed from the no-lag variant so that comparisons remain fair. This step directly addresses the main weakness of the preliminary no-lag models: they used current weather and calendar information, but no memory of recent station demand.
 
-\subsection{Why Representation Was Prioritized Over More Algorithms}
-Adding more algorithms would not solve a weak data representation. The early results showed that nonlinear models were better than linear models, but the largest conceptual weakness was missing temporal memory. Therefore, the final development focused on station encoding and lag features before interpreting the final ranking. This follows a data-centric approach: improve the input representation first, then compare models under one consistent protocol.
+Lag features are always computed per station, not across all stations. 
+A global shift would mix demand from different stations and produce 
+incorrect information. The lag value for a given station-day is the 
+same station's rental count from one day earlier (\texttt{lag\_1}) and 
+from seven days earlier (\texttt{lag\_7}). Rows without exact lag 
+history are removed. The same rows are also removed from the no-lag 
+dataset so that both variants are evaluated on identical data. This 
+step directly addresses the main weakness of the early models: they 
+used weather and calendar information, but had no memory of recent 
+station demand.
+
+\subsection{Why Representation Came Before More Models}
+
+Adding more algorithms does not help if the input data is weak. Our 
+early results showed that the biggest problem was not the choice of 
+algorithm, but the missing temporal memory. We therefore focused on 
+improving the data representation first -- station encoding and lag 
+features -- before comparing models under one consistent evaluation 
+protocol. This follows a data-centric approach: better inputs lead to 
+better models across the board.

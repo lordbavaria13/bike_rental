@@ -1,6 +1,21 @@
 \section{Conclusion}
-This project built a complete station-level bike rental demand forecasting pipeline. The final model predicts daily rentals for the 20 most used Capital Bikeshare start stations. The most important technical decisions were: remove leakage-prone count decompositions, reduce redundant weather variables using correlation analysis, one-hot encode station identity, respect chronological order, and add exact station-specific lag features.
 
-The best final model is Gradient Boosting with lag features, with test RMSE 22.78, MAE 16.92, and $R^2$ 0.663. The most important insight is not only that Gradient Boosting wins, but why it wins: the final representation gives the model station identity, weather context, calendar structure, and recent demand memory. Lag features improved every model, which shows that temporal information is essential for this forecasting task.
+This project shows that temporal representation is the most important 
+factor for accurate bike rental demand forecasting at station level. 
+Adding station-specific lag features improved the test RMSE for every 
+evaluated model, which confirms that recent demand history carries 
+information that weather and calendar features alone cannot provide.
 
-Future work should move from daily to hourly forecasting, add event and holiday context, and evaluate fairness across all stations rather than only the most used ones. This would make the model more realistic for operational planning.
+The best final model is Gradient Boosting with lag features, reaching 
+a test RMSE of 22.78, MAE of 16.92, and $R^2$ of 0.663. The result is 
+not only about which algorithm wins, but about why: the final dataset 
+gives the model station identity, weather context, calendar structure, 
+and recent demand memory. Other key decisions -- removing leakage-prone 
+count columns, reducing redundant weather variables, and using a strict 
+chronological split -- ensured that the evaluation reflects real 
+forecasting conditions.
+
+Future work should move from daily to hourly forecasting, add event 
+and holiday information, and evaluate model performance across all 
+stations rather than only the 20 most popular ones. These steps would 
+make the model more suitable for real operational planning.

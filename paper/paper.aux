@@ -2,69 +2,82 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{uci_bike}
-\citation{kaggle_competition}
-\citation{taweilo_kaggle}
-\citation{capital_system_data}
+\citation{fanaee2013}
 \citation{uci_bike}
 \citation{kaggle_competition}
 \citation{capital_system_data}
 \citation{owenpb_github}
-\citation{nicolas_github}
-\citation{gradinaru_github}
 \citation{taweilo_kaggle}
-\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Problem formulation and design constraints.}}{1}{table.1}\protected@file@percent }
+\citation{capital_system_data}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {II}Related Work and Comparable Projects}{1}{section.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Related work and consequences for our project design.}}{1}{table.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {III}Dataset Construction and Used Features}{1}{section.3}\protected@file@percent }
+\newlabel{sec:dataset}{{III}{1}{Dataset Construction and Used Features}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Target Variable and Distribution}{1}{subsection.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Why the Top 20 Stations Were Used}{1}{subsection.3.2}\protected@file@percent }
 \citation{sklearn_ohe}
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Comparable work and what was adopted or avoided in this project.}}{2}{table.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Final dataset definition.}}{2}{table.3}\protected@file@percent }
+\citation{sklearn_ohe}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Target variable distribution (30,840 station-day rows).}}{2}{table.2}\protected@file@percent }
+\newlabel{tab:target_dist}{{II}{2}{Target variable distribution (30,840 station-day rows)}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Station Filtering and One-Hot Encoding}{2}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Feature Groups}{2}{subsection.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Input features used in the final modelling dataset.}}{2}{table.3}\protected@file@percent }
+\newlabel{tab:features}{{III}{2}{Input features used in the final modelling dataset}{table.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Feature Engineering and Data Decisions}{2}{section.4}\protected@file@percent }
+\newlabel{sec:pipeline}{{IV}{2}{Feature Engineering and Data Decisions}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Station Identity and One-Hot Encoding}{2}{subsection.4.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Correlation matrix used during feature reduction. Strong blocks identified near-duplicate weather variables and supported removing redundant predictors before modelling.}}{2}{figure.1}\protected@file@percent }
 \newlabel{fig:corr}{{1}{2}{Correlation matrix used during feature reduction. Strong blocks identified near-duplicate weather variables and supported removing redundant predictors before modelling}{figure.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Feature Engineering and Data Decisions}{2}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Station Identity and One-Hot Encoding}{2}{subsection.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Main preprocessing and representation decisions.}}{2}{table.4}\protected@file@percent }
+\newlabel{tab:preprocessing}{{IV}{2}{Main preprocessing and representation decisions}{table.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Scaling and PCA}{2}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Lag Features}{2}{subsection.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Features used in the final modelling dataset. Count decompositions are not used as inputs.}}{3}{table.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Target distribution after final comparable filtering.}}{3}{table.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Why Representation Was Prioritized Over More Algorithms}{3}{subsection.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V}Modelling Pipeline}{3}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Chronological Split}{3}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {VI}Model Selection Strategy}{3}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Overfitting Logic}{3}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Evaluation Strategy}{3}{section.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Overfitting Diagnosis}{3}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Hyperparameter Tuning}{3}{subsection.7.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces Main preprocessing and representation decisions.}}{4}{table.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Pipeline stages and purpose.}}{4}{table.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {VIII}Results}{4}{section.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-A}}Result Interpretation}{4}{subsection.8.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Most informative final result: test RMSE decreases for every model when station-specific lag features are added. This directly supports the decision to prioritize temporal representation over adding more unrelated algorithms.}}{4}{figure.2}\protected@file@percent }
-\newlabel{fig:lagdelta}{{2}{4}{Most informative final result: test RMSE decreases for every model when station-specific lag features are added. This directly supports the decision to prioritize temporal representation over adding more unrelated algorithms}{figure.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IX}Discussion and Critical Reflection}{4}{section.9}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {VIII}{\ignorespaces Models, used input variant, scaling, and reason for inclusion.}}{5}{table.8}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IX}{\ignorespaces Evaluation metrics and reason for use.}}{5}{table.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-A}}Why Gradient Boosting Wins}{5}{subsection.9.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-B}}Why the Result Is Still Not Perfect}{5}{subsection.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-C}}Overfitting and Underfitting}{5}{subsection.9.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-D}}Ethical and Responsible Use}{5}{subsection.9.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-E}}Next Steps}{5}{subsection.9.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {X}Conclusion}{5}{section.10}\protected@file@percent }
+\citation{friedman2001}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Lag Features}{3}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Why Representation Came Before More Models}{3}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Modelling Pipeline and Model Selection}{3}{section.5}\protected@file@percent }
+\newlabel{sec:pipeline}{{V}{3}{Modelling Pipeline and Model Selection}{section.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Pipeline stages and their purpose.}}{3}{table.5}\protected@file@percent }
+\newlabel{tab:pipeline}{{V}{3}{Pipeline stages and their purpose}{table.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Chronological Split and Scaling}{3}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Model Selection}{3}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces Models, input variant, scaling, and reason for inclusion.}}{3}{table.6}\protected@file@percent }
+\newlabel{tab:models}{{VI}{3}{Models, input variant, scaling, and reason for inclusion}{table.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Evaluation Strategy}{3}{section.6}\protected@file@percent }
+\newlabel{sec:evaluation}{{VI}{3}{Evaluation Strategy}{section.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Evaluation metrics and their interpretation.}}{3}{table.7}\protected@file@percent }
+\newlabel{tab:metrics}{{VII}{3}{Evaluation metrics and their interpretation}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Hyperparameter Tuning}{4}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Overfitting Diagnosis}{4}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Results}{4}{section.7}\protected@file@percent }
+\newlabel{sec:results}{{VII}{4}{Results}{section.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {VIII}{\ignorespaces Final test results after hyperparameter tuning.}}{4}{table.8}\protected@file@percent }
+\newlabel{tab:results}{{VIII}{4}{Final test results after hyperparameter tuning}{table.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Effect of Lag Features}{4}{subsection.7.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IX}{\ignorespaces Effect of lag features on test RMSE (lower is better).}}{4}{table.9}\protected@file@percent }
+\newlabel{tab:lag_effect}{{IX}{4}{Effect of lag features on test RMSE (lower is better)}{table.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Test RMSE decreases for every model when station-specific lag features are added. This supports the decision to prioritize temporal representation over adding more algorithms.}}{4}{figure.2}\protected@file@percent }
+\newlabel{fig:lagdelta}{{2}{4}{Test RMSE decreases for every model when station-specific lag features are added. This supports the decision to prioritize temporal representation over adding more algorithms}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Hyperparameter Tuning Effect}{4}{subsection.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces Tuning effect: sklearn defaults vs.\ tuned parameters (with lag, test set).}}{4}{table.10}\protected@file@percent }
+\newlabel{tab:tuning}{{X}{4}{Tuning effect: sklearn defaults vs.\ tuned parameters (with lag, test set)}{table.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-C}}Result Interpretation}{4}{subsection.7.3}\protected@file@percent }
+\citation{friedman2001}
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Discussion and Critical Reflection}{5}{section.8}\protected@file@percent }
+\newlabel{sec:discussion}{{VIII}{5}{Discussion and Critical Reflection}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-A}}Why Gradient Boosting Performs Best}{5}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-B}}Why the Result Is Not Perfect}{5}{subsection.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {XI}{\ignorespaces Main limitations and their practical consequence.}}{5}{table.11}\protected@file@percent }
+\newlabel{tab:limitations}{{XI}{5}{Main limitations and their practical consequence}{table.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-C}}Overfitting and Underfitting Diagnosis}{5}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-D}}Ethical and Responsible Use}{5}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-E}}Next Steps}{5}{subsection.8.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IX}Conclusion}{5}{section.9}\protected@file@percent }
 \bibcite{taweilo_kaggle}{1}
 \bibcite{capital_system_data}{2}
 \bibcite{uci_bike}{3}
-\bibcite{kaggle_competition}{4}
-\bibcite{owenpb_github}{5}
-\bibcite{nicolas_github}{6}
-\bibcite{gradinaru_github}{7}
-\bibcite{sklearn_ohe}{8}
-\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces Final test results after hyperparameter tuning. Lower RMSE/MAE/MAPE is better; higher $R^2$ is better.}}{6}{table.10}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {XIII}{\ignorespaces Effect of lag features on test RMSE.}}{6}{table.13}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {XIV}{\ignorespaces Main limitations and practical consequence.}}{6}{table.14}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {XI}{\ignorespaces Final top three models and why they are discussed.}}{6}{table.11}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {XII}{\ignorespaces Hyperparameter tuning effect for the final top three models.}}{6}{table.12}\protected@file@percent }
+\bibcite{fanaee2013}{4}
+\bibcite{kaggle_competition}{5}
+\bibcite{owenpb_github}{6}
+\bibcite{sklearn_ohe}{7}
 \@writefile{toc}{\contentsline {section}{References}{6}{section*.2}\protected@file@percent }
 \gdef \@abspage@last{6}

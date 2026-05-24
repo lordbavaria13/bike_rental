@@ -1,53 +1,108 @@
-\section{Modelling Pipeline}
-All models use one shared pipeline structure. This is important because a model comparison is only meaningful when models receive the same rows, target, split, preprocessing rules, and metrics. The repository therefore separates common utilities from model-specific scripts.
+\section{Modelling Pipeline and Model Selection}
+\label{sec:pipeline}
 
-\begin{table}[t]
-\caption{Pipeline stages and purpose.}
+All models share one common pipeline structure. A model comparison is 
+only meaningful when every model receives the same rows, the same target, 
+the same split, and the same evaluation metrics. The repository therefore 
+separates shared utilities from model-specific scripts.
+
+\begin{table}[htbp]
+\caption{Pipeline stages and their purpose.}
+\label{tab:pipeline}
 \centering
 \scriptsize
-\begin{tabularx}{\linewidth}{p{0.31\linewidth}Y}
+\begin{tabularx}{\columnwidth}{p{0.38\columnwidth} X}
 \toprule
-Stage & Purpose \\
+\textbf{Stage} & \textbf{Purpose} \\
 \midrule
-Raw data loading & Read trip, station, and weather files. \\
-Station-day table & Aggregate rentals and merge weather by date. \\
-Feature reduction & Remove leakage columns and redundant predictors. \\
-Lag/no-lag variants & Create two comparable datasets with identical row keys. \\
-Encoding & Apply one-hot encoding to station identity. \\
-Model-specific scaling & Scale only models that require it. \\
-Chronological split & Use older data for training and later data for validation/test. \\
-Training and tuning & Fit all models first, then optimize hyperparameters on validation data. \\
-Evaluation & Save metrics, predictions, rankings, and the final comparison figure. \\
+Raw data loading & 
+Read trip, station, and weather files. \\
+\addlinespace
+Station-day aggregation & 
+Aggregate rentals and merge weather by date. \\
+\addlinespace
+Feature reduction & 
+Remove leakage columns and redundant predictors. \\
+\addlinespace
+Lag/no-lag variants & 
+Create two comparable datasets with identical row keys. \\
+\addlinespace
+One-hot encoding & 
+Encode station identity as 20 binary columns. \\
+\addlinespace
+Model-specific scaling & 
+Standardize inputs only for models that require it. \\
+\addlinespace
+Chronological split & 
+70\% training, 15\% validation, 15\% test. \\
+\addlinespace
+Training and tuning & 
+Fit all models, then optimize hyperparameters on 
+the validation set. \\
+\addlinespace
+Evaluation & 
+Save metrics, predictions, rankings, and plots. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Chronological Split}
-A random split would mix past and future observations. This would make the task easier than real forecasting and could hide temporal drift. The final split is therefore chronological: 70\% training, 15\% validation, and 15\% test. The validation set is used for development decisions and hyperparameter tuning. The test set is used only for final reporting.
+\subsection{Chronological Split and Scaling}
 
-\section{Model Selection Strategy}
-The model set was chosen to cover increasing complexity and different learning principles taught or discussed in the course: baseline modelling, linear regression, regularization, local neighbourhood methods, decision trees, bagging, boosting, and a nonlinear neural reference. This is more informative than testing many similar variants of one algorithm.
+A random split would mix past and future observations, making the task 
+easier than real forecasting. The split is therefore strictly 
+chronological: 70\% training, 15\% validation, 15\% test. The 
+validation set is used for all tuning decisions. The test set is 
+only used once for final reporting.
 
-\begin{table*}[t]
-\caption{Models, used input variant, scaling, and reason for inclusion.}
+Scaling is applied only where the model needs it. KNN uses distances, 
+regularized linear models use coefficient penalties, and neural networks 
+use gradient-based optimization -- all sensitive to input scale. 
+Decision Tree, Random Forest, and Gradient Boosting split data by 
+thresholds and are not affected by scale. We did not apply PCA because 
+every feature has a clear physical meaning and replacing them with 
+abstract components would make results harder to explain.
+
+\subsection{Model Selection}
+
+The nine models were chosen to cover increasing complexity and different 
+learning principles from the course. This is more informative than 
+testing many similar variants of one algorithm.
+
+\begin{table}[htbp]
+\caption{Models, input variant, scaling, and reason for inclusion.}
+\label{tab:models}
 \centering
 \scriptsize
-\begin{tabularx}{\textwidth}{p{0.14\textwidth}p{0.14\textwidth}p{0.11\textwidth}Y}
+\begin{tabularx}{\columnwidth}{p{0.26\columnwidth} c p{0.08\columnwidth} X}
 \toprule
-Model & Data used & Scaling & Reason for inclusion \\
+\textbf{Model} & \textbf{Lag} & \textbf{Scale} & \textbf{Reason} \\
 \midrule
-Dummy Regressor & no-lag baseline & no & Minimum reference; real models must clearly beat it. \\
-Linear Regression & no-lag and lag & yes & Tests whether the selected features contain an approximately linear signal. \\
-Ridge & no-lag and lag & yes & L2 regularization checks whether coefficient shrinkage helps under remaining collinearity. \\
-Lasso & no-lag and lag & yes & L1 regularization adds feature-selection behaviour and gives a transparent benchmark. \\
-Decision Tree & no-lag and lag & no & Tests nonlinear threshold rules; useful but prone to overfitting. \\
-KNN & no-lag and lag & yes & Tests whether similar station-days have similar demand; distance model needs scaling. \\
-Random Forest & no-lag and lag & no & Bagging ensemble reduces single-tree variance and gives a strong nonlinear baseline. \\
-Gradient Boosting & no-lag and lag & no & Sequential trees fit residual structure and target remaining bias. \\
-Neural Network & no-lag and lag & yes & Flexible nonlinear reference; included to compare against tree ensembles. \\
+Dummy Regressor & no & no & 
+Minimum baseline; all real models must beat it. \\
+\addlinespace
+Linear Regression & both & yes & 
+Tests whether features contain a roughly linear signal. \\
+\addlinespace
+Ridge & both & yes & 
+L2 penalty checks whether shrinkage helps. \\
+\addlinespace
+Lasso & both & yes & 
+L1 penalty adds automatic feature selection. \\
+\addlinespace
+Decision Tree & both & no & 
+Tests nonlinear threshold rules; prone to overfitting. \\
+\addlinespace
+KNN & both & yes & 
+Tests whether similar station-days have similar demand. \\
+\addlinespace
+Random Forest & both & no & 
+Bagging reduces single-tree variance. \\
+\addlinespace
+Gradient Boosting & both & no & 
+Sequential trees target remaining prediction errors \cite{friedman2001}. \\
+\addlinespace
+Neural Network & both & yes & 
+Flexible nonlinear reference to compare against tree ensembles. \\
 \bottomrule
 \end{tabularx}
-\end{table*}
-
-\subsection{Overfitting Logic}
-The model comparison also serves as an overfitting diagnosis. Linear models are expected to be stable but may underfit. KNN and single trees can memorize local patterns and therefore risk high variance. Random Forest combats variance through bagging. Gradient Boosting can reduce bias, but must be tuned carefully because too many or too deep trees can overfit. This is why every model is evaluated on train, validation, and test data and why the final choice is not based on training error.
+\end{table}

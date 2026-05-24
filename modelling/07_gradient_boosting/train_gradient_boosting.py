@@ -11,7 +11,9 @@ MODEL_NAME = "GradientBoostingRegressor"
 BASE_DIR = Path(__file__).resolve().parent
 
 # param fine tuning
+#'''
 PARAM_GRID = [
+    
     # Block 1: Fix values (learning_rate=0.03, depth=3), variiere n_estimators
     {"n_estimators": 100, "learning_rate": 0.03, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
     {"n_estimators": 200, "learning_rate": 0.03, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
@@ -25,7 +27,10 @@ PARAM_GRID = [
     
     # Block 3: slow learning against overfitting
     {"n_estimators": 600, "learning_rate": 0.01, "max_depth": 3, "min_samples_leaf": 10, "subsample": 0.8},
+
 ]
+    #'''
+#PARAM_GRID = [{"n_estimators": 100, "learning_rate": 0.1, "max_depth": 3,"min_samples_leaf": 1, "subsample": 1.0}]
 
 def build_model(params: dict):
     return GradientBoostingRegressor(

@@ -1,3 +1,13 @@
 \begin{abstract}
-This project predicts daily bike rental demand for the 20 most used Capital Bikeshare start stations. The problem is formulated as supervised regression with \code{total\_rentals} as target. The main contribution is not only the final model score, but the structured path from raw data to a reproducible modelling pipeline: raw trip, station, and weather data are aggregated to station-day level; leakage-prone count decompositions are removed; redundant weather predictors are reduced using correlation analysis; station identity is represented with one-hot encoding; and exact station-specific lag features are added. All models are evaluated with the same chronological train-validation-test split and the same metrics. The final best model is Gradient Boosting with lag features, reaching a test RMSE of 22.78, MAE of 16.92, and $R^2$ of 0.663. The clearest result is that temporal representation matters most: adding lag features improves test RMSE for every evaluated model.
+This project predicts the daily bike rental demand for the 20 most used Capital Bikeshare start stations. 
+We frame this as a supervised regression problem with \code{total\_rentals} as the target variable. 
+The main focus is not just on the final model score, but on showing a clear and reproducible process 
+from raw data to the final evaluation. We combine raw trip, station, and weather data into daily 
+records for each station. To prepare the data, we remove variables that could cause data leakage, 
+drop redundant weather features using correlation analysis, apply one-hot encoding for station IDs, 
+and add past rental data (lag features). All models are evaluated using a chronological 
+train-validation-test split to respect the timeline of the data. Our best model is Gradient Boosting 
+with lag features, which achieves a test RMSE of 22.78, a MAE of 16.92, and an $R^2$ of 0.663. 
+The clearest result of our project is that time factors matter the most: adding lag features 
+improved the test RMSE for every model we evaluated.
 \end{abstract}

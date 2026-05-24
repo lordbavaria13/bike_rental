@@ -16,6 +16,7 @@ VALIDATION_FRACTION = 0.1
 N_ITER_NO_CHANGE = 20
 
 # fixed 'tanh' and 'learning_rate_init' 
+#'''
 PARAM_GRID = [
     # Block 1: Architektur-Test 
     {"hidden_layer_sizes": (64,), "activation": "tanh", "alpha": 0.0001, "learning_rate_init": 0.001},
@@ -32,6 +33,8 @@ PARAM_GRID = [
     # Block 3: complex Architektur with strong regularisation
     {"hidden_layer_sizes": (256, 128), "activation": "tanh", "alpha": 0.01, "learning_rate_init": 0.001},
 ]
+#'''
+#PARAM_GRID = [{"hidden_layer_sizes": (100,), "activation": "relu","alpha": 0.0001, "learning_rate_init": 0.001}]
 
 def _hidden_layers(value):
     if isinstance(value, list):

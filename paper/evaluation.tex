@@ -1,27 +1,67 @@
 \section{Evaluation Strategy}
-The main ranking metric is RMSE because large demand misses are operationally more problematic than small errors. However, one metric is not enough. The final comparison reports MAE, RMSE, MAPE, $R^2$, explained variance, and training/prediction time.
+\label{sec:evaluation}
 
-\begin{table}[t]
-\caption{Evaluation metrics and reason for use.}
+The main ranking metric is RMSE because large demand errors are more 
+problematic in practice than small ones. However, one metric alone is 
+not enough to fully understand model behaviour. The final comparison 
+therefore reports six metrics plus runtime information.
+
+\begin{table}[htbp]
+\caption{Evaluation metrics and their interpretation.}
+\label{tab:metrics}
 \centering
 \scriptsize
-\begin{tabularx}{\linewidth}{p{0.23\linewidth}Y}
+\begin{tabularx}{\columnwidth}{p{0.26\columnwidth} X}
 \toprule
-Metric & Interpretation in this project \\
+\textbf{Metric} & \textbf{Interpretation in this project} \\
 \midrule
-MAE & Average absolute error in rentals; easy operational interpretation. \\
-RMSE & Penalizes large errors; main ranking metric. \\
-Median AE & Typical robust error; less affected by rare extreme days. \\
-MAPE & Relative error; useful because stations differ in demand level. \\
-$R^2$ & Variance explained compared with a mean baseline. \\
-Explained variance & Checks whether predicted spread follows real demand spread. \\
-Fit / prediction time & Shows whether accuracy gains have a computational cost. \\
+RMSE & 
+Penalizes large errors more strongly; main ranking metric. \\
+\addlinespace
+MAE & 
+Average absolute error in rentals; easy to interpret 
+operationally. \\
+\addlinespace
+Median AE & 
+Typical error on a normal day; less affected by rare 
+extreme demand days. \\
+\addlinespace
+MAPE & 
+Relative error in percent; useful because stations differ 
+in their average demand level. \\
+\addlinespace
+$R^2$ & 
+Fraction of variance explained compared to a simple 
+mean baseline. \\
+\addlinespace
+Explained variance & 
+Checks whether the predicted spread matches the real 
+demand spread. \\
+\addlinespace
+Fit / predict time & 
+Shows whether accuracy gains come with a computational cost. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Overfitting Diagnosis}
-Overfitting is assessed by comparing train, validation, and test behaviour. KNN and single trees are expected to be more vulnerable because they can memorize local or threshold-specific patterns. Regularized linear models are safer but may underfit nonlinear demand structure. Ensemble trees are expected to balance flexibility and generalization, but they still require validation because boosting can overfit when depth and number of estimators are too large.
-
 \subsection{Hyperparameter Tuning}
-Hyperparameters were tuned on the validation set only. The test set was kept untouched until the final comparison. This separation is necessary because selecting parameters directly on the test set would turn the test set into another development set and make the final score too optimistic.
+
+Hyperparameters were tuned using the validation set only. The test set 
+was not used until the final evaluation. This separation is important 
+because choosing parameters based on test performance would make the 
+final score too optimistic -- the test set would effectively become 
+a second development set. The best parameter combination for each 
+model was selected by the lowest validation RMSE.
+
+\subsection{Overfitting Diagnosis}
+
+Overfitting is detected by comparing train, validation, and test RMSE 
+for each model. A large gap between training and test performance 
+indicates that the model has memorized the training data instead of 
+learning general patterns. KNN and single decision trees are the most 
+likely candidates because they can fit very locally to the training 
+data. Regularized linear models are more stable but may underfit 
+nonlinear demand patterns. Ensemble methods like Random Forest and 
+Gradient Boosting are expected to generalize better, but Gradient 
+Boosting still requires careful tuning because deep or numerous trees 
+can also overfit.

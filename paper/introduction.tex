@@ -1,25 +1,25 @@
 \section{Introduction}
-Bike-sharing systems depend on local and time-dependent demand. If too few bikes are available, users cannot start trips; if too many bikes accumulate at one station, docks and redistribution capacity are wasted. We therefore study the following machine learning question: given station, calendar, weather, and recent demand information, how accurately can daily bike rentals be predicted for a station?
 
-The task is a supervised regression problem because the output is a numeric rental count. The final target is \code{total\_rentals}. The main input groups are station identity, weather, calendar variables, chronological order, and lagged demand. The project deliberately focuses on a transparent pipeline rather than a single black-box result. Each data transformation is justified because the final model quality depends strongly on representation choices.
+Bike-sharing systems depend on local and time-dependent demand. If too few 
+bikes are available at a station, users cannot start their trip. If too many 
+bikes accumulate, redistribution costs increase and docking space is wasted. 
+Accurate demand forecasts can help operators plan bike redistribution in 
+advance and improve the overall service quality.
 
-\begin{table}[t]
-\caption{Problem formulation and design constraints.}
-\centering
-\scriptsize
-\begin{tabularx}{\linewidth}{p{0.33\linewidth}Y}
-\toprule
-Element & Final formulation \\
-\midrule
-Learning type & Supervised learning, regression. \\
-Prediction target & Daily rentals per station: \code{total\_rentals}. \\
-Observation unit & One row equals one start station on one calendar day. \\
-Practical goal & Support operational planning by estimating future station-level demand. \\
-Main constraint & Time order must be respected; future data cannot influence training. \\
-Main risk & Leakage through rental sub-counts or lag features computed across stations. \\
-Model choice principle & Start with simple baselines, then add complexity only when results justify it. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+This project explores whether machine learning can produce reliable daily 
+demand forecasts at the station level. We use real trip data from a public 
+bike-sharing system, combined with weather and calendar information. 
+The problem is well-suited for regression because the output is a 
+numeric count and the input features are measurable in advance.
 
-The final report follows the project requirements: related work, data description, preprocessing, modelling strategy, evaluation, results, limitations, critical reflection, and AI tool acknowledgement. The paper also reflects the feedback from earlier deliverables: stronger dataset description, explicit metrics, careful handling of imbalance across demand levels, and more critical analysis of feature importance and overfitting.
+Rather than focusing only on the final model score, we treat the full 
+pipeline as part of the contribution. We show that preprocessing decisions, 
+especially how past demand is represented, have a stronger impact on 
+model quality than the choice of algorithm alone.
+
+This report is structured as follows: Section~\ref{sec:dataset} describes 
+the dataset and preprocessing steps. Section~\ref{sec:pipeline} explains 
+the modelling pipeline and evaluation strategy. Section~\ref{sec:results} 
+presents and compares the results of all models. There is also a comparison with another bike-rental project on the same database. 
+The remaining sections 
+cover ethical considerations, limitations, and a critical reflection.
