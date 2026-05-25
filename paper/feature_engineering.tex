@@ -1,5 +1,5 @@
 \section{Feature Engineering and Data Decisions}
-\label{sec:pipeline}
+\label{sec:feature_engineering}
 
 The feature engineering follows a clear order: reduce the data, define 
 the target, select and encode features, decide about scaling, and finally 
@@ -34,8 +34,7 @@ No PCA &
 Keep original features instead of principal components. \\
 \addlinespace
 One-hot station encoding & 
-Encode \texttt{start\_station\_id} as 20 binary columns 
-\cite{sklearn_ohe}. \\
+Encode \texttt{start\_station\_id} as 19 one-hot columns for 20 stations, using one reference station to avoid redundant dummy variables \cite{sklearn_ohe}. \\
 \addlinespace
 Selective scaling & 
 Standardize inputs only for Linear, Ridge, Lasso, KNN, and 
@@ -57,9 +56,7 @@ The first version of our pipeline used \texttt{start\_station\_id}
 as a plain numeric column. This is wrong because station 31623 is not 
 larger or more important than station 31245. Machine learning models 
 that use distances, coefficients, or penalties would treat these numbers 
-as meaningful quantities. We therefore replaced the ID column with 20 
-binary one-hot columns, one for each station. This gives every model 
-family a clean and comparable station representation.
+as meaningful quantities. We therefore replaced the ID column with one-hot indicators. Because \texttt{drop=first} was used, 20 stations are represented by 19 binary columns and one reference station. This gives every model family a clean and comparable station representation without treating station IDs as ordered numbers.
 
 \subsection{Scaling and PCA}
 

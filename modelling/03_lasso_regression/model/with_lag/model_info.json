@@ -46,16 +46,40 @@
   "station_id_encoding": "one_hot",
   "scaling_used": true,
   "best_params": {
-    "alpha": 1.0
+    "alpha": 1.2
   },
   "param_grid": [
     {
+      "alpha": 0.1
+    },
+    {
+      "alpha": 0.3
+    },
+    {
+      "alpha": 0.6
+    },
+    {
+      "alpha": 0.8
+    },
+    {
       "alpha": 1.0
+    },
+    {
+      "alpha": 1.2
+    },
+    {
+      "alpha": 1.5
+    },
+    {
+      "alpha": 2.0
+    },
+    {
+      "alpha": 3.0
     }
   ],
-  "results_dir": "C:\\Users\\Alex\\Documents\\ml_projekt\\bike_rental\\modelling\\03_lasso_regression\\results\\with_lag",
-  "plots_dir": "C:\\Users\\Alex\\Documents\\ml_projekt\\bike_rental\\modelling\\03_lasso_regression\\results\\with_lag\\plots",
-  "model_file": "C:\\Users\\Alex\\Documents\\ml_projekt\\bike_rental\\modelling\\03_lasso_regression\\model\\with_lag\\lasso.joblib",
+  "results_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/03_lasso_regression/results/with_lag",
+  "plots_dir": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/03_lasso_regression/results/with_lag/plots",
+  "model_file": "/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fa\u0308cher/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/modelling/03_lasso_regression/model/with_lag/lasso.joblib",
   "metrics": {
     "model_name": "LassoRegression",
     "experiment": "with_lag",
@@ -65,12 +89,12 @@
     "n_train": 21410,
     "n_validation": 4705,
     "n_test": 4725,
-    "fit_time_seconds": 0.9090807000175118,
-    "predict_time_seconds": 0.004405299900099635,
+    "fit_time_seconds": 0.012624124996364117,
+    "predict_time_seconds": 0.0006184169906191528,
     "station_id_encoding": "one_hot",
     "scaling_used": true,
     "best_params": {
-      "alpha": 1.0
+      "alpha": 1.2
     },
     "max_iter": 10000,
     "tol": 0.0001,
@@ -85,27 +109,27 @@
       2.0,
       3.0
     ],
-    "intercept": 65.55193834656701,
-    "coef_l2_norm": 20.29817380816766,
-    "n_nonzero_coefficients": 15,
-    "train_mae": 15.125529501856738,
-    "train_rmse": 22.203473790796323,
-    "train_r2": 0.6504860080066064,
-    "train_median_ae": 10.840325201520379,
-    "train_explained_variance": 0.6504860080066064,
-    "train_mape": 0.40005492449339575,
-    "validation_mae": 17.38802623335433,
-    "validation_rmse": 23.159839840719556,
-    "validation_r2": 0.613171541403291,
-    "validation_median_ae": 13.531249372282787,
-    "validation_explained_variance": 0.6162705057419018,
-    "validation_mape": 0.34012015547359536,
-    "test_mae": 17.86099458996248,
-    "test_rmse": 23.8904055757956,
-    "test_r2": 0.6289894914826405,
-    "test_median_ae": 13.8318852463008,
-    "test_explained_variance": 0.6318224152869867,
-    "test_mape": 0.29395235418443627
+    "intercept": 65.55193834656703,
+    "coef_l2_norm": 20.220807417822407,
+    "n_nonzero_coefficients": 11,
+    "train_mae": 15.19073580957677,
+    "train_rmse": 22.294678049508704,
+    "train_r2": 0.6476087433873512,
+    "train_median_ae": 10.899284690080705,
+    "train_explained_variance": 0.6476087433873512,
+    "train_mape": 0.40199817247199765,
+    "validation_mae": 17.344840058682475,
+    "validation_rmse": 23.152364983985105,
+    "validation_r2": 0.6134211994936566,
+    "validation_median_ae": 13.456038810527645,
+    "validation_explained_variance": 0.6150135953007737,
+    "validation_mape": 0.33856263850107593,
+    "test_mae": 17.77562759635636,
+    "test_rmse": 23.85923638623661,
+    "test_r2": 0.629956955441658,
+    "test_median_ae": 13.804077321912558,
+    "test_explained_variance": 0.6310022279197832,
+    "test_mape": 0.2905165731750061
   },
   "max_iter": 10000,
   "tol": 0.0001,

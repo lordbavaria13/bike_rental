@@ -7,8 +7,8 @@
   "n_train": 21410,
   "n_validation": 4705,
   "n_test": 4725,
-  "fit_time_seconds": 0.001670165998802986,
-  "predict_time_seconds": 0.0006885000038892031,
+  "fit_time_seconds": 0.0017184170137625188,
+  "predict_time_seconds": 0.0006967909866943955,
   "station_id_encoding": "one_hot",
   "scaling_used": true,
   "best_params": {

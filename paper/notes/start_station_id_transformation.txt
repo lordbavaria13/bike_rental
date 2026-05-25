@@ -4,7 +4,7 @@ start_station_id was added to the modelling pipeline because demand is predicted
 
 The raw station ID was not used as a normal numeric feature. Its number has no real numerical meaning. A larger station ID does not mean a larger demand value. Differences between station IDs are also not interpretable. Using the raw number would create a false order.
 
-For this reason, start_station_id was transformed with one-hot encoding. The original column was replaced by binary indicator columns, one for each station. This keeps the station information, but removes the false numeric structure.
+For this reason, start_station_id was transformed with one-hot encoding. The original column was replaced by one-hot indicator columns. Since drop=first was used, the 20 selected stations are represented by 19 binary columns and one reference station. This keeps the station information, but removes the false numeric structure and avoids a redundant dummy column.
 
 The encoding was done in the common preprocessing step, not inside individual model scripts. This keeps the setup identical across all models.
 

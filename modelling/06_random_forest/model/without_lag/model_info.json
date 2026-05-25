@@ -120,8 +120,8 @@
     "n_train": 21410,
     "n_validation": 4705,
     "n_test": 4725,
-    "fit_time_seconds": 0.4449495000008028,
-    "predict_time_seconds": 0.10535204099869588,
+    "fit_time_seconds": 0.5232047919998877,
+    "predict_time_seconds": 0.10444816597737372,
     "station_id_encoding": "one_hot",
     "scaling_used": false,
     "best_params": {
@@ -135,7 +135,7 @@
     "train_mae": 11.916352716624324,
     "train_rmse": 16.936111205746094,
     "train_r2": 0.7966472231297785,
-    "train_median_ae": 8.965349359442882,
+    "train_median_ae": 8.965349359442868,
     "train_explained_variance": 0.7966475129915225,
     "train_mape": 0.31423992385174837,
     "validation_mae": 19.491917745050515,
@@ -147,7 +147,7 @@
     "test_mae": 22.483105279863025,
     "test_rmse": 29.018640507267975,
     "test_r2": 0.45261449842633417,
-    "test_median_ae": 18.45249645601561,
+    "test_median_ae": 18.452496456015595,
     "test_explained_variance": 0.5181876142014148,
     "test_mape": 0.36010779268909876
   },

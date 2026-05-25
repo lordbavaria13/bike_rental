@@ -54,8 +54,7 @@ the full bikeshare system.
 
 The station identity was originally stored as a numeric ID. Using this 
 directly as a feature would mislead models into treating the ID as an 
-ordered quantity. We therefore applied one-hot encoding, producing 20 
-binary columns, one per station \cite{sklearn_ohe}.
+ordered quantity. We therefore applied one-hot encoding with \texttt{drop=first}, representing the 20 stations by 19 binary columns and one reference category \cite{sklearn_ohe}.
 
 \subsection{Feature Groups}
 
@@ -75,9 +74,7 @@ such as \texttt{feelslike} and \texttt{temp}.
 \textbf{Feature group} & \textbf{Variables and description} \\
 \midrule
 Station identity & 
-20 one-hot binary columns from \texttt{start\_station\_id}. 
-Captures demand differences between stations without implying 
-a numeric order. \\
+19 one-hot binary columns from \texttt{start\_station\_id}. The 20th station is kept as the reference category, so station differences are represented without implying a numeric order or adding a redundant dummy column. \\
 \addlinespace
 Weather \& daylight & 
 \texttt{tempmax}, \texttt{humidity}, \texttt{windspeed}, 

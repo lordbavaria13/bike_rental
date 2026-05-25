@@ -1,14 +1,11 @@
 {
-  "n_rows_compared": 16,
-  "n_models": 8,
+  "n_rows_compared": 18,
+  "n_models": 9,
   "experiments": [
     "without_lag",
     "with_lag"
   ],
-  "skipped_model_experiments": [
-    "00_dummy_regressor/without_lag",
-    "00_dummy_regressor/with_lag"
-  ],
+  "skipped_model_experiments": [],
   "best_by_validation_rmse": {
     "display_variant": "Gradient Boosting (with lag)",
     "validation_rmse": 21.476270657206385,

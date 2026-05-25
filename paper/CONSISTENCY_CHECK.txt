@@ -1,0 +1,19 @@
+Consistency check summary
+
+Checked result folders:
+- modelling/00_dummy_regressor through modelling/08_neural_network
+- both with_lag and without_lag variants where present
+- metrics.json, metrics.csv, predictions.csv for each model/variant
+- modelling/99_model_comparison result CSV/JSON files
+
+Result:
+- metrics.json and metrics.csv are consistent for all model result folders.
+- Metrics recomputed from predictions.csv match the stored metrics for train, validation, and test splits.
+- all_model_metrics.csv matches the individual model metrics.
+- model_comparison_compact.csv, validation/test rankings, lag_delta_comparison.csv, and comparison_summary.json are consistent with all_model_metrics.csv.
+
+Paper updates made:
+- Corrected station encoding description: 20 selected stations are represented by 19 one-hot columns because drop=first is used.
+- Updated rmse_comparison.png so the overfitting figure reflects the current with_lag result files.
+- Removed/updated text that referred to an older RMSE plot.
+- Recompiled paper.pdf.

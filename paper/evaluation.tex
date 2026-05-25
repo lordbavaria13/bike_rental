@@ -49,23 +49,14 @@ parameter selection. It was used only once for the final evaluation.
 Overfitting is diagnosed by comparing train, validation, and test RMSE. 
 If the training error is much lower than the validation and test error, 
 the model has learned patterns that do not generalize to future data. 
-This is most visible for KNN and the single Decision Tree, which fit 
-local training structures too closely.
+This is most visible for KNN, which nearly memorizes the training set; Decision Tree, Random Forest, and Neural Network also show noticeable train-test gaps.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\columnwidth]{rmse_comparison.png}
-    \caption{Train, validation, and test RMSE across models. Large gaps 
-    between training and test RMSE indicate overfitting. KNN and the 
-    single Decision Tree show the clearest pattern, while ensemble 
-    methods generalize more reliably.}
+    \caption{Train, validation, and test RMSE across models. Large gaps between training and test RMSE indicate overfitting. KNN shows the clearest memorization pattern, while Gradient Boosting gives the best final test RMSE among the plotted with-lag configurations.}
     \label{fig:rmse_overfitting}
 \end{figure}
-
-The Neural Network is marked as ``best'' in Fig.~\ref{fig:rmse_overfitting} 
-because the plot comes from an earlier comparison before the final 
-optimization step. In the final tuned results, Gradient Boosting is the 
-best model.
 
 Regularized linear models are stable but may underfit nonlinear demand 
 patterns. Ensemble methods reduce this problem: Random Forest lowers 

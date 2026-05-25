@@ -182,8 +182,8 @@
     "n_train": 21410,
     "n_validation": 4705,
     "n_test": 4725,
-    "fit_time_seconds": 0.0008034999991650693,
-    "predict_time_seconds": 0.4838054589999956,
+    "fit_time_seconds": 0.0012146249937359244,
+    "predict_time_seconds": 0.5358153749839403,
     "station_id_encoding": "one_hot",
     "scaling_used": true,
     "best_params": {
