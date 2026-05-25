@@ -62,6 +62,11 @@ local training structures too closely.
     \label{fig:rmse_overfitting}
 \end{figure}
 
+The Neural Network is marked as ``best'' in Fig.~\ref{fig:rmse_overfitting} 
+because the plot comes from an earlier comparison before the final 
+optimization step. In the final tuned results, Gradient Boosting is the 
+best model.
+
 Regularized linear models are stable but may underfit nonlinear demand 
 patterns. Ensemble methods reduce this problem: Random Forest lowers 
 variance by averaging many trees, while Gradient Boosting sequentially 

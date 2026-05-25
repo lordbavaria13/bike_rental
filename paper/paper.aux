@@ -17,9 +17,9 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Target Variable and Distribution}{1}{subsection.3.1}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Target variable distribution (30,840 station-day rows).}}{1}{table.2}\protected@file@percent }
 \newlabel{tab:target_dist}{{II}{1}{Target variable distribution (30,840 station-day rows)}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Station Filtering and One-Hot Encoding}{1}{subsection.3.2}\protected@file@percent }
 \citation{sklearn_ohe}
 \citation{sklearn_ohe}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Station Filtering and One-Hot Encoding}{2}{subsection.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Feature Groups}{2}{subsection.3.3}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Input features used in the final modelling dataset.}}{2}{table.3}\protected@file@percent }
 \newlabel{tab:features}{{III}{2}{Input features used in the final modelling dataset}{table.3}{}}
@@ -47,7 +47,7 @@
 \@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Evaluation metrics and their interpretation.}}{3}{table.7}\protected@file@percent }
 \newlabel{tab:metrics}{{VII}{3}{Evaluation metrics and their interpretation}{table.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Hyperparameter Tuning}{3}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Overfitting Diagnosis}{4}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Overfitting Diagnosis}{3}{subsection.6.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Train, validation, and test RMSE across models. Large gaps between training and test RMSE indicate overfitting. KNN and the single Decision Tree show the clearest pattern, while ensemble methods generalize more reliably.}}{4}{figure.2}\protected@file@percent }
 \newlabel{fig:rmse_overfitting}{{2}{4}{Train, validation, and test RMSE across models. Large gaps between training and test RMSE indicate overfitting. KNN and the single Decision Tree show the clearest pattern, while ensemble methods generalize more reliably}{figure.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VII}Results}{4}{section.7}\protected@file@percent }
@@ -60,13 +60,13 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Test RMSE decreases for every model when station-specific lag features are added. This supports the decision to prioritize temporal representation over adding more algorithms.}}{4}{figure.3}\protected@file@percent }
 \newlabel{fig:lagdelta}{{3}{4}{Test RMSE decreases for every model when station-specific lag features are added. This supports the decision to prioritize temporal representation over adding more algorithms}{figure.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Hyperparameter Tuning Effect}{4}{subsection.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces Tuning stages for the top three models (with lag, test RMSE).}}{4}{table.10}\protected@file@percent }
+\newlabel{tab:tuning}{{X}{4}{Tuning stages for the top three models (with lag, test RMSE)}{table.10}{}}
 \citation{friedman2001}
 \citation{sathishkumar2020rule}
 \citation{sathishkumar2020data}
 \citation{choi2021seoul}
 \citation{xin2026probabilistic}
-\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces Tuning stages for the top three models (with lag, test RMSE).}}{5}{table.10}\protected@file@percent }
-\newlabel{tab:tuning}{{X}{5}{Tuning stages for the top three models (with lag, test RMSE)}{table.10}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-C}}Result Interpretation}{5}{subsection.7.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {VIII}Discussion and Critical Reflection}{5}{section.8}\protected@file@percent }
 \newlabel{sec:discussion}{{VIII}{5}{Discussion and Critical Reflection}{section.8}{}}
