@@ -133,3 +133,10 @@ Random Forest reaches almost the same performance, which confirms that
 tree-based ensemble models are strong for this task. Lasso shows that 
 a simple regularized linear model becomes competitive once the dataset 
 contains the right temporal features.
+
+The most important result is not the winning model alone. Lag features 
+improve every model, and better regularization improves tuning results 
+across all three algorithm families. Both findings support the same 
+conclusion: for this dataset, improving the input representation and 
+controlling model complexity matters more than choosing a more 
+sophisticated algorithm.
