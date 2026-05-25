@@ -21,6 +21,13 @@ interactions if they are manually engineered. Gradient Boosting can
 approximate many of them automatically through tree splits 
 \cite{friedman2001}.
 
+However, the result should not be interpreted as Gradient Boosting 
+being universally best. The difference between Gradient Boosting and 
+Random Forest is small, and both are ensemble tree methods. This 
+suggests that the important modelling property is not the exact 
+algorithm name, but the ability to capture nonlinear interactions 
+between station, time, weather, and recent demand.
+
 \subsection{Why the Result Is Not Perfect}
 
 A test $R^2$ of 0.663 is useful but not complete. About one third of 
@@ -29,6 +36,38 @@ events, strikes, road works, station outages, or short-term weather
 changes within a day. Daily aggregation also hides commuting peaks 
 and sudden demand shocks. The remaining errors therefore reflect not 
 only model weaknesses, but also missing information in the dataset.
+
+The comparison with related work confirms this interpretation. 
+Sathishkumar and Cho report much higher values, with CUBIST explaining 
+about $R^2=0.95$ on Seoul Bike data and about $R^2=0.89$ on Capital 
+Bikeshare data \cite{sathishkumar2020rule}. Sathishkumar et al. also 
+report strong results for Gradient Boosting on hourly Seoul demand, 
+with about $R^2=0.92$ on the test set \cite{sathishkumar2020data}. 
+These values are higher than ours, but the tasks are easier in one 
+important way: they predict hourly system-level demand, where local 
+station noise is averaged out and hour of day is available as a very 
+strong predictor. Our project predicts demand at station level, where 
+local fluctuations remain visible.
+
+Absolute error values are also not directly comparable across studies. 
+Choi reports a Random Forest test RMSE of 282.63, MAE of 169.57, and 
+$R^2=0.77$ for hourly Seoul demand \cite{choi2021seoul}. These RMSE and 
+MAE values are much larger than ours, but the target scale is also much 
+larger because the model predicts total hourly demand rather than 
+rentals per station-day. The more meaningful comparison is therefore 
+the relative error. Xin reports for UCI-DC one-hour-ahead forecasting 
+an MAE of 51.33, RMSE of 75.88, and MAPE of 26.72\% for N-BEATS 
+\cite{xin2026probabilistic}. Our final MAPE of 25.3\% is close to this 
+relative error level. This suggests that our prediction quality is 
+plausible, even though our $R^2$ is lower than in several hourly 
+system-level studies.
+
+Overall, the comparison shows that our model is not state-of-the-art 
+in terms of explained variance, but it is reasonable for a stricter 
+station-level setup. The main weakness is not only the algorithm; it is 
+the missing information in the representation. Events, outages, 
+holidays, and hourly demand patterns would likely reduce the remaining 
+unexplained variance more than testing many additional model families.
 
 \begin{table}[htbp]
 \caption{Main limitations and their practical consequence.}
@@ -67,13 +106,23 @@ from the feature set. \\
 
 The model comparison provides a clear picture of the bias-variance 
 trade-off. Linear models without lag features underfit because they 
-cannot describe the temporal structure of demand. KNN and single 
-decision trees can fit local patterns but are more sensitive to 
-noise and specific training samples. Ensemble methods reduce this 
-problem: Random Forest reduces variance by averaging many trees, 
-while Gradient Boosting reduces bias by fitting the remaining 
-prediction errors step by step. The final results match the 
-expected bias-variance behaviour discussed in the course.
+cannot describe the temporal structure of demand. They are stable, but 
+too simple for the nonlinear relation between weather, calendar 
+variables, station identity, and recent demand.
+
+KNN and single decision trees show the opposite risk. They can fit 
+local patterns, but they are more sensitive to noise and specific 
+training samples. This is especially problematic in a chronological 
+forecasting task, because the future period may differ from the past. 
+A model that memorizes local training patterns can therefore look good 
+on training data but lose performance on validation and test data.
+
+Ensemble methods reduce this problem. Random Forest reduces variance 
+by averaging many trees, while Gradient Boosting reduces bias by 
+fitting the remaining prediction errors step by step. The final results 
+match the expected bias-variance behaviour discussed in the course: 
+the best models are flexible enough to capture nonlinear structure, 
+but still regularized enough to generalize to future observations.
 
 \subsection{Ethical and Responsible Use}
 
@@ -82,20 +131,37 @@ because all data is aggregated and no individual user is predicted.
 However, operational bias is still possible. A model trained only 
 on popular stations may support decisions that favour already busy 
 areas and ignore underserved neighbourhoods. In a real deployment, 
-forecasts should be monitored by neighbourhood and station type. 
-The model should support human planners, not replace their judgement.
+forecasts should therefore be monitored by neighbourhood, station type, 
+and demand level.
+
+The model should support human planners, not replace their judgement. 
+This is especially important on unusual days, for example during 
+events, disruptions, or extreme weather. In such cases, the model can 
+provide a baseline forecast, but operational decisions should still 
+include local knowledge and manual correction.
 
 \subsection{Next Steps}
 
 The most useful improvements are data-related rather than 
 algorithm-related:
 \begin{itemize}[noitemsep]
-    \item Add hourly modelling to capture commuting peaks.
-    \item Include holiday and public event information.
-    \item Analyse residuals by station, season, and demand level 
-          to find systematic weaknesses.
-    \item Monitor temporal drift, as mobility patterns can change 
-          over time.
-    \item Carefully extend the station set so that less popular 
-          stations are also represented.
+    \item Add hourly modelling to capture commuting peaks and short-term 
+          weather effects.
+    \item Include holiday, event, station outage, and service disruption 
+          variables to explain demand spikes.
+    \item Analyse residuals by station, season, weekday, and demand level 
+          to identify systematic weaknesses.
+    \item Monitor temporal drift, as mobility patterns can change over 
+          time and older training data may become less representative.
+    \item Carefully extend the station set so that less popular stations 
+          are also represented.
+    \item Test whether rolling averages or longer lag windows improve 
+          performance beyond lag 1 and lag 7.
 \end{itemize}
+
+The next modelling step should therefore not be a blind search for more 
+algorithms. A better strategy is to keep the current reproducible 
+pipeline and improve the information available to the models. If hourly 
+data, event indicators, and broader station coverage are added, the 
+remaining error can be analysed more precisely and the model can become 
+more useful for real operational planning.

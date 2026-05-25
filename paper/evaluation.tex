@@ -46,22 +46,44 @@ Shows whether accuracy gains come with a computational cost. \\
 
 \subsection{Hyperparameter Tuning}
 
-Hyperparameters were tuned using the validation set only. The test set 
-was not used until the final evaluation. This separation is important 
-because choosing parameters based on test performance would make the 
-final score too optimistic -- the test set would effectively become 
-a second development set. The best parameter combination for each 
-model was selected by the lowest validation RMSE.
+Hyperparameter tuning was performed in two stages. In the first stage, 
+all models were tuned once using the validation set. This made the model 
+comparison fair because each model family received a suitable basic 
+configuration instead of relying only on default settings.
+
+In the second stage, the strongest candidates from the first comparison 
+were tuned again more carefully. This second tuning focused on parameters 
+that directly control model complexity and generalization, such as the 
+learning rate and number of estimators for Gradient Boosting or the 
+regularization strength for Lasso and the Neural Network. In both stages, 
+the best parameter combination was selected by the lowest validation 
+RMSE. The test set was used only once for the final reported evaluation.
 
 \subsection{Overfitting Diagnosis}
 
-Overfitting is detected by comparing train, validation, and test RMSE 
-for each model. A large gap between training and test performance 
-indicates that the model has memorized the training data instead of 
-learning general patterns. KNN and single decision trees are the most 
-likely candidates because they can fit very locally to the training 
-data. Regularized linear models are more stable but may underfit 
-nonlinear demand patterns. Ensemble methods like Random Forest and 
-Gradient Boosting are expected to generalize better, but Gradient 
-Boosting still requires careful tuning because deep or numerous trees 
-can also overfit.
+Overfitting is diagnosed by comparing train, validation, and test RMSE 
+for each model. If the training error is much lower than the validation 
+and test error, the model has learned patterns that do not generalize 
+well to future data. This is especially visible for KNN and the single 
+Decision Tree. Both models achieve much lower training errors than test 
+errors, which indicates that they fit local training structures too 
+closely.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{rmse_comparison.png}
+    \caption{Train, validation, and test RMSE comparison across models. 
+    Large gaps between training and test RMSE indicate overfitting. KNN 
+    and the single Decision Tree show the clearest overfitting pattern, 
+    while ensemble methods generalize more reliably.}
+    \label{fig:rmse_overfitting}
+\end{figure}
+
+Regularized linear models are more stable, but they may underfit because 
+they cannot capture nonlinear demand patterns sufficiently. Ensemble 
+methods reduce this problem. Random Forest reduces variance by averaging 
+many trees, while Gradient Boosting sequentially corrects remaining 
+prediction errors. The comparison in Fig.~\ref{fig:rmse_overfitting} 
+therefore supports the final model choice: Gradient Boosting provides a 
+strong balance between flexibility and generalization, but still requires 
+careful tuning because too many or too deep trees could also overfit.

@@ -48,6 +48,8 @@
 \newlabel{tab:metrics}{{VII}{3}{Evaluation metrics and their interpretation}{table.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Hyperparameter Tuning}{4}{subsection.6.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Overfitting Diagnosis}{4}{subsection.6.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Train, validation, and test RMSE comparison across models. Large gaps between training and test RMSE indicate overfitting. KNN and the single Decision Tree show the clearest overfitting pattern, while ensemble methods generalize more reliably.}}{4}{figure.2}\protected@file@percent }
+\newlabel{fig:rmse_overfitting}{{2}{4}{Train, validation, and test RMSE comparison across models. Large gaps between training and test RMSE indicate overfitting. KNN and the single Decision Tree show the clearest overfitting pattern, while ensemble methods generalize more reliably}{figure.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VII}Results}{4}{section.7}\protected@file@percent }
 \newlabel{sec:results}{{VII}{4}{Results}{section.7}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {VIII}{\ignorespaces Final test results after hyperparameter tuning.}}{4}{table.8}\protected@file@percent }
@@ -55,24 +57,28 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Effect of Lag Features}{4}{subsection.7.1}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {IX}{\ignorespaces Effect of lag features on test RMSE (lower is better).}}{4}{table.9}\protected@file@percent }
 \newlabel{tab:lag_effect}{{IX}{4}{Effect of lag features on test RMSE (lower is better)}{table.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Test RMSE decreases for every model when station-specific lag features are added. This supports the decision to prioritize temporal representation over adding more algorithms.}}{4}{figure.2}\protected@file@percent }
-\newlabel{fig:lagdelta}{{2}{4}{Test RMSE decreases for every model when station-specific lag features are added. This supports the decision to prioritize temporal representation over adding more algorithms}{figure.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Hyperparameter Tuning Effect}{4}{subsection.7.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces Tuning stages for the top three models (with lag, test RMSE).}}{4}{table.10}\protected@file@percent }
-\newlabel{tab:tuning}{{X}{4}{Tuning stages for the top three models (with lag, test RMSE)}{table.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Test RMSE decreases for every model when station-specific lag features are added. This supports the decision to prioritize temporal representation over adding more algorithms.}}{4}{figure.3}\protected@file@percent }
+\newlabel{fig:lagdelta}{{3}{4}{Test RMSE decreases for every model when station-specific lag features are added. This supports the decision to prioritize temporal representation over adding more algorithms}{figure.3}{}}
 \citation{friedman2001}
+\citation{sathishkumar2020rule}
+\citation{sathishkumar2020data}
+\citation{choi2021seoul}
+\citation{xin2026probabilistic}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Hyperparameter Tuning Effect}{5}{subsection.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces Tuning stages for the top three models (with lag, test RMSE).}}{5}{table.10}\protected@file@percent }
+\newlabel{tab:tuning}{{X}{5}{Tuning stages for the top three models (with lag, test RMSE)}{table.10}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-C}}Result Interpretation}{5}{subsection.7.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {VIII}Discussion and Critical Reflection}{5}{section.8}\protected@file@percent }
 \newlabel{sec:discussion}{{VIII}{5}{Discussion and Critical Reflection}{section.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-A}}Why Gradient Boosting Performs Best}{5}{subsection.8.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-B}}Why the Result Is Not Perfect}{5}{subsection.8.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-C}}Overfitting and Underfitting Diagnosis}{5}{subsection.8.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {XI}{\ignorespaces Main limitations and their practical consequence.}}{5}{table.11}\protected@file@percent }
-\newlabel{tab:limitations}{{XI}{5}{Main limitations and their practical consequence}{table.11}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-D}}Ethical and Responsible Use}{5}{subsection.8.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-E}}Next Steps}{5}{subsection.8.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IX}Conclusion}{5}{section.9}\protected@file@percent }
 \bibcite{taweilo_kaggle}{1}
+\@writefile{lot}{\contentsline {table}{\numberline {XI}{\ignorespaces Main limitations and their practical consequence.}}{6}{table.11}\protected@file@percent }
+\newlabel{tab:limitations}{{XI}{6}{Main limitations and their practical consequence}{table.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-C}}Overfitting and Underfitting Diagnosis}{6}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-D}}Ethical and Responsible Use}{6}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-E}}Next Steps}{6}{subsection.8.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IX}Conclusion}{6}{section.9}\protected@file@percent }
 \bibcite{capital_system_data}{2}
 \bibcite{uci_bike}{3}
 \bibcite{fanaee2013}{4}
@@ -80,5 +86,9 @@
 \bibcite{owenpb_github}{6}
 \bibcite{sklearn_ohe}{7}
 \bibcite{friedman2001}{8}
-\@writefile{toc}{\contentsline {section}{References}{6}{section*.2}\protected@file@percent }
-\gdef \@abspage@last{6}
+\bibcite{sathishkumar2020rule}{9}
+\bibcite{sathishkumar2020data}{10}
+\bibcite{choi2021seoul}{11}
+\bibcite{xin2026probabilistic}{12}
+\@writefile{toc}{\contentsline {section}{References}{7}{section*.2}\protected@file@percent }
+\gdef \@abspage@last{7}
