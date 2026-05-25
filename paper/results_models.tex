@@ -81,41 +81,47 @@ representation over adding more algorithms.}
 
 \subsection{Hyperparameter Tuning Effect}
 
+All nine models were first trained with an initial parameter grid to 
+find a reasonable starting point. For fine-tuning, we selected three 
+models that represent different algorithm families: Gradient Boosting 
+as the best overall model, Lasso as the best linear model, and the 
+Neural Network as a non-tree nonlinear reference. Random Forest was 
+not selected for fine-tuning because it belongs to the same tree 
+ensemble family as Gradient Boosting, and a second tree model would 
+not add a new perspective to the comparison.
+Table~\ref{tab:tuning} shows all three tuning stages, starting from 
+the sklearn default parameters.
+
 \begin{table}[htbp]
-\caption{Tuning effect: sklearn defaults vs.\ tuned parameters 
-(with lag, test set).}
+\caption{Tuning stages for the top three models (with lag, test RMSE).}
 \label{tab:tuning}
 \centering
 \scriptsize
-\begin{tabularx}{\columnwidth}{p{0.32\columnwidth} r r r r}
+\begin{tabularx}{\columnwidth}{p{0.28\columnwidth} r r r r}
 \toprule
-\textbf{Model} & \textbf{RMSE$_{\text{default}}$} & 
-\textbf{RMSE$_{\text{tuned}}$} & \textbf{$R^2_{\text{default}}$} & 
-\textbf{$R^2_{\text{tuned}}$} \\
+\textbf{Model} & \textbf{Default} & \textbf{Initial} & 
+\textbf{Fine-tuned} & \textbf{$R^2$} \\
 \midrule
-Gradient Boosting & 23.50 & 22.78 & 0.641 & 0.663 \\
-Neural Network    & 24.99 & 24.31 & 0.594 & 0.616 \\
-Lasso             & 23.89 & 23.86 & 0.629 & 0.630 \\
+Gradient Boost & 23.50 & 22.79 & \textbf{22.78} & 0.663 \\
+Neural Network & 24.99 & 24.31 & \textbf{24.31} & 0.616 \\
+Lasso          & 23.89 & 23.89 & \textbf{23.86} & 0.630 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-The tuning results show three different patterns. Gradient Boosting 
-improved the most: reducing the learning rate from 0.1 to 0.03 and 
-increasing the number of trees from 100 to 400 lowered the test RMSE 
-by 0.72 points (-3.1\%). This confirms that slower, more conservative 
-learning generalizes better for this dataset. The Neural Network also 
-improved clearly (-0.68, -2.7\%), but for a different reason: the 
-architecture stayed the same (one hidden layer with 128 neurons), 
-while the L2 regularization penalty was increased from 0.0001 to 0.1. 
-Forcing the network to learn smaller weights reduced overfitting more 
-effectively than adding complexity. Lasso barely changed (-0.03, 
--0.1\%), which shows that the sklearn default of $\alpha = 1.0$ was 
-already very close to the optimal value for this dataset.
+The table reveals two separate effects. The initial parameter grid 
+already produced the largest gains: Gradient Boosting dropped from 
+23.50 to 22.79, and the Neural Network from 24.99 to 24.31. Lasso 
+did not change in this step, which confirms that the sklearn default 
+of $\alpha = 1.0$ was already a good starting point. The subsequent 
+fine-tuning step added only marginal improvements for Gradient 
+Boosting (-0.01) and Lasso (-0.03), while the Neural Network did 
+not change at all.
 
-The overall finding is consistent across all three models: the main 
-gain came from better regularization and more conservative learning, 
-not from increasing model capacity.
+The overall conclusion is that the initial parameter grid captured 
+most of the available tuning gain, and that the largest improvements 
+throughout the project came from better data representation rather 
+than from the tuning process itself.
 
 \subsection{Result Interpretation}
 

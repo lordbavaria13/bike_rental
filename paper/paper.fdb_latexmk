@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1779663387.45418 "c:/Users/Alex/Documents/ml_projekt/bike_rental/paper/paper.tex" "paper.pdf" "paper" 1779663391.03909 0
+["pdflatex"] 1779709291.32404 "c:/Users/Alex/Documents/ml_projekt/bike_rental/paper/paper.tex" "paper.pdf" "paper" 1779709293.13195 0
   "../data/processed/analysis/predictor_correlation_heatmap.png" 1776946854 220131 9282fb7f45b9cb9249416fef29ccd238 ""
   "../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png" 1779652740 56849 b6de49bf8a44ab7f6a268ca3a2ab9af2 ""
   "C:/Users/Alex/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1776961792 82507 a9eef8696c92627b87e9975edea03b2a ""
@@ -115,12 +115,12 @@
   "feature_engineering.tex" 1779657716 4107 766c5f40444c67c3a846d0b32fd8d08c ""
   "introduction.tex" 1779660879 1475 cd53f2a50e5ee90e686e36e78395e4f6 ""
   "modeling_pipeline.tex" 1779661729 3741 3a772b20474a9c789b973983f2f33784 ""
-  "paper.aux" 1779663390 8784 113f27c4c09e77e73d2f0fb9a30c7367 "pdflatex"
-  "paper.out" 1779663390 5388 900a58b77b8bc2805498ff06f2e1531a "pdflatex"
+  "paper.aux" 1779709292 8782 dffe69649a2f16a640cb37ddcff51fd5 "pdflatex"
+  "paper.out" 1779709292 5388 900a58b77b8bc2805498ff06f2e1531a "pdflatex"
   "paper.tex" 1779653682 1335 b592751a47c6004911931cd1da561aea ""
-  "references.tex" 1779658168 1317 debf3e3ebc06657b65858d9dc77ac50a ""
+  "references.tex" 1779708234 1529 eddd11999b3b799d2c5625fdd760a0ee ""
   "related_work.tex" 1779656099 2015 9043ce2fad864aae14bd61ea8c41ddd3 ""
-  "results_models.tex" 1779663130 5768 47591fa8a71247501a08b052e40d1392 ""
+  "results_models.tex" 1779709288 6090 fb1179ef2a5cb136f005b95f858f53ab ""
   "section_dataset.tex" 1779661493 4506 ec8e097701a5ad3b0e65254b6d2382aa ""
   (generated)
   "paper.aux"

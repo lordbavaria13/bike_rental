@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.3.4)  24 MAY 2026 23:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.3.4)  25 MAY 2026 12:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -500,10 +500,6 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has 
                                                   \__shipout_drop_firstpage_...
 l.75 
       <../data/processed/analysis/predictor_correlation_heatmap.png>]) (modeling_pipeline.tex
-
-LaTeX Warning: Citation `friedman2001' on page 3 undefined on input line 107.
-
-
 Underfull \hbox (badness 4752) in paragraph at lines 107--107
 []|\T1/ptm/m/n/7 Flexible non-lin-ear ref-er-ence to com-pare
  []
@@ -533,13 +529,13 @@ Underfull \hbox (badness 10000) in alignment at lines 63--63
 [][][][] 
  []
 
-<../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png, id=188, 867.24pt x 361.35pt>
+<../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png, id=192, 867.24pt x 361.35pt>
 File: ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png Graphic file (type png)
 <use ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>
 Package pdftex.def Info: ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png  used on input line 75.
 (pdftex.def)             Requested size: 252.0pt x 104.99834pt.
 
-Underfull \hbox (badness 10000) in alignment at lines 100--100
+Underfull \hbox (badness 10000) in alignment at lines 109--109
 [][][][][] 
  []
 
@@ -547,37 +543,28 @@ Underfull \hbox (badness 10000) in alignment at lines 100--100
 pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.129 
+l.135 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.129 
+l.135 
       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.129 
+l.135 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.129 
-       <../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>]) (discussion_limitations.tex
-
-LaTeX Warning: Citation `friedman2001' on page 5 undefined on input line 22.
-
-) (conclusion.tex) (ai_tools.tex) (references.tex
-
-Package balance Warning: You have called \balance in second column
-(balance)                Columns might not be balanced.
-
-[5
+l.135 
+       <../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>]) (discussion_limitations.tex) (conclusion.tex) (ai_tools.tex [5
 pdfTeX warning (ext4): destination with the same identifier (name{table.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1 \begin{thebibliography}{00}
-                               ]
+l.1 \section
+            *{AI Tool Use}]) (references.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--6
 []\T1/ptm/m/n/8 T. Lo, ``Cap-i-tal bike-share dataset 2020/05--2024/08,'' Kag-gle.
  []
@@ -614,14 +601,14 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6] (paper.aux)
+
+Overfull \vbox (1.69186pt too high) has occurred while \output is active []
+
+ [6] (paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-
-
-LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -631,16 +618,16 @@ Package rerunfilecheck Info: File `paper.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  10866 strings out of 467866
- 173012 string characters out of 5418810
- 607587 words of memory out of 5000000
- 39514 multiletter control sequences out of 15000+600000
- 744919 words of font info for 157 fonts, out of 8000000 for 9000
+ 173031 string characters out of 5418810
+ 607608 words of memory out of 5000000
+ 39515 multiletter control sequences out of 15000+600000
+ 742705 words of font info for 155 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,13n,79p,452b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,452b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Alex/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (6 pages, 524735 bytes).
+Output written on paper.pdf (6 pages, 526134 bytes).
 PDF statistics:
- 297 PDF objects out of 1000 (max. 8388607)
- 57 named destinations out of 1000 (max. 500000)
+ 303 PDF objects out of 1000 (max. 8388607)
+ 58 named destinations out of 1000 (max. 500000)
  243 words of extra memory for PDF output out of 10000 (max. 10000000)
 

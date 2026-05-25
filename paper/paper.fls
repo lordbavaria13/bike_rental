@@ -305,8 +305,6 @@ INPUT ..\modelling\99_model_comparison\results\plots\test_rmse_lag_delta.png
 INPUT ..\modelling\99_model_comparison\results\plots\test_rmse_lag_delta.png
 INPUT ..\modelling\99_model_comparison\results\plots\test_rmse_lag_delta.png
 INPUT ..\modelling\99_model_comparison\results\plots\test_rmse_lag_delta.png
-INPUT C:\Users\Alex\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmb8t.vf
-INPUT C:\Users\Alex\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
 INPUT .\discussion_limitations.tex
 INPUT .\discussion_limitations.tex
 INPUT .\discussion_limitations.tex
@@ -327,8 +325,6 @@ INPUT .\references.tex
 INPUT .\references.tex
 INPUT .\references.tex
 INPUT references.tex
-INPUT C:\Users\Alex\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmb8t.vf
-INPUT C:\Users\Alex\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
 INPUT C:\Users\Alex\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr8.tfm
 INPUT C:\Users\Alex\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi8.tfm
 INPUT C:\Users\Alex\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy8.tfm
