@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  25 MAY 2026 14:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.21)  25 MAY 2026 14:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -403,7 +403,7 @@ Package hyperref Info: Link coloring OFF on input line 33.
 \openout3 = `paper.out'.
 
  (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/abstract.tex
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 3.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 2.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/introduction.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/related_work.tex
@@ -418,8 +418,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 41--41
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.47 \subsection
-                {Station Filtering and One-Hot Encoding}]
+l.54 
+     
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.54 
+     ]
 Underfull \hbox (badness 10000) in paragraph at lines 99--99
 []|\T1/pcr/m/n/7 tempmax\T1/ptm/m/n/7 , \T1/pcr/m/n/7 humidity\T1/ptm/m/n/7 , \T1/pcr/m/n/7 windspeed\T1/ptm/m/n/7 , \T1/pcr/m/n/7 precip\T1/ptm/m/n/7 ,
  []
@@ -439,7 +444,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 99--99
 []|\T1/pcr/m/n/7 total_rentals_lag_1 \T1/ptm/m/n/7 (yes-ter-day's de-mand) and
  []
 
-<../data/processed/analysis/predictor_correlation_heatmap.png, id=162, 1011.78pt x 722.7pt>
+<../data/processed/analysis/predictor_correlation_heatmap.png, id=160, 1011.78pt x 722.7pt>
 File: ../data/processed/analysis/predictor_correlation_heatmap.png Graphic file (type png)
 <use ../data/processed/analysis/predictor_correlation_heatmap.png>
 Package pdftex.def Info: ../data/processed/analysis/predictor_correlation_heatmap.png  used on input line 104.
@@ -480,25 +485,20 @@ Underfull \hbox (badness 1590) in paragraph at lines 56--63
  []
 
 [2
-pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.75 
-     
 pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.75 
+l.88 
      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.75 
+l.88 
      
 pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.75 
+l.88 
       </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/../data/processed/analysis/predictor_correlation_heatmap.png>]) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/modeling_pipeline.tex
 Underfull \hbox (badness 4752) in paragraph at lines 107--107
 []|\T1/ptm/m/n/7 Flexible non-lin-ear ref-er-ence to com-pare
@@ -508,22 +508,22 @@ Underfull \hbox (badness 4752) in paragraph at lines 107--107
 pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.53 
-     
+l.47 \subsection
+                {Overfitting Diagnosis}
 pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.53 
-     
+l.47 \subsection
+                {Overfitting Diagnosis}
 pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.53 
-     ]
-<rmse_comparison.png, id=194, 867.24pt x 361.35pt>
+l.47 \subsection
+                {Overfitting Diagnosis}]
+<rmse_comparison.png, id=193, 867.24pt x 361.35pt>
 File: rmse_comparison.png Graphic file (type png)
 <use rmse_comparison.png>
-Package pdftex.def Info: rmse_comparison.png  used on input line 74.
+Package pdftex.def Info: rmse_comparison.png  used on input line 57.
 (pdftex.def)             Requested size: 252.0pt x 104.99834pt.
 ) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/results_models.tex
 Underfull \hbox (badness 10000) in alignment at lines 31--31
@@ -535,42 +535,47 @@ Underfull \hbox (badness 10000) in alignment at lines 63--63
 [][][][] 
  []
 
-<../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png, id=196, 867.24pt x 361.35pt>
+<../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png, id=195, 867.24pt x 361.35pt>
 File: ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png Graphic file (type png)
 <use ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>
 Package pdftex.def Info: ../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png  used on input line 75.
 (pdftex.def)             Requested size: 252.0pt x 104.99834pt.
-[4
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.94 
-     
-pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.94 
-     
-pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.94 
-     
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.94 
-      </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/rmse_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>]
+
 Underfull \hbox (badness 10000) in alignment at lines 109--109
 [][][][][] 
  []
 
-) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/discussion_limitations.tex [5
+[4
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.121 T
+       he overall conclusion is that the initial parameter grid captured
+pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.121 T
+       he overall conclusion is that the initial parameter grid captured
+pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.121 T
+       he overall conclusion is that the initial parameter grid captured
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.121 T
+       he overall conclusion is that the initial parameter grid captured </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/rmse_comparison.png> </Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/../modelling/99_model_comparison/results/plots/test_rmse_lag_delta.png>]) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/discussion_limitations.tex [5
 pdfTeX warning (ext4): destination with the same identifier (name{table.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.71 
-     ]) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/conclusion.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/ai_tools.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/references.tex
+l.112 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{table.11}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.112 
+      ]) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/conclusion.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/ai_tools.tex) (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/references.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--6
 []\T1/ptm/m/n/8 T. Lo, ``Cap-i-tal bike-share dataset 2020/05--2024/08,'' Kag-gle.
  []
@@ -581,15 +586,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--6
  []
 
 
-Package balance Warning: You have called \balance in second column
-(balance)                Columns might not be balanced.
-
-[6
-pdfTeX warning (ext4): destination with the same identifier (name{table.11}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.6 
-    ]
 Underfull \hbox (badness 6364) in paragraph at lines 8--10
 []\T1/ptm/m/n/8 Capital Bike-share, ``Sys-tem Data.'' [On-line]. Avail-able: []$https : / /
  []
@@ -631,7 +627,11 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7] (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.aux)
+
+Package balance Warning: You have called \balance in second column
+(balance)                Columns might not be balanced.
+
+[6] (/Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -644,18 +644,18 @@ Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 900A58B77B8BC2805498FF06F2E1531A;5388.
  ) 
 Here is how much of TeX's memory you used:
- 10881 strings out of 467525
- 175827 string characters out of 5418982
- 608580 words of memory out of 5000000
- 39551 multiletter control sequences out of 15000+600000
+ 10878 strings out of 467525
+ 175763 string characters out of 5418982
+ 608557 words of memory out of 5000000
+ 39549 multiletter control sequences out of 15000+600000
  742705 words of font info for 155 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,526b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.pdf (7 pages, 529710 bytes).
+ 75i,11n,79p,944b,444s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /Users/antonwilhemi/Documents/02_Uni/03_Erasmus/Fächer/02_Introduction_to_Machine_Learning/02_Group_Project/bike_rental/paper/paper.pdf (6 pages, 519410 bytes).
 PDF statistics:
- 329 PDF objects out of 1000 (max. 8388607)
- 267 compressed objects within 3 object streams
- 64 named destinations out of 1000 (max. 500000)
+ 315 PDF objects out of 1000 (max. 8388607)
+ 256 compressed objects within 3 object streams
+ 63 named destinations out of 1000 (max. 500000)
  248 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -142,22 +142,13 @@ include local knowledge and manual correction.
 
 \subsection{Next Steps}
 
-The most useful improvements are data-related rather than 
-algorithm-related:
-\begin{itemize}[noitemsep]
-    \item Add hourly modelling to capture commuting peaks and short-term 
-          weather effects.
-    \item Include holiday, event, station outage, and service disruption 
-          variables to explain demand spikes.
-    \item Analyse residuals by station, season, weekday, and demand level 
-          to identify systematic weaknesses.
-    \item Monitor temporal drift, as mobility patterns can change over 
-          time and older training data may become less representative.
-    \item Carefully extend the station set so that less popular stations 
-          are also represented.
-    \item Test whether rolling averages or longer lag windows improve 
-          performance beyond lag 1 and lag 7.
-\end{itemize}
+The next steps should focus on data rather than only algorithms. Hourly 
+modelling could capture commuting peaks and short-term weather effects. 
+Holiday, event, outage, and disruption variables could explain demand 
+spikes. Residuals should be analysed by station, season, weekday, and 
+demand level, while temporal drift should be monitored over time. Finally, 
+the station set should be extended carefully to include less popular 
+stations.
 
 The next modelling step should therefore not be a blind search for more 
 algorithms. A better strategy is to keep the current reproducible 

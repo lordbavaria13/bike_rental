@@ -1,25 +1,9 @@
 \section{Introduction}
 
-Bike-sharing systems depend on local and time-dependent demand. If too few 
-bikes are available at a station, users cannot start their trip. If too many 
-bikes accumulate, redistribution costs increase and docking space is wasted. 
-Accurate demand forecasts can help operators plan bike redistribution in 
-advance and improve the overall service quality.
+Bike-sharing demand is local and time-dependent. Empty stations prevent users from starting trips, while full stations increase redistribution costs and waste docking space. Reliable demand forecasts can therefore support better operational planning.
 
-This project explores whether machine learning can produce reliable daily 
-demand forecasts at the station level. We use real trip data from a public 
-bike-sharing system, combined with weather and calendar information. 
-The problem is well-suited for regression because the output is a 
-numeric count and the input features are measurable in advance.
+This project predicts daily rental demand at station level using Capital Bikeshare trip data combined with weather and calendar information. The task is formulated as supervised regression because the target is a numeric rental count.
 
-Rather than focusing only on the final model score, we treat the full 
-pipeline as part of the contribution. We show that preprocessing decisions, 
-especially how past demand is represented, have a stronger impact on 
-model quality than the choice of algorithm alone.
+The focus is not only the final score, but the full modelling pipeline. We show that data representation, especially station encoding and lag features, has a stronger effect on performance than simply adding more algorithms.
 
-This report is structured as follows: Section~\ref{sec:dataset} describes 
-the dataset and preprocessing steps. Section~\ref{sec:pipeline} explains 
-the modelling pipeline and evaluation strategy. Section~\ref{sec:results} 
-presents and compares the results of all models. There is also a comparison with another bike-rental project on the same database. 
-The remaining sections 
-cover ethical considerations, limitations, and a critical reflection.
+The report covers dataset construction, preprocessing, model selection, evaluation, results, limitations, and critical reflection.

@@ -2,9 +2,9 @@
 \label{sec:evaluation}
 
 The main ranking metric is RMSE because large demand errors are more 
-problematic in practice than small ones. However, one metric alone is 
-not enough to fully understand model behaviour. The final comparison 
-therefore reports six metrics plus runtime information.
+problematic in practice than small ones. Since one metric alone cannot 
+describe model behaviour completely, we also report MAE, Median AE, 
+MAPE, $R^2$, and explained variance.
 
 \begin{table}[htbp]
 \caption{Evaluation metrics and their interpretation.}
@@ -15,75 +15,57 @@ therefore reports six metrics plus runtime information.
 \toprule
 \textbf{Metric} & \textbf{Interpretation in this project} \\
 \midrule
-RMSE & 
-Penalizes large errors more strongly; main ranking metric. \\
+RMSE & Penalizes large errors strongly; main ranking metric. \\
 \addlinespace
-MAE & 
-Average absolute error in rentals; easy to interpret 
-operationally. \\
+MAE & Average absolute error in rentals; easy to interpret. \\
 \addlinespace
-Median AE & 
-Typical error on a normal day; less affected by rare 
-extreme demand days. \\
+Median AE & Typical error on a normal day; robust to extremes. \\
 \addlinespace
-MAPE & 
-Relative error in percent; useful because stations differ 
-in their average demand level. \\
+MAPE & Relative error in percent; useful because station demand levels differ. \\
 \addlinespace
-$R^2$ & 
-Fraction of variance explained compared to a simple 
-mean baseline. \\
+$R^2$ & Share of variance explained compared with a mean baseline. \\
 \addlinespace
-Explained variance & 
-Checks whether the predicted spread matches the real 
-demand spread. \\
-\addlinespace
-Fit / predict time & 
-Shows whether accuracy gains come with a computational cost. \\
+Explained variance & Checks whether the predicted spread matches real demand variation. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsection{Hyperparameter Tuning}
 
-Hyperparameter tuning was performed in two stages. In the first stage, 
-all models were tuned once using the validation set. This made the model 
-comparison fair because each model family received a suitable basic 
-configuration instead of relying only on default settings.
+Hyperparameter tuning was performed in two stages. First, all models 
+were tuned once using validation RMSE. This made the comparison fair 
+because each model family received a suitable basic configuration 
+instead of relying only on default settings.
 
-In the second stage, the strongest candidates from the first comparison 
-were tuned again more carefully. This second tuning focused on parameters 
-that directly control model complexity and generalization, such as the 
-learning rate and number of estimators for Gradient Boosting or the 
-regularization strength for Lasso and the Neural Network. In both stages, 
-the best parameter combination was selected by the lowest validation 
-RMSE. The test set was used only once for the final reported evaluation.
+Second, the strongest candidates from the first comparison were tuned 
+again more carefully. This focused on parameters controlling model 
+complexity and generalization, such as the learning rate and number of 
+estimators for Gradient Boosting or regularization strength for Lasso 
+and the Neural Network. In both stages, the test set was not used for 
+parameter selection. It was used only once for the final evaluation.
 
 \subsection{Overfitting Diagnosis}
 
-Overfitting is diagnosed by comparing train, validation, and test RMSE 
-for each model. If the training error is much lower than the validation 
-and test error, the model has learned patterns that do not generalize 
-well to future data. This is especially visible for KNN and the single 
-Decision Tree. Both models achieve much lower training errors than test 
-errors, which indicates that they fit local training structures too 
-closely.
+Overfitting is diagnosed by comparing train, validation, and test RMSE. 
+If the training error is much lower than the validation and test error, 
+the model has learned patterns that do not generalize to future data. 
+This is most visible for KNN and the single Decision Tree, which fit 
+local training structures too closely.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\columnwidth]{rmse_comparison.png}
-    \caption{Train, validation, and test RMSE comparison across models. 
-    Large gaps between training and test RMSE indicate overfitting. KNN 
-    and the single Decision Tree show the clearest overfitting pattern, 
-    while ensemble methods generalize more reliably.}
+    \caption{Train, validation, and test RMSE across models. Large gaps 
+    between training and test RMSE indicate overfitting. KNN and the 
+    single Decision Tree show the clearest pattern, while ensemble 
+    methods generalize more reliably.}
     \label{fig:rmse_overfitting}
 \end{figure}
 
-Regularized linear models are more stable, but they may underfit because 
-they cannot capture nonlinear demand patterns sufficiently. Ensemble 
-methods reduce this problem. Random Forest reduces variance by averaging 
-many trees, while Gradient Boosting sequentially corrects remaining 
-prediction errors. The comparison in Fig.~\ref{fig:rmse_overfitting} 
-therefore supports the final model choice: Gradient Boosting provides a 
-strong balance between flexibility and generalization, but still requires 
-careful tuning because too many or too deep trees could also overfit.
+Regularized linear models are stable but may underfit nonlinear demand 
+patterns. Ensemble methods reduce this problem: Random Forest lowers 
+variance by averaging many trees, while Gradient Boosting sequentially 
+corrects remaining errors. Fig.~\ref{fig:rmse_overfitting} supports the 
+final model choice because Gradient Boosting offers a strong balance 
+between flexibility and generalization, while still requiring careful 
+tuning to avoid overfitting.

@@ -34,10 +34,10 @@ Neural Network & yes & 18.89 & 24.31 &  0.616 & 0.299 \\
 The three best models are Gradient Boosting (RMSE 22.78, $R^2$ 0.663), 
 Random Forest (RMSE 23.02, $R^2$ 0.656), and Lasso (RMSE 23.86, 
 $R^2$ 0.630), all using lag features. Gradient Boosting achieves the 
-best accuracy but requires the longest training time (9.6 seconds). 
-Random Forest is nearly as accurate and trains much faster. Lasso is 
-the strongest linear model and serves as a transparent benchmark 
-against the ensemble methods.
+best overall test performance. Random Forest is nearly as accurate, 
+which shows that ensemble tree methods are well suited for this 
+forecasting task. Lasso is the strongest linear model and serves as a 
+transparent benchmark against the ensemble methods.
 
 \subsection{Effect of Lag Features}
 
@@ -88,9 +88,9 @@ as the best overall model, Lasso as the best linear model, and the
 Neural Network as a non-tree nonlinear reference. Random Forest was 
 not selected for fine-tuning because it belongs to the same tree 
 ensemble family as Gradient Boosting, and a second tree model would 
-not add a new perspective to the comparison.
-Table~\ref{tab:tuning} shows all three tuning stages, starting from 
-the sklearn default parameters.
+not add a new perspective to the comparison. Table~\ref{tab:tuning} 
+shows all three tuning stages, starting from the sklearn default 
+parameters.
 
 \begin{table}[htbp]
 \caption{Tuning stages for the top three models (with lag, test RMSE).}
@@ -128,14 +128,8 @@ than from the tuning process itself.
 Gradient Boosting with lag features is the best final model, reaching 
 a test RMSE of 22.78, MAE of 16.92, and $R^2$ of 0.663. This means 
 that on average, the model's daily rental prediction for a station 
-deviates by about 23 rentals from the true value on unseen test data. 
-Random Forest is a strong and faster alternative with nearly identical 
-accuracy. Lasso shows that a simple regularized linear model becomes 
-competitive once the dataset contains the right temporal features.
-
-The most important result is not the winning model alone. Lag features 
-improve every model, and better regularization improves tuning results 
-across all three algorithm families. Both findings support the same 
-conclusion: for this dataset, improving the input representation and 
-controlling model complexity matters more than choosing a more 
-sophisticated algorithm.
+deviates by about 17 rentals from the true value on unseen test data. 
+Random Forest reaches almost the same performance, which confirms that 
+tree-based ensemble models are strong for this task. Lasso shows that 
+a simple regularized linear model becomes competitive once the dataset 
+contains the right temporal features.
