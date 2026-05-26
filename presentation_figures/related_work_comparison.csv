@@ -1,0 +1,6 @@
+Work,Task / dataset,Best reported model,RMSE,MAE,R²,MAPE,Main comparison point
+Our project,"Capital Bikeshare, station-day, top 20 stations",Gradient Boosting + lag,22.78,16.92,0.663,25.3%,Stricter station-level setup; local noise remains visible
+Sathishkumar & Cho,"Seoul Bike and Capital Bikeshare, system-level demand",CUBIST,n/a,n/a,0.95 / 0.89,n/a,"Higher R², but system-level demand is easier than station-level demand"
+Sathishkumar et al.,Hourly Seoul Bike demand,Gradient Boosting,n/a,n/a,0.92,n/a,Hourly data includes strong time-of-day signal
+Choi,Hourly Seoul Bike demand,Random Forest,282.63,169.57,0.77,n/a,Absolute errors are larger because target scale is larger
+Xin,"UCI-DC, one-hour-ahead forecasting",N-BEATS,75.88,51.33,n/a,26.7%,MAPE is close to our relative error level

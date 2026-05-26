@@ -1,5 +1,5 @@
 from pathlib import Path
-import re
+import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -17,189 +17,73 @@ ROOT = Path(__file__).resolve().parent
 OUTPUT_DIR = ROOT / "presentation_figures"
 OUTPUT_DIR.mkdir(exist_ok=True)
 
-# Optional manual override:
-# Put exact file paths here if automatic search does not find the right files.
-MANUAL_FILES = {
-    "Gradient Boosting": None,
-    "Random Forest": None,
-    "Lasso": None,
-}
+TARGET_COL = "total_rentals"
+PRED_COL = "prediction"
+SPLIT_COL = "split"
 
-MODELS = [
+MODEL_CONFIGS = [
     {
         "label": "Gradient Boosting",
-        "aliases": ["gradient_boost", "gradient_boosting", "gradientboost", "gb"],
+        "result_dir": ROOT / "modelling" / "07_gradient_boosting" / "results" / "with_lag",
     },
     {
         "label": "Random Forest",
-        "aliases": ["random_forest", "randomforest", "rf"],
+        "result_dir": ROOT / "modelling" / "06_random_forest" / "results" / "with_lag",
     },
     {
         "label": "Lasso",
-        "aliases": ["lasso"],
+        "result_dir": ROOT / "modelling" / "03_lasso_regression" / "results" / "with_lag",
     },
 ]
 
-TRUE_COL_CANDIDATES = [
-    "y_true",
-    "true",
-    "actual",
-    "actuals",
-    "observed",
-    "target",
-    "total_rentals",
-    "total_rentals_true",
-    "y_test",
-]
-
-PRED_COL_CANDIDATES = [
-    "y_pred",
-    "pred",
-    "prediction",
-    "predictions",
-    "predicted",
-    "predicted_total_rentals",
-    "total_rentals_pred",
-    "y_hat",
-]
-
 
 # ============================================================
-# Helper functions
+# Helpers
 # ============================================================
 
-def normalize_text(text: str) -> str:
-    """Lowercase and replace non-alphanumeric characters with underscores."""
-    text = text.lower()
-    text = re.sub(r"[^a-z0-9]+", "_", text)
-    return text.strip("_")
+def load_metrics(metrics_path: Path) -> dict:
+    if not metrics_path.exists():
+        raise FileNotFoundError(f"Missing metrics file: {metrics_path}")
+
+    with open(metrics_path, "r", encoding="utf-8") as file:
+        return json.load(file)
 
 
-def find_column(df: pd.DataFrame, candidates: list[str]) -> str | None:
-    """Find a matching column by normalized column names."""
-    normalized_map = {normalize_text(col): col for col in df.columns}
+def load_test_predictions(predictions_path: Path) -> pd.DataFrame:
+    if not predictions_path.exists():
+        raise FileNotFoundError(f"Missing predictions file: {predictions_path}")
 
-    for candidate in candidates:
-        candidate_norm = normalize_text(candidate)
-        if candidate_norm in normalized_map:
-            return normalized_map[candidate_norm]
+    df = pd.read_csv(predictions_path)
 
-    return None
+    required_cols = {TARGET_COL, PRED_COL, SPLIT_COL}
+    missing_cols = required_cols - set(df.columns)
 
-
-def has_prediction_columns(csv_path: Path) -> bool:
-    """Quickly test whether a CSV probably contains actual and predicted values."""
-    try:
-        df_head = pd.read_csv(csv_path, nrows=5)
-    except Exception:
-        return False
-
-    true_col = find_column(df_head, TRUE_COL_CANDIDATES)
-    pred_col = find_column(df_head, PRED_COL_CANDIDATES)
-
-    return true_col is not None and pred_col is not None
-
-
-def score_candidate_file(csv_path: Path, aliases: list[str]) -> int:
-    """Score candidate files so the script prefers test predictions with lag."""
-    path_norm = normalize_text(str(csv_path.relative_to(ROOT)))
-
-    if not any(alias in path_norm for alias in aliases):
-        return -999
-
-    score = 0
-
-    # Strongly prefer prediction files
-    if "prediction" in path_norm or "predictions" in path_norm:
-        score += 10
-
-    # Prefer test data
-    if "test" in path_norm:
-        score += 8
-
-    # Prefer lag / with_lag variant
-    if "with_lag" in path_norm or "lag_yes" in path_norm or "lag" in path_norm:
-        score += 4
-
-    # Penalize no-lag variants
-    if "no_lag" in path_norm or "without_lag" in path_norm:
-        score -= 12
-
-    # Penalize training or validation predictions
-    if "train" in path_norm:
-        score -= 8
-    if "validation" in path_norm or "_val_" in path_norm:
-        score -= 6
-
-    # Penalize metric/ranking files
-    bad_keywords = ["metrics", "ranking", "comparison", "summary", "feature_importance"]
-    if any(keyword in path_norm for keyword in bad_keywords):
-        score -= 15
-
-    return score
-
-
-def find_prediction_file(model_label: str, aliases: list[str]) -> Path:
-    """Find the best matching prediction file for a model."""
-    manual_path = MANUAL_FILES.get(model_label)
-
-    if manual_path:
-        path = ROOT / manual_path
-        if not path.exists():
-            raise FileNotFoundError(f"Manual file for {model_label} not found: {path}")
-        return path
-
-    csv_files = list(ROOT.rglob("*.csv"))
-
-    candidates = []
-    for csv_path in csv_files:
-        if not has_prediction_columns(csv_path):
-            continue
-
-        score = score_candidate_file(csv_path, aliases)
-        if score > -999:
-            candidates.append((score, csv_path))
-
-    if not candidates:
-        print("\nAvailable CSV files:")
-        for csv_path in csv_files:
-            print(" -", csv_path.relative_to(ROOT))
-
-        raise FileNotFoundError(
-            f"\nNo prediction CSV found for {model_label}.\n"
-            f"Either rename your prediction files clearly or set MANUAL_FILES in the script."
-        )
-
-    candidates.sort(key=lambda x: x[0], reverse=True)
-    best_score, best_path = candidates[0]
-
-    print(f"{model_label}: {best_path.relative_to(ROOT)}  [score={best_score}]")
-    return best_path
-
-
-def load_predictions(csv_path: Path) -> tuple[np.ndarray, np.ndarray]:
-    """Load actual and predicted values from a CSV file."""
-    df = pd.read_csv(csv_path)
-
-    true_col = find_column(df, TRUE_COL_CANDIDATES)
-    pred_col = find_column(df, PRED_COL_CANDIDATES)
-
-    if true_col is None or pred_col is None:
+    if missing_cols:
         raise ValueError(
-            f"Could not identify true/prediction columns in {csv_path}.\n"
+            f"Missing columns in {predictions_path}: {sorted(missing_cols)}\n"
             f"Available columns: {list(df.columns)}"
         )
 
-    y_true = pd.to_numeric(df[true_col], errors="coerce")
-    y_pred = pd.to_numeric(df[pred_col], errors="coerce")
+    test_df = df[df[SPLIT_COL].astype(str).str.lower() == "test"].copy()
 
-    clean = pd.DataFrame({"y_true": y_true, "y_pred": y_pred}).dropna()
+    if test_df.empty:
+        raise ValueError(f"No test rows found in {predictions_path}")
 
-    return clean["y_true"].to_numpy(), clean["y_pred"].to_numpy()
+    test_df[TARGET_COL] = pd.to_numeric(test_df[TARGET_COL], errors="coerce")
+    test_df[PRED_COL] = pd.to_numeric(test_df[PRED_COL], errors="coerce")
+
+    test_df = test_df.dropna(subset=[TARGET_COL, PRED_COL])
+
+    if test_df.empty:
+        raise ValueError(f"No valid numeric test predictions found in {predictions_path}")
+
+    return test_df
 
 
-def regression_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
-    """Compute MAE, RMSE, and R2 without external sklearn dependency."""
+def compute_metrics(test_df: pd.DataFrame) -> dict:
+    y_true = test_df[TARGET_COL].to_numpy()
+    y_pred = test_df[PRED_COL].to_numpy()
+
     errors = y_true - y_pred
 
     mae = np.mean(np.abs(errors))
@@ -209,7 +93,30 @@ def regression_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, floa
     ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
     r2 = 1 - ss_res / ss_tot if ss_tot != 0 else np.nan
 
-    return {"MAE": mae, "RMSE": rmse, "R2": r2}
+    return {
+        "mae": mae,
+        "rmse": rmse,
+        "r2": r2,
+    }
+
+
+def check_consistency(model_label: str, computed: dict, stored: dict) -> None:
+    stored_mae = stored["test_mae"]
+    stored_rmse = stored["test_rmse"]
+    stored_r2 = stored["test_r2"]
+
+    mae_diff = abs(computed["mae"] - stored_mae)
+    rmse_diff = abs(computed["rmse"] - stored_rmse)
+    r2_diff = abs(computed["r2"] - stored_r2)
+
+    print(f"\n{model_label}")
+    print(f"Computed from predictions: MAE={computed['mae']:.4f}, RMSE={computed['rmse']:.4f}, R²={computed['r2']:.4f}")
+    print(f"Stored in metrics.json:   MAE={stored_mae:.4f}, RMSE={stored_rmse:.4f}, R²={stored_r2:.4f}")
+
+    if mae_diff > 1e-6 or rmse_diff > 1e-6 or r2_diff > 1e-6:
+        print("WARNING: predictions.csv and metrics.json are not exactly consistent.")
+    else:
+        print("OK: predictions.csv and metrics.json are consistent.")
 
 
 # ============================================================
@@ -217,60 +124,72 @@ def regression_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, floa
 # ============================================================
 
 def main() -> None:
-    model_data = []
+    plot_data = []
 
-    for model in MODELS:
-        csv_path = find_prediction_file(model["label"], model["aliases"])
-        y_true, y_pred = load_predictions(csv_path)
-        metrics = regression_metrics(y_true, y_pred)
+    for config in MODEL_CONFIGS:
+        label = config["label"]
+        result_dir = config["result_dir"]
 
-        model_data.append(
+        predictions_path = result_dir / "predictions.csv"
+        metrics_path = result_dir / "metrics.json"
+
+        test_df = load_test_predictions(predictions_path)
+        stored_metrics = load_metrics(metrics_path)
+        computed_metrics = compute_metrics(test_df)
+
+        check_consistency(label, computed_metrics, stored_metrics)
+
+        plot_data.append(
             {
-                "label": model["label"],
-                "path": csv_path,
-                "y_true": y_true,
-                "y_pred": y_pred,
-                "metrics": metrics,
+                "label": label,
+                "test_df": test_df,
+                "metrics": stored_metrics,
             }
         )
 
-    # Shared axes across all plots
-    all_true = np.concatenate([item["y_true"] for item in model_data])
-    all_pred = np.concatenate([item["y_pred"] for item in model_data])
+    all_actual = np.concatenate(
+        [item["test_df"][TARGET_COL].to_numpy() for item in plot_data]
+    )
+    all_predicted = np.concatenate(
+        [item["test_df"][PRED_COL].to_numpy() for item in plot_data]
+    )
 
-    min_val = min(all_true.min(), all_pred.min())
-    max_val = max(all_true.max(), all_pred.max())
+    axis_min = 0
+    axis_max = max(all_actual.max(), all_predicted.max()) * 1.05
 
-    padding = 0.05 * (max_val - min_val)
-    axis_min = max(0, min_val - padding)
-    axis_max = max_val + padding
+    fig, axes = plt.subplots(
+        1,
+        3,
+        figsize=(15.5, 4.8),
+        sharex=True,
+        sharey=True,
+    )
 
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.8), sharex=True, sharey=True)
-
-    for ax, item in zip(axes, model_data):
-        y_true = item["y_true"]
-        y_pred = item["y_pred"]
+    for ax, item in zip(axes, plot_data):
+        label = item["label"]
+        test_df = item["test_df"]
         metrics = item["metrics"]
 
         ax.scatter(
-            y_true,
-            y_pred,
+            test_df[TARGET_COL],
+            test_df[PRED_COL],
             s=14,
             alpha=0.35,
             color=GREEN,
             edgecolors="none",
+            rasterized=True,
         )
 
         ax.plot(
             [axis_min, axis_max],
             [axis_min, axis_max],
-            color=DARK_GREY,
-            linewidth=1.4,
             linestyle="--",
+            linewidth=1.4,
+            color=DARK_GREY,
         )
 
         ax.set_title(
-            item["label"],
+            label,
             fontsize=15,
             fontweight="bold",
             color=DARK_GREY,
@@ -278,9 +197,9 @@ def main() -> None:
         )
 
         metric_text = (
-            f"RMSE: {metrics['RMSE']:.2f}\n"
-            f"MAE: {metrics['MAE']:.2f}\n"
-            f"$R^2$: {metrics['R2']:.3f}"
+            f"RMSE: {metrics['test_rmse']:.2f}\n"
+            f"MAE: {metrics['test_mae']:.2f}\n"
+            f"$R^2$: {metrics['test_r2']:.3f}"
         )
 
         ax.text(
@@ -296,26 +215,24 @@ def main() -> None:
                 boxstyle="round,pad=0.35",
                 facecolor="white",
                 edgecolor=LIGHT_GREY,
-                alpha=0.90,
+                alpha=0.92,
             ),
         )
 
         ax.set_xlim(axis_min, axis_max)
         ax.set_ylim(axis_min, axis_max)
         ax.grid(True, color=LIGHT_GREY, linewidth=0.6, alpha=0.7)
-
         ax.tick_params(axis="both", labelsize=9, colors=DARK_GREY)
+        ax.set_xlabel("Actual rentals", fontsize=11, color=DARK_GREY)
 
-    axes[0].set_ylabel("Predicted rentals", fontsize=12, color=DARK_GREY)
-    for ax in axes:
-        ax.set_xlabel("Actual rentals", fontsize=12, color=DARK_GREY)
+    axes[0].set_ylabel("Predicted rentals", fontsize=11, color=DARK_GREY)
 
     fig.suptitle(
         "Actual vs. Predicted Daily Rentals on Test Data",
-        fontsize=18,
+        fontsize=17,
         fontweight="bold",
         color=DARK_GREY,
-        y=1.03,
+        y=1.04,
     )
 
     fig.tight_layout()
@@ -325,10 +242,11 @@ def main() -> None:
 
     fig.savefig(png_path, dpi=300, bbox_inches="tight")
     fig.savefig(pdf_path, bbox_inches="tight")
+    plt.close(fig)
 
     print("\nSaved plots:")
-    print(" -", png_path.relative_to(ROOT))
-    print(" -", pdf_path.relative_to(ROOT))
+    print(f"- {png_path.relative_to(ROOT)}")
+    print(f"- {pdf_path.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
