@@ -1,0 +1,4 @@
+Model,Model full,Experiment,Train RMSE,Validation RMSE,Test RMSE,Test MAE,Test R2,Test MAPE,n_features,Path
+GB,Gradient Boosting,with_lag,17.97393855161059,21.476270657206385,22.78297211191439,16.919278152082544,0.6625884673252032,0.2529670353986311,37,modelling/07_gradient_boosting/results/with_lag/metrics.json
+NN,Neural Network,with_lag,14.01716040467181,22.68486784543178,24.31414273840152,18.890433150368093,0.6157117644057912,0.29882881486102475,37,modelling/08_neural_network/results/with_lag/metrics.json
+Lasso,Lasso,with_lag,22.294678049508704,23.152364983985105,23.85923638623661,17.77562759635636,0.629956955441658,0.2905165731750061,37,modelling/03_lasso_regression/results/with_lag/metrics.json

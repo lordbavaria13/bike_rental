@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import re
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -14,25 +15,29 @@ DARK_GREY = "#555555"
 LIGHT_GREY = "#D9D9D9"
 
 ROOT = Path(__file__).resolve().parent
+RESULTS_ROOT = ROOT / "modelling"
+
 OUTPUT_DIR = ROOT / "presentation_figures"
 OUTPUT_DIR.mkdir(exist_ok=True)
+
+EXPERIMENT = "with_lag"
 
 TARGET_COL = "total_rentals"
 PRED_COL = "prediction"
 SPLIT_COL = "split"
 
-MODEL_CONFIGS = [
+SELECTED_MODELS = [
     {
         "label": "Gradient Boosting",
-        "result_dir": ROOT / "modelling" / "07_gradient_boosting" / "results" / "with_lag",
+        "aliases": ["gradient_boost", "gradient_boosting", "gradientboost", "boost"],
     },
     {
-        "label": "Random Forest",
-        "result_dir": ROOT / "modelling" / "06_random_forest" / "results" / "with_lag",
+        "label": "Neural Network",
+        "aliases": ["neural_network", "neural", "mlp", "nn"],
     },
     {
         "label": "Lasso",
-        "result_dir": ROOT / "modelling" / "03_lasso_regression" / "results" / "with_lag",
+        "aliases": ["lasso"],
     },
 ]
 
@@ -41,33 +46,44 @@ MODEL_CONFIGS = [
 # Helpers
 # ============================================================
 
-def load_metrics(metrics_path: Path) -> dict:
-    if not metrics_path.exists():
-        raise FileNotFoundError(f"Missing metrics file: {metrics_path}")
+def normalize(text: str) -> str:
+    text = str(text).lower()
+    text = re.sub(r"[^a-z0-9]+", "_", text)
+    return text.strip("_")
 
-    with open(metrics_path, "r", encoding="utf-8") as file:
+
+def path_matches_model(path: Path, aliases: list[str]) -> bool:
+    path_text = normalize(path.relative_to(ROOT))
+    return any(alias in path_text for alias in aliases)
+
+
+def load_json(path: Path) -> dict:
+    if not path.exists():
+        raise FileNotFoundError(f"Missing metrics file: {path}")
+
+    with open(path, "r", encoding="utf-8") as file:
         return json.load(file)
 
 
-def load_test_predictions(predictions_path: Path) -> pd.DataFrame:
-    if not predictions_path.exists():
-        raise FileNotFoundError(f"Missing predictions file: {predictions_path}")
+def load_test_predictions(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        raise FileNotFoundError(f"Missing predictions file: {path}")
 
-    df = pd.read_csv(predictions_path)
+    df = pd.read_csv(path)
 
     required_cols = {TARGET_COL, PRED_COL, SPLIT_COL}
     missing_cols = required_cols - set(df.columns)
 
     if missing_cols:
         raise ValueError(
-            f"Missing columns in {predictions_path}: {sorted(missing_cols)}\n"
+            f"Missing columns in {path}: {sorted(missing_cols)}\n"
             f"Available columns: {list(df.columns)}"
         )
 
     test_df = df[df[SPLIT_COL].astype(str).str.lower() == "test"].copy()
 
     if test_df.empty:
-        raise ValueError(f"No test rows found in {predictions_path}")
+        raise ValueError(f"No test rows found in {path}")
 
     test_df[TARGET_COL] = pd.to_numeric(test_df[TARGET_COL], errors="coerce")
     test_df[PRED_COL] = pd.to_numeric(test_df[PRED_COL], errors="coerce")
@@ -75,7 +91,7 @@ def load_test_predictions(predictions_path: Path) -> pd.DataFrame:
     test_df = test_df.dropna(subset=[TARGET_COL, PRED_COL])
 
     if test_df.empty:
-        raise ValueError(f"No valid numeric test predictions found in {predictions_path}")
+        raise ValueError(f"No valid numeric test predictions found in {path}")
 
     return test_df
 
@@ -94,50 +110,91 @@ def compute_metrics(test_df: pd.DataFrame) -> dict:
     r2 = 1 - ss_res / ss_tot if ss_tot != 0 else np.nan
 
     return {
-        "mae": mae,
-        "rmse": rmse,
-        "r2": r2,
+        "test_mae": mae,
+        "test_rmse": rmse,
+        "test_r2": r2,
     }
 
 
-def check_consistency(model_label: str, computed: dict, stored: dict) -> None:
-    stored_mae = stored["test_mae"]
-    stored_rmse = stored["test_rmse"]
-    stored_r2 = stored["test_r2"]
+def find_result_dir(model_config: dict) -> Path:
+    label = model_config["label"]
+    aliases = model_config["aliases"]
 
-    mae_diff = abs(computed["mae"] - stored_mae)
-    rmse_diff = abs(computed["rmse"] - stored_rmse)
-    r2_diff = abs(computed["r2"] - stored_r2)
+    candidates = []
 
-    print(f"\n{model_label}")
-    print(f"Computed from predictions: MAE={computed['mae']:.4f}, RMSE={computed['rmse']:.4f}, R²={computed['r2']:.4f}")
-    print(f"Stored in metrics.json:   MAE={stored_mae:.4f}, RMSE={stored_rmse:.4f}, R²={stored_r2:.4f}")
+    for metrics_path in RESULTS_ROOT.rglob(f"{EXPERIMENT}/metrics.json"):
+        path_text = normalize(metrics_path.relative_to(ROOT))
 
-    if mae_diff > 1e-6 or rmse_diff > 1e-6 or r2_diff > 1e-6:
-        print("WARNING: predictions.csv and metrics.json are not exactly consistent.")
-    else:
-        print("OK: predictions.csv and metrics.json are consistent.")
+        if not path_matches_model(metrics_path, aliases):
+            continue
+
+        # Avoid selecting Random Forest accidentally for NN
+        if label == "Neural Network":
+            if "random" in path_text or "forest" in path_text:
+                continue
+
+        result_dir = metrics_path.parent
+        predictions_path = result_dir / "predictions.csv"
+
+        if not predictions_path.exists():
+            continue
+
+        metrics = load_json(metrics_path)
+
+        if metrics.get("uses_lag_features") is not True:
+            continue
+
+        if not all(key in metrics for key in ["test_mae", "test_rmse", "test_r2"]):
+            continue
+
+        candidates.append(
+            {
+                "result_dir": result_dir,
+                "metrics": metrics,
+                "path": metrics_path,
+            }
+        )
+
+    if not candidates:
+        print(f"\nNo valid result directory found for {label}.")
+        print("Available with_lag metrics files:")
+        for path in RESULTS_ROOT.rglob(f"{EXPERIMENT}/metrics.json"):
+            print("-", path.relative_to(ROOT))
+        raise FileNotFoundError(f"No valid result directory found for {label}")
+
+    # If duplicates exist, use best test RMSE for that selected model
+    candidates = sorted(candidates, key=lambda x: x["metrics"]["test_rmse"])
+    return candidates[0]["result_dir"]
 
 
-# ============================================================
-# Main plotting
-# ============================================================
-
-def main() -> None:
+def load_selected_model_data() -> list[dict]:
     plot_data = []
 
-    for config in MODEL_CONFIGS:
-        label = config["label"]
-        result_dir = config["result_dir"]
+    for model_config in SELECTED_MODELS:
+        label = model_config["label"]
+        result_dir = find_result_dir(model_config)
 
         predictions_path = result_dir / "predictions.csv"
         metrics_path = result_dir / "metrics.json"
 
         test_df = load_test_predictions(predictions_path)
-        stored_metrics = load_metrics(metrics_path)
+        stored_metrics = load_json(metrics_path)
         computed_metrics = compute_metrics(test_df)
 
-        check_consistency(label, computed_metrics, stored_metrics)
+        print(f"\n{label}")
+        print(f"Result dir: {result_dir.relative_to(ROOT)}")
+        print(
+            "Stored metrics:   "
+            f"RMSE={stored_metrics['test_rmse']:.2f}, "
+            f"MAE={stored_metrics['test_mae']:.2f}, "
+            f"R²={stored_metrics['test_r2']:.3f}"
+        )
+        print(
+            "Computed metrics: "
+            f"RMSE={computed_metrics['test_rmse']:.2f}, "
+            f"MAE={computed_metrics['test_mae']:.2f}, "
+            f"R²={computed_metrics['test_r2']:.3f}"
+        )
 
         plot_data.append(
             {
@@ -146,6 +203,16 @@ def main() -> None:
                 "metrics": stored_metrics,
             }
         )
+
+    return plot_data
+
+
+# ============================================================
+# Plot
+# ============================================================
+
+def main() -> None:
+    plot_data = load_selected_model_data()
 
     all_actual = np.concatenate(
         [item["test_df"][TARGET_COL].to_numpy() for item in plot_data]
@@ -196,16 +263,12 @@ def main() -> None:
             pad=10,
         )
 
-        metric_text = (
-            f"RMSE: {metrics['test_rmse']:.2f}\n"
-            f"MAE: {metrics['test_mae']:.2f}\n"
-            f"$R^2$: {metrics['test_r2']:.3f}"
-        )
-
         ax.text(
             0.05,
             0.95,
-            metric_text,
+            f"RMSE: {metrics['test_rmse']:.2f}\n"
+            f"MAE: {metrics['test_mae']:.2f}\n"
+            f"$R^2$: {metrics['test_r2']:.3f}",
             transform=ax.transAxes,
             va="top",
             ha="left",
@@ -237,8 +300,8 @@ def main() -> None:
 
     fig.tight_layout()
 
-    png_path = OUTPUT_DIR / "top3_actual_vs_predicted_scatter.png"
-    pdf_path = OUTPUT_DIR / "top3_actual_vs_predicted_scatter.pdf"
+    png_path = OUTPUT_DIR / "selected_final_models_actual_vs_predicted_scatter.png"
+    pdf_path = OUTPUT_DIR / "selected_final_models_actual_vs_predicted_scatter.pdf"
 
     fig.savefig(png_path, dpi=300, bbox_inches="tight")
     fig.savefig(pdf_path, bbox_inches="tight")

@@ -1,0 +1,31 @@
+feature,score,score_abs,model,score_type,source_file
+station_31623.0,0.0027294512919887,0.0027294512919887,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+visibility,0.0034780579458326,0.0034780579458326,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+sunset_minutes,0.003512012515592,0.003512012515592,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+windspeed,0.0061602602543322,0.0061602602543322,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+cloudcover,0.0064196786250472,0.0064196786250472,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+humidity,0.0083879828661644,0.0083879828661644,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+station_31258.0,0.009623408257548,0.009623408257548,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+uvindex,0.0148671230070118,0.0148671230070118,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+time_idx,0.02648766318303,0.02648766318303,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+precip,0.0392508985430921,0.0392508985430921,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+weekday,0.0394621653302002,0.0394621653302002,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+precipcover,0.0513358905679738,0.0513358905679738,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+tempmax,0.0743639602287088,0.0743639602287088,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+total_rentals_lag_7,0.3442309444596423,0.3442309444596423,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+total_rentals_lag_1,0.3583882495371276,0.3583882495371276,Gradient Boosting,feature importance,modelling/07_gradient_boosting/results/with_lag/feature_importance.csv
+sunset_minutes,0.0,0.0,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+station_31200.0,0.0,0.0,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+snowdepth,0.0,0.0,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+snow,0.0,0.0,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+station_31229.0,0.2848215248652659,0.2848215248652659,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+year,0.2954852722115552,0.2954852722115552,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+station_31258.0,0.4986987540198328,0.4986987540198328,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+windspeed,0.8810284712269907,0.8810284712269907,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+time_idx,2.437790739416785,2.437790739416785,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+uvindex,2.572742713421445,2.572742713421445,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+weekday,2.753501991802346,2.753501991802346,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+tempmax,5.05350032799062,5.05350032799062,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+precipcover,6.409316698991836,6.409316698991836,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+total_rentals_lag_1,11.874291521674913,11.874291521674913,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
+total_rentals_lag_7,13.41372800286934,13.41372800286934,Lasso,absolute coefficient,modelling/03_lasso_regression/results/with_lag/coefficients.csv
