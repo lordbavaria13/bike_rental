@@ -2,15 +2,22 @@
 
 ## Project Goal
 
-The project predicts the daily number of bike rentals per station.
+The project predicts the daily number of bike rentals per station using machine learning.
 
 The final target variable is `total_rentals`.
 
-The work started with raw bike rental and weather data.
-After that, the data was reduced step by step into one clean modelling
-table with one-hot encoded station identity and station-specific lag
-features. Then several regression models were trained and compared
-under the same setup.
+**Workflow**: Raw bike rental and weather data → Data cleaning & feature engineering → One-hot encoded features with lag variables → Training & comparison of multiple regression models → Analysis & visualization of results.
+
+---
+
+## 📍 Navigation
+
+**First time here?** Start with:
+1. **[INDEX.md](INDEX.md)** - Quick navigation guide for this repository
+2. **[docs/REPOSITORY_STRUCTURE.md](docs/REPOSITORY_STRUCTURE.md)** - Detailed structure explanation
+3. Then come back here for quick start
+
+**Just want results?** → Check [docs/PROJECT_ANALYSIS.md](docs/PROJECT_ANALYSIS.md)
 
 ---
 
@@ -41,63 +48,204 @@ Python 3.10 or higher is recommended.
 
 ## Project Structure
 
-```text
+```
 bike_rental/
-├── data/
-│   └── processed/
-├── src/
-│   └── scripts/
-│       ├── 02_build_top20_daily_dataset.py
-│       ├── 03_analyze_feature_correlations.py
-│       ├── 04_build_reduced_feature_dataset.py
-│       └── 05_create_encoded_dataset.py
-├── modelling/
-│   ├── common/
-│   ├── 00_dummy_regressor/
+├── data/                                 # Raw and processed datasets
+│   ├── raw/                              # Original data files
+│   │   ├── daily_rent_detail.csv
+│   │   ├── station_list.csv
+│   │   ├── usage_frequency.csv
+│   │   └── weather.csv
+│   └── processed/                        # Cleaned and engineered datasets
+│       ├── encoded_train.csv             # One-hot encoded training data
+│       ├── encoded_validation.csv        # One-hot encoded validation data
+│       ├── encoded_test.csv              # One-hot encoded test data
+│       ├── daily_rentals_top20*.csv      # Intermediate processing stages
+│       └── analysis/                     # Analysis results and metrics
+│
+├── src/                                  # Source code and utilities
+│   ├── data_processing/                  # Data pipeline scripts
+│   │   ├── 02_build_top20_daily_dataset.py
+│   │   ├── 03_analyze_feature_correlations.py
+│   │   ├── 04_build_reduced_feature_dataset.py
+│   │   └── 05_create_encoded_dataset.py
+│   └── data_statistics.py                # Data exploration utilities
+│
+├── modelling/                            # Machine Learning models
+│   ├── common/                           # Shared utilities & config
+│   ├── 00_dummy_regressor/               # Baseline model
 │   ├── 01_linear_regression/
 │   ├── 02_ridge_regression/
 │   ├── 03_lasso_regression/
 │   ├── 04_decision_tree/
 │   ├── 05_knn_regressor/
-│   ├── 06_random_forest/
-│   ├── 07_gradient_boosting/
+│   ├── 06_random_forest/                 # Best performing model
+│   ├── 07_gradient_boosting/             # Second best model
 │   ├── 08_neural_network/
-│   └── 99_model_comparison/
-├── run_pipeline.py
-└── requirements.txt
+│   └── 99_model_comparison/              # Model comparison & ranking
+│
+├── analysis/                             # Analysis, insights & visualization
+│   ├── generate_*.py                     # Scripts for generating insights
+│   │   ├── generate_time_error_insights.py
+│   │   ├── generate_weather_error_insights.py
+│   │   ├── generate_additional_question_insight_plots.py
+│   │   └── generate_question_backup_plots.py
+│   ├── plot_*.py                         # Visualization scripts
+│   │   ├── plot_top3_rmse_by_split.py
+│   │   ├── plot_top3_scatter.py
+│   │   ├── plot_lag_vs_without_lag_rmse.py
+│   │   ├── plot_without_lag_rmse_comparison.py
+│   │   └── plot_related_work_comparison.py
+│   ├── plots/                            # Generated plot images
+│   ├── insights/                         # Generated insight reports
+│   └── results/                          # Analysis results and metrics
+│
+├── paper/                                # Academic paper & research notes
+│   ├── paper.tex
+│   ├── model_comparison.py
+│   └── sections/                         # Individual LaTeX sections
+│
+├── presentation_figures/                 # Presentation-ready visualizations
+│   ├── additional_question_insights/
+│   ├── question_backup_plots/
+│   ├── time_question_insights/
+│   └── weather_question_insights/
+│
+├── docs/                                 # Project documentation
+│   ├── ENCODED_DATASETS.md               # Encoding pipeline documentation
+│   ├── PROJECT_ANALYSIS.md               # Comprehensive analysis report
+│   └── README.md                         # (this file)
+│
+├── run_pipeline.py                       # Main pipeline automation script
+├── requirements.txt                      # Python dependencies
+└── README.md                             # Project overview
 ```
 
 ---
 
-## How to Run the Full Pipeline
+## Quick Start
 
-The easiest way to run everything is with `run_pipeline.py`:
+### 1. Setup
 
 ```bash
 # Activate virtual environment
 source .venv/bin/activate   # Linux / Mac
 .venv\Scripts\activate      # Windows
+```
 
-# Run the full pipeline from the project root
+### 2. Run the Full Pipeline
+
+The easiest way to run everything is with `run_pipeline.py`:
+
+```bash
 python run_pipeline.py
 ```
 
-Individual steps can be enabled or disabled by changing the flags
-at the top of `run_pipeline.py` (e.g. `RUN_07_GRADIENT_BOOSTING = 1`).
+Individual steps can be enabled/disabled by changing flags at the top of `run_pipeline.py`:
 
-To run a single model manually:
+```python
+STEP_1_DATA_PROCESSING = 1              # Enable/disable
+RUN_00_DUMMY = 1
+RUN_01_LINEAR = 1
+# ... etc
+RUN_07_GRADIENT_BOOSTING = 1
+STEP_3_MODEL_COMPARISON = 1
+```
+
+### 3. Run Models Individually
 
 ```bash
+# Data processing
+python src/data_processing/02_build_top20_daily_dataset.py
+python src/data_processing/05_create_encoded_dataset.py
+
+# Model training
 python -m modelling.00_dummy_regressor.train_dummy --experiment all
 python -m modelling.01_linear_regression.train_linear_regression --experiment all
-python -m modelling.02_ridge_regression.train_ridge --experiment all
-python -m modelling.03_lasso_regression.train_lasso --experiment all
-python -m modelling.04_decision_tree.train_decision_tree --experiment all
-python -m modelling.05_knn_regressor.train_knn --experiment all
 python -m modelling.06_random_forest.train_random_forest --experiment all
-python -m modelling.07_gradient_boosting.train_gradient_boosting --experiment all
-python -m modelling.08_neural_network.train_neural_network --experiment all
+# ... etc for other models
+
+# Model comparison
 python -m modelling.99_model_comparison.model_comparison
+```
+
+---
+
+## Analysis & Visualization
+
+After training, generate insights and visualizations:
+
+```bash
+# Generate analysis reports and plots
+cd analysis/
+
+# Time-based error analysis
+python generate_time_error_insights.py
+
+# Weather-based error analysis
+python generate_weather_error_insights.py
+
+# Question-specific insights
+python generate_additional_question_insight_plots.py
+python generate_question_backup_plots.py
+
+# Performance comparison plots
+python plot_top3_rmse_by_split.py
+python plot_top3_scatter.py
+python plot_lag_vs_without_lag_rmse.py
+python plot_without_lag_rmse_comparison.py
+python plot_related_work_comparison.py
+```
+
+**Output locations:**
+- `analysis/plots/` - Generated visualizations (PNG/PDF)
+- `analysis/insights/` - Detailed analysis reports (HTML/TXT)
+- `presentation_figures/` - Presentation-ready figures
+
+---
+
+## Key Results
+
+**Best Model: Random Forest**
+- Test RMSE: 30.31
+- Test R²: 0.406
+- Test MAE: 22.87
+
+**Runner-up: Gradient Boosting**
+- Test RMSE: 30.57
+- Test R²: 0.396
+- Validation R²: 0.474 (highest)
+
+See `docs/PROJECT_ANALYSIS.md` for detailed performance tables.
+
+---
+
+## Documentation
+
+- **`docs/PROJECT_ANALYSIS.md`** - Comprehensive analysis report with performance metrics for all 9 models
+- **`docs/ENCODED_DATASETS.md`** - Explanation of data encoding pipeline and feature engineering
+- **`modelling/common/`** - Shared utilities, config, and preprocessing functions
+- **`paper/`** - Academic paper in LaTeX format with results, discussion, and references
+
+---
+
+## Navigation Guide for New Contributors
+
+1. **Just want to run the code?** → Start with `run_pipeline.py`
+2. **Want to understand the data?** → Check `src/data_processing/` and `docs/ENCODED_DATASETS.md`
+3. **Want to train models?** → Go to `modelling/` and choose a model directory
+4. **Want to see results & analysis?** → Go to `analysis/` and run the generate/plot scripts
+5. **Want model performance details?** → Read `docs/PROJECT_ANALYSIS.md`
+6. **Need configuration changes?** → Check `modelling/common/config.py`
+
+---
+
+## Notes
+
+- All models use chronological time split (70% train / 15% validation / 15% test)
+- Models are tested with both lag and non-lag feature variants
+- Results are stored in `modelling/<model>/results/<variant>/`
+- Models are stored in `modelling/<model>/model/<variant>/`
 ```
 
 The `--experiment` flag accepts:
